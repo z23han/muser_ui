@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import './music.dart';
 import './instruction.dart';
 import './story.dart';
 import './device.dart';
+
+// access to global variables
+GetIt getIt = GetIt.instance;
 
 class Home extends StatefulWidget {
   @override
@@ -22,7 +27,8 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-
+    // Temporarily used to set auth_token to default value.
+    getIt<FlutterSecureStorage>().delete(key: 'auth_token');
     return Scaffold(
       backgroundColor: Colors.grey[200],
       body: _children[_currentIndex],
@@ -36,7 +42,7 @@ class _HomeState extends State<Home> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.library_books, color: Colors.grey[400]),
-            title: Text('引导', style: TextStyle(color: Colors.grey[400]))
+            title: Text('疗愈指导', style: TextStyle(color: Colors.grey[400]))
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.people, color: Colors.grey[400]),
@@ -44,7 +50,7 @@ class _HomeState extends State<Home> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.watch, color: Colors.grey[400]),
-            title: Text('设备', style: TextStyle(color: Colors.grey[400]))
+            title: Text('穿戴设备', style: TextStyle(color: Colors.grey[400]))
           )
         ]
       )
