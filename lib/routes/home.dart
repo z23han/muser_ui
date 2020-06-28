@@ -7,31 +7,50 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  Map data = {};
   final MusicCategoryScroller musicCategoryScroller = MusicCategoryScroller();
 
   @override
   Widget build(BuildContext context) {
+    //TODO: get user data from database
+    // data = data.isNotEmpty ? data : ModalRoute.of(context).settings.arguments;
+
     final Size size = MediaQuery.of(context).size;
     final Color wrapColor = Colors.grey[300];
     final double moduleTitleFontSize = 20;
-    final Color moduleTitleColor = Colors.grey[800];
+    final Color moduleTitleColor = Theme.of(context).accentColor;
     return Scaffold(
         body: Padding(
       padding: const EdgeInsets.fromLTRB(20.0, 0, 20.0, 0),
       child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            SizedBox(height: 80),
+            SizedBox(height: 50),
             Row(
               children: <Widget>[
                 Expanded(
                   child: FittedBox(
                     fit: BoxFit.fitWidth,
                     child: Text('晚上好，\n薯条',
-                        style:
-                            TextStyle(color: Colors.grey[500], fontSize: 20)),
+                        style: TextStyle(color: Colors.grey[500])),
                   ),
-                  flex: 1,
+                  flex: 3,
+                ),
+                Expanded(
+                  flex: 2,
+                  child: FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: InkWell(
+                      onTap: () {
+                        print('我的 was tapped');
+                        Navigator.pushReplacementNamed(context, '/musicBase',
+                            arguments: {'pageIndex': 3});
+                      },
+                      child: CircleAvatar(
+                        backgroundImage: AssetImage('assets/avatar.png'),
+                      ),
+                    ),
+                  ),
                 ),
                 Spacer(flex: 2),
               ],
@@ -47,7 +66,7 @@ class _HomeState extends State<Home> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text('音乐库',
+                      Text('音乐馆',
                           style: TextStyle(
                               color: moduleTitleColor,
                               fontSize: moduleTitleFontSize)),
@@ -63,6 +82,8 @@ class _HomeState extends State<Home> {
                   InkWell(
                       onTap: () {
                         print('个人疗愈 was tapped');
+                        Navigator.pushNamed(context, '/musicBase',
+                            arguments: {'pageIndex': 1});
                       },
                       child: Container(
                           height: size.height * 0.2,
@@ -83,6 +104,8 @@ class _HomeState extends State<Home> {
                   InkWell(
                       onTap: () {
                         print('小组疗愈 was tapped');
+                        Navigator.pushNamed(context, '/musicBase',
+                            arguments: {'pageIndex': 1});
                       },
                       child: Container(
                           height: size.height * 0.2,
@@ -105,6 +128,8 @@ class _HomeState extends State<Home> {
             InkWell(
                 onTap: () {
                   print('慕斯故事 was tapped');
+                  Navigator.pushNamed(context, '/musicBase',
+                      arguments: {'pageIndex': 2});
                 },
                 child: Container(
                     height: size.height * 0.425,
@@ -134,10 +159,10 @@ class _HomeState extends State<Home> {
 class MusicCategoryScroller extends StatelessWidget {
   //TODO: extract music categories from database in the future
   final List<MusicCategory> musicCategory = [
-    MusicCategory(category: '平静', image: '平静.png'),
-    MusicCategory(category: '专注', image: '专注.png'),
-    MusicCategory(category: '睡眠', image: '睡眠.png'),
-    MusicCategory(category: '激活', image: '激活.png'),
+    MusicCategory(id: 0, category: '平静', image: '平静.png'),
+    MusicCategory(id: 1, category: '专注', image: '专注.png'),
+    MusicCategory(id: 2, category: '睡眠', image: '睡眠.png'),
+    MusicCategory(id: 3, category: '激活', image: '激活.png'),
   ];
 
   @override
@@ -157,6 +182,8 @@ class MusicCategoryScroller extends StatelessWidget {
                         .map((i) => InkWell(
                               onTap: () {
                                 print('${i.category} was tapped');
+                                Navigator.pushNamed(context, '/musicBase',
+                                    arguments: {'pageIndex': 0});
                               },
                               child: Container(
                                   width: width,

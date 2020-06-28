@@ -15,7 +15,10 @@ void main() {
   getIt.registerSingleton<FlutterSecureStorage>(FlutterSecureStorage());
   runApp(MaterialApp(
     theme: ThemeData(
-        primaryColor: Colors.grey[400], accentColor: Colors.grey[800]),
+        primaryColor: Colors.grey[200],
+        accentColor: Colors.grey[800],
+        textTheme: TextTheme(
+            button: TextStyle(fontSize: 20, color: Colors.grey[800]))),
     initialRoute: '/loader',
     routes: {
       '/': (context) => Home(),
