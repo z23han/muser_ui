@@ -51,7 +51,7 @@ class _SignInState extends State<SignIn> {
                       alignment: Alignment.centerLeft,
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, '/');
+                          Navigator.pushReplacementNamed(context, '/');
                         },
                         child: Text('跳过',
                             style: TextStyle(
