@@ -20,139 +20,140 @@ class _HomeState extends State<Home> {
     final double moduleTitleFontSize = 20;
     final Color moduleTitleColor = Theme.of(context).accentColor;
     return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          automaticallyImplyLeading: false,
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+              child: IconButton(
+                  icon: Icon(Icons.person_outline,
+                      size: 30, color: Theme.of(context).accentColor),
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, '/musicBase',
+                        arguments: {'pageIndex': 3});
+                  }),
+            )
+          ],
+        ),
         body: Padding(
-      padding: const EdgeInsets.fromLTRB(20.0, 0, 20.0, 0),
-      child: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            SizedBox(height: 50),
-            Row(
+          padding: const EdgeInsets.fromLTRB(30.0, 0, 30.0, 0),
+          child: SingleChildScrollView(
+            child: Column(
               children: <Widget>[
-                Expanded(
-                  child: FittedBox(
-                    fit: BoxFit.fitWidth,
-                    child: Text('晚上好，\n薯条',
-                        style: TextStyle(color: Colors.grey[500])),
-                  ),
-                  flex: 3,
-                ),
-                Expanded(
-                  flex: 2,
-                  child: FittedBox(
-                    fit: BoxFit.fitWidth,
-                    child: InkWell(
-                      onTap: () {
-                        print('我的 was tapped');
-                        Navigator.pushReplacementNamed(context, '/musicBase',
-                            arguments: {'pageIndex': 3});
-                      },
-                      child: CircleAvatar(
-                        backgroundImage: AssetImage('assets/avatar.png'),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: Text('晚上好，\n薯条',
+                            style: TextStyle(color: Colors.grey[500])),
                       ),
+                      flex: 1,
                     ),
-                  ),
+                    Spacer(flex: 2),
+                  ],
                 ),
-                Spacer(flex: 2),
-              ],
-            ),
-            SizedBox(height: 30),
-            Container(
-                height: size.height * 0.4,
-                decoration: BoxDecoration(
-                    color: wrapColor,
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text('音乐馆',
-                          style: TextStyle(
-                              color: moduleTitleColor,
-                              fontSize: moduleTitleFontSize)),
-                      SizedBox(height: 20),
-                      musicCategoryScroller,
-                    ],
-                  ),
-                )),
-            SizedBox(height: 30),
-            Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  InkWell(
-                      onTap: () {
-                        print('个人疗愈 was tapped');
-                        Navigator.pushNamed(context, '/musicBase',
-                            arguments: {'pageIndex': 1});
-                      },
-                      child: Container(
-                          height: size.height * 0.2,
-                          width: size.width * 0.4,
-                          decoration: BoxDecoration(
-                              color: wrapColor,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Align(
-                                alignment: Alignment.topLeft,
-                                child: Text('个人疗愈',
-                                    style: TextStyle(
-                                        fontSize: moduleTitleFontSize,
-                                        color: moduleTitleColor))),
-                          ))),
-                  InkWell(
-                      onTap: () {
-                        print('小组疗愈 was tapped');
-                        Navigator.pushNamed(context, '/musicBase',
-                            arguments: {'pageIndex': 1});
-                      },
-                      child: Container(
-                          height: size.height * 0.2,
-                          width: size.width * 0.4,
-                          decoration: BoxDecoration(
-                              color: wrapColor,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Align(
-                                alignment: Alignment.topLeft,
-                                child: Text('小组疗愈',
-                                    style: TextStyle(
-                                        fontSize: moduleTitleFontSize,
-                                        color: moduleTitleColor))),
-                          ))),
-                ]),
-            SizedBox(height: 30),
-            InkWell(
-                onTap: () {
-                  print('慕斯故事 was tapped');
-                  Navigator.pushNamed(context, '/musicBase',
-                      arguments: {'pageIndex': 2});
-                },
-                child: Container(
-                    height: size.height * 0.425,
+                SizedBox(height: 20),
+                Container(
+                    height: size.height * 0.36,
                     decoration: BoxDecoration(
                         color: wrapColor,
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
-                      child: Align(
-                          alignment: Alignment.topLeft,
-                          child: Text('慕斯故事',
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text('音乐馆',
                               style: TextStyle(
-                                  fontSize: moduleTitleFontSize,
-                                  color: moduleTitleColor))),
-                    ))),
-            SizedBox(height: 30),
+                                  color: moduleTitleColor,
+                                  fontSize: moduleTitleFontSize)),
+                          SizedBox(height: 20),
+                          musicCategoryScroller,
+                        ],
+                      ),
+                    )),
+                SizedBox(height: 20),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      InkWell(
+                          onTap: () {
+                            print('个人疗愈 was tapped');
+                            Navigator.pushNamed(context, '/musicBase',
+                                arguments: {'pageIndex': 1});
+                          },
+                          child: Container(
+                              height: size.height * 0.16,
+                              width: size.width * 0.4,
+                              decoration: BoxDecoration(
+                                  color: wrapColor,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                              child: Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Text('个人疗愈',
+                                        style: TextStyle(
+                                            fontSize: moduleTitleFontSize,
+                                            color: moduleTitleColor))),
+                              ))),
+                      InkWell(
+                          onTap: () {
+                            print('小组疗愈 was tapped');
+                            Navigator.pushNamed(context, '/musicBase',
+                                arguments: {'pageIndex': 1});
+                          },
+                          child: Container(
+                              height: size.height * 0.16,
+                              width: size.width * 0.4,
+                              decoration: BoxDecoration(
+                                  color: wrapColor,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                              child: Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Text('小组疗愈',
+                                        style: TextStyle(
+                                            fontSize: moduleTitleFontSize,
+                                            color: moduleTitleColor))),
+                              ))),
+                    ]),
+                SizedBox(height: 20),
+                InkWell(
+                    onTap: () {
+                      print('慕斯故事 was tapped');
+                      Navigator.pushNamed(context, '/musicBase',
+                          arguments: {'pageIndex': 2});
+                    },
+                    child: Container(
+                        height: size.height * 0.425,
+                        decoration: BoxDecoration(
+                            color: wrapColor,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Align(
+                              alignment: Alignment.topLeft,
+                              child: Text('慕斯故事',
+                                  style: TextStyle(
+                                      fontSize: moduleTitleFontSize,
+                                      color: moduleTitleColor))),
+                        ))),
+                SizedBox(height: 20),
 
-            //TODO: End of homepage, should add some additional info
-            Container()
-          ],
-        ),
-      ),
-    ));
+                //TODO: End of homepage, should add some additional info
+                Container()
+              ],
+            ),
+          ),
+        ));
   }
 }
 
@@ -168,8 +169,8 @@ class MusicCategoryScroller extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    final double width = (size.width - 20 * 2 - 20 * 2 - 10 * 3) / 4;
-    final double height = width * 2.2;
+    final double width = (size.width - 30 * 2 - 20 * 2 - 10 * 3) / 4;
+    final double height = width * 2;
     return SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
