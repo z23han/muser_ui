@@ -24,7 +24,7 @@ class _MusicBaseState extends State<MusicBase> {
     StoryScreen(),
     MyAccountScreen()
   ];
-  final List<String> _leading = ['音乐馆', '指导', '故事', '我的'];
+  final List<String> _leading = ['音乐', '指导', '故事', '我的'];
   Map data = {};
 
   @override
@@ -41,14 +41,14 @@ class _MusicBaseState extends State<MusicBase> {
     return Scaffold(
         //App bar
         appBar: AppBar(
+          automaticallyImplyLeading: true,
           elevation: 0,
           backgroundColor: Theme.of(context).primaryColor,
-          automaticallyImplyLeading: false,
           titleSpacing: 0,
 
           title: Row(
             children: <Widget>[
-              //leading title of subpage
+              //title of subpage
               Padding(
                 padding: const EdgeInsets.fromLTRB(10, 0, 20, 0),
                 child: Text(_leading[_currentIndex],
@@ -96,8 +96,14 @@ class _MusicBaseState extends State<MusicBase> {
           //trailing button for specific subpage
           actions: <Widget>[
             _currentIndex == 3
-                ? IconButton(icon: Icon(Icons.settings), onPressed: () {})
-                : SizedBox(width: 20)
+                ? Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+                    child: IconButton(
+                        icon: Icon(Icons.settings,
+                            size: 24, color: Theme.of(context).accentColor),
+                        onPressed: () {}),
+                  )
+                : SizedBox(width: 36)
           ],
         ),
         backgroundColor: Theme.of(context).primaryColor,
@@ -120,9 +126,9 @@ class _MusicBaseState extends State<MusicBase> {
             items: [
               BottomNavigationBarItem(
                   icon: Icon(CupertinoIcons.double_music_note),
-                  title: Text('音乐馆')),
+                  title: Text('音乐')),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.music_video), title: Text('疗愈指导')),
+                  icon: Icon(Icons.music_video), title: Text('指导')),
               BottomNavigationBarItem(
                   icon: Icon(Icons.explore), title: Text('故事')),
               BottomNavigationBarItem(
