@@ -5,6 +5,7 @@ import 'dart:async';
 
 // access to global variables
 GetIt getIt = GetIt.instance;
+
 class Loader extends StatefulWidget {
   @override
   _LoaderState createState() => _LoaderState();
@@ -16,8 +17,9 @@ class _LoaderState extends State<Loader> {
 
   void getToken() {
     // Default value of non-existing key is null.
-    getIt<FlutterSecureStorage>().read(key: 'auth_token')
-      .then((result) => token = result);
+    getIt<FlutterSecureStorage>()
+        .read(key: 'auth_token')
+        .then((result) => token = result);
   }
 
   _LoaderState() {
@@ -26,9 +28,9 @@ class _LoaderState extends State<Loader> {
       print(token);
       // TODO: implement a real validation
       if (token == null) {
-        Navigator.pushNamed(context, '/signin');
+        Navigator.pushReplacementNamed(context, '/signin');
       } else {
-        Navigator.pushNamed(context, '/');
+        Navigator.pushReplacementNamed(context, '/');
       }
     });
   }
@@ -42,29 +44,28 @@ class _LoaderState extends State<Loader> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Expanded(
+        body: Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Expanded(
             child: Padding(
-              padding: EdgeInsets.only(left: 35.0, right: 35.0),
-              child: FittedBox(
-                fit: BoxFit.contain, // otherwise the logo will be tiny
-                child: const FlutterLogo(style: FlutterLogoStyle.stacked),
-              ),
-            )
+          padding: EdgeInsets.only(left: 35.0, right: 35.0),
+          child: FittedBox(
+            fit: BoxFit.contain, // otherwise the logo will be tiny
+            child: const FlutterLogo(style: FlutterLogoStyle.stacked),
           ),
-          Padding(
-            padding: EdgeInsets.all(28.0),
-            child: FittedBox(
-              fit:BoxFit.fitWidth,
-              child: Text('你的专属音乐瑜伽', style: TextStyle(color: Colors.grey[500], fontSize: 20)),
-            ),
+        )),
+        Padding(
+          padding: EdgeInsets.all(28.0),
+          child: FittedBox(
+            fit: BoxFit.fitWidth,
+            child: Text('你的专属音乐瑜伽',
+                style: TextStyle(color: Colors.grey[500], fontSize: 20)),
           ),
-        ],
-      )
-    );
+        ),
+      ],
+    ));
   }
 }
