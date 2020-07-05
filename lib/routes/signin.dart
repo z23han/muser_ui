@@ -15,15 +15,14 @@ class _SignInState extends State<SignIn> {
   final TextEditingController _passwordController = TextEditingController();
 
   void login() {
-    String token;
+    String token = 'fake_token';
     var username = _usernameController.text;
     var password = _passwordController.text;
-    token = 'fake_token';
     print('username: $username, password: $password');
     // Anything is written by Flutter Secure Storage will not be reset, even you rerun the debugger.
     // TODO: get token by given username and password.
-    // getIt<FlutterSecureStorage>().write(key: 'auth_token', value: token)
-    //   .then((result) => Navigator.pushNamed(context, '/'));
+    getIt<FlutterSecureStorage>().write(key: 'auth_token', value: token)
+      .then((result) => Navigator.pushNamed(context, '/'));
   }
 
   @override
@@ -58,24 +57,22 @@ class _SignInState extends State<SignIn> {
                 ],
               ),
             ),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.only(bottom: 15.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Expanded(
-                      flex: 1,
-                      child: FittedBox(
-                        fit: BoxFit.fitWidth,
-                        child: Text('开启你的\n音乐瑜伽\n之旅', style: TextStyle(color: Colors.grey[500], fontSize: 20))
-                      )
-                    ),
-                    Spacer(flex: 1),
-                  ]
-                )
-              ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 15.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Expanded(
+                    flex: 1,
+                    child: FittedBox(
+                      fit: BoxFit.fitWidth,
+                      child: Text('开启你的\n音乐瑜伽\n之旅', style: TextStyle(color: Colors.grey[500], fontSize: 20))
+                    )
+                  ),
+                  Spacer(flex: 1),
+                ]
+              )
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -201,7 +198,9 @@ class _SignInState extends State<SignIn> {
                         alignment: Alignment.center,
                         icon: Icon(Icons.chat_bubble, size: 25),
                         color: Colors.white,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/weChatConsent');
+                        },
                       ),
                     ),
                   ),
@@ -234,7 +233,7 @@ class _SignInState extends State<SignIn> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child:GestureDetector(
-                      onTap: () {Navigator.pushNamed(context, '/signup');},
+                      onTap: () {Navigator.pushNamed(context, '/signUpConsent');},
                       child: Text('我要注册', style: TextStyle(color: Colors.grey[500], fontSize: 14)),
                     ),
                   ),
@@ -248,7 +247,7 @@ class _SignInState extends State<SignIn> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child:GestureDetector(
-                      onTap: () {},
+                      onTap: () {Navigator.pushNamed(context, '/forgetPassword');},
                       child: Text('忘记密码', style: TextStyle(color: Colors.grey[500], fontSize: 14)),
                     ),
                   ),
