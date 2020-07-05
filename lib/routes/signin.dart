@@ -21,8 +21,8 @@ class _SignInState extends State<SignIn> {
     print('username: $username, password: $password');
     // Anything is written by Flutter Secure Storage will not be reset, even you rerun the debugger.
     // TODO: get token by given username and password.
-    getIt<FlutterSecureStorage>().write(key: 'auth_token', value: token)
-      .then((result) => Navigator.pushNamed(context, '/'));
+    // getIt<FlutterSecureStorage>().write(key: 'auth_token', value: token)
+    //   .then((result) => Navigator.pushNamed(context, '/'));
   }
 
   @override
