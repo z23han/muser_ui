@@ -8,6 +8,10 @@ import 'package:muser_ui/routes/music_player.dart';
 import 'package:muser_ui/routes/signin.dart';
 import 'package:muser_ui/routes/signup.dart';
 import 'package:muser_ui/routes/setting.dart';
+import 'package:muser_ui/routes/wechat_consent.dart';
+import 'package:muser_ui/routes/signup_consent.dart';
+import 'package:muser_ui/routes/forget_password.dart';
+import 'package:muser_ui/routes/reset_password.dart';
 
 // This is our global ServiceLocator
 GetIt getIt = GetIt.instance;
@@ -36,7 +40,11 @@ void main() {
       '/signin': (context) => SignIn(),
       '/signup': (context) => SignUp(),
       '/musicPlayer': (context) => MusicPlayerScreen(),
-      '/setting': (context) => Setting()
+      '/setting': (context) => Setting(),
+      '/weChatConsent': (context) => WeChatConsent(),
+      '/signUpConsent': (context) => SignUpConsent(),
+      '/forgetPassword': (context) => ForgetPassword(),
+      '/resetPassword': (context) => ResetPassword(),
     },
   ));
 }
