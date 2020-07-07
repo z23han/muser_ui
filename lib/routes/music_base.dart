@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import './music.dart';
+import './music/music.dart';
 import './instruction.dart';
 import './story.dart';
 import './my_account.dart';

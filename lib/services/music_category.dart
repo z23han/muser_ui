@@ -4,4 +4,5 @@ class MusicCategory {
   String image;
 
   MusicCategory({this.id, this.category, this.image});
+
 }

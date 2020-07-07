@@ -82,7 +82,7 @@ class _HomeState extends State<Home> {
                       InkWell(
                           onTap: () {
                             print('个人疗愈 was tapped');
-                            Navigator.pushNamed(context, '/musicBase',
+                            Navigator.pushNamed(context, '/musicPlayer',
                                 arguments: {'pageIndex': 1});
                           },
                           child: Container(
