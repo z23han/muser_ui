@@ -77,17 +77,16 @@ class _MusicBaseState extends State<MusicBase> {
                         showSearch(context: context, delegate: DataSearch());
                       },
                       child: Container(
-                          color: Color.fromRGBO(0, 0, 0, 0.18),
+                          color: Theme.of(context).accentColor.withOpacity(0.5),
                           height: 35,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                              Icon(Icons.search,
-                                  size: 18, color: Colors.grey[200]),
+                              Icon(Icons.search, size: 18, color: Colors.white),
                               Text('搜索:音乐 指导 以及故事',
                                   style: TextStyle(
-                                      fontSize: 14, color: Colors.grey[200]))
+                                      fontSize: 14, color: Colors.white))
                             ],
                           )),
                     ),
@@ -204,7 +203,9 @@ class DataSearch extends SearchDelegate<String> {
           onPressed: () {
             close(context, null);
           },
-          child: Text('取消', style: Theme.of(context).textTheme.button))
+          child: Text('取消',
+              style:
+                  Theme.of(context).textTheme.headline1.copyWith(fontSize: 20)))
     ];
   }
 
@@ -240,25 +241,25 @@ class DataSearch extends SearchDelegate<String> {
               child: Row(
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 40, 0),
-                    child: Text('$index',
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.grey[800],
-                            fontWeight: FontWeight.bold)),
-                  ),
+                      padding: const EdgeInsets.fromLTRB(0, 0, 40, 0),
+                      child: Text('$index',
+                          style: Theme.of(context).textTheme.headline1.copyWith(
+                              fontSize: 16, fontWeight: FontWeight.bold))),
                   RichText(
                       text: TextSpan(
                           text: searchingDisplayList[index]
                               .substring(0, query.length),
                           style: TextStyle(
-                              color: Colors.tealAccent[400], fontSize: 16),
+                              color: Theme.of(context).accentColor,
+                              fontSize: 16),
                           children: [
                         TextSpan(
                             text: searchingDisplayList[index]
                                 .substring(query.length),
-                            style: TextStyle(
-                                fontSize: 16, color: Colors.grey[800]))
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline1
+                                .copyWith(fontSize: 16))
                       ])),
                 ],
               ),

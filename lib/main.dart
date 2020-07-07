@@ -13,6 +13,7 @@ import 'package:muser_ui/routes/signup_consent.dart';
 import 'package:muser_ui/routes/forget_password.dart';
 import 'package:muser_ui/routes/reset_password.dart';
 import 'package:muser_ui/routes/instruction.dart';
+import 'package:muser_ui/routes/instruction_routes/focus_training.dart';
 
 // This is our global ServiceLocator
 GetIt getIt = GetIt.instance;
@@ -27,12 +28,12 @@ void main() {
         accentColor: Color(0xff4fa3c2),
         buttonColor: Color(0xffc7c7c7),
         textTheme: TextTheme(
-        headline1: TextStyle(color: Color(0xff343434)),
-        headline2: TextStyle(color: Color(0xff666666)),
-        headline3: TextStyle(color: Color(0xffc7c7c7)),
-        headline4: TextStyle(color: Color(0xffe8e8e8)),
-        headline5: TextStyle(color: Color(0xfff5f5f5)),
-        button: TextStyle(fontSize: 20, color: Color(0x343434)))),
+            headline1: TextStyle(color: Color(0xff343434)),
+            headline2: TextStyle(color: Color(0xff666666)),
+            headline3: TextStyle(color: Color(0xffc7c7c7)),
+            headline4: TextStyle(color: Color(0xffe8e8e8)),
+            headline5: TextStyle(color: Color(0xfff5f5f5)),
+            button: TextStyle(color: Colors.white, fontSize: 16))),
     initialRoute: '/',
     routes: {
       '/': (context) => Home(),
@@ -47,6 +48,7 @@ void main() {
       '/forgetPassword': (context) => ForgetPassword(),
       '/resetPassword': (context) => ResetPassword(),
       '/instruction': (context) => InstructionScreen(),
+      '/instruction/focusTraining': (context) => FocusTraining()
     },
   ));
 }
