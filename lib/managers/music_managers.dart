@@ -13,12 +13,12 @@ class MusicManager {
 
   void _populateMusicMap() {
     // TODO: get music list from DB. We hardcode for now 
-    Music music_0 = new Music(musicId: 0, name: "music 1", writer: "Mozart", tag: "Forrest Contemplation", categoryId: 0, image: 'assets/garfield11.jpg');
-    Music music_1 = new Music(musicId: 0, name: "music 1", writer: "Mozart", tag: "Forrest Contemplation", categoryId: 1, image: 'assets/garfield12.jpg');
-    Music music_2 = new Music(musicId: 0, name: "music 1", writer: "Mozart", tag: "Forrest Contemplation", categoryId: 2, image: 'assets/garfield13.jpg');
-    Music music_3 = new Music(musicId: 0, name: "music 1", writer: "Mozart", tag: "Forrest Contemplation", categoryId: 3, image: 'assets/garfield14.jpg');
-    Music music_4 = new Music(musicId: 0, name: "music 1", writer: "Mozart", tag: "Forrest Contemplation", categoryId: 3, image: 'assets/garfield15.jpg');
-    Music music_5 = new Music(musicId: 0, name: "music 1", writer: "Mozart", tag: "Forrest Contemplation", categoryId: 3, image: 'assets/garfield16.jpg');
+    Music music_0 = new Music(musicId: 0, name: "music 0", writer: "July", tag: "Forrest Contemplation", categoryId: 0, image: 'assets/garfield11.jpg');
+    Music music_1 = new Music(musicId: 1, name: "music 1", writer: "Mozart", tag: "Forrest Contemplation", categoryId: 1, image: 'assets/garfield12.jpg');
+    Music music_2 = new Music(musicId: 2, name: "music 2", writer: "MayDay", tag: "Forrest Contemplation", categoryId: 2, image: 'assets/garfield13.jpg');
+    Music music_3 = new Music(musicId: 3, name: "music 3", writer: "LiRongHao", tag: "Forrest Contemplation", categoryId: 3, image: 'assets/garfield14.jpg');
+    Music music_4 = new Music(musicId: 4, name: "music 4", writer: "JayChou", tag: "Forrest Contemplation", categoryId: 3, image: 'assets/garfield15.jpg');
+    Music music_5 = new Music(musicId: 5, name: "music 5", writer: "JJLin", tag: "Forrest Contemplation", categoryId: 3, image: 'assets/garfield16.jpg');
 
     List<Music> _musiclist_0 = new List();
     List<Music> _musiclist_1 = new List();

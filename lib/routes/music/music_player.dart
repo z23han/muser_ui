@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:http/http.dart' as http;
 
 class MusicPlayerScreen extends StatefulWidget {
   @override
@@ -80,7 +79,6 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
                       setState(() {
                         _isPlaying = !_isPlaying;
                       });
-                      return http.get('http://10.0.2.2:8080/play');
                     },
                     icon: Icon(
                       _isPlaying ? FontAwesomeIcons.play : FontAwesomeIcons.pause

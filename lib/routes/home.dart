@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:muser_ui/services/music_categories.dart';
+import 'package:muser_ui/utils/music_constants.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -233,12 +234,7 @@ class _HomeState extends State<Home> {
 
 class MusicCategoryScroller extends StatelessWidget {
   //TODO: extract music categories from database in the future
-  final List<MusicCategories> musicCategory = [
-    MusicCategories(id: 0, category: '平静', coverImage: 'calming.png'),
-    MusicCategories(id: 1, category: '专注', coverImage: 'focusing.png'),
-    MusicCategories(id: 2, category: '睡眠', coverImage: 'tranquilizing.png'),
-    MusicCategories(id: 3, category: '激活', coverImage: 'energizing.png'),
-  ];
+  final List<MusicCategories> musicCategory = MusicConstants.musicCategoryList;
 
   @override
   Widget build(BuildContext context) {
