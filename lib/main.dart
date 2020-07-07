@@ -7,6 +7,7 @@ import 'package:muser_ui/routes/loader.dart';
 import 'package:muser_ui/routes/music_player.dart';
 import 'package:muser_ui/routes/signin.dart';
 import 'package:muser_ui/routes/signup.dart';
+import 'package:muser_ui/routes/setting.dart';
 import 'package:muser_ui/routes/wechat_consent.dart';
 import 'package:muser_ui/routes/signup_consent.dart';
 import 'package:muser_ui/routes/forget_password.dart';
@@ -19,10 +20,18 @@ void main() {
   getIt.registerSingleton<FlutterSecureStorage>(FlutterSecureStorage());
   runApp(MaterialApp(
     theme: ThemeData(
-        primaryColor: Colors.grey[200],
-        accentColor: Colors.grey[800],
+        scaffoldBackgroundColor: Color(0xffe5e5e5),
+        primaryColor: Colors.white,
+        primaryColorLight: Color(0xffa2ccdb),
+        accentColor: Color(0xff4fa3c2),
+        buttonColor: Color(0xffc7c7c7),
         textTheme: TextTheme(
-            button: TextStyle(fontSize: 20, color: Colors.grey[800]))),
+            headline1: TextStyle(color: Color(0xff343434)),
+            headline2: TextStyle(color: Color(0xff666666)),
+            headline3: TextStyle(color: Color(0xffc7c7c7)),
+            headline4: TextStyle(color: Color(0xffe8e8e8)),
+            headline5: TextStyle(color: Color(0xfff5f5f5)),
+            button: TextStyle(fontSize: 20, color: Color(0x343434)))),
     initialRoute: '/loader',
     routes: {
       '/': (context) => Home(),
@@ -31,6 +40,7 @@ void main() {
       '/signin': (context) => SignIn(),
       '/signup': (context) => SignUp(),
       '/musicPlayer': (context) => MusicPlayerScreen(),
+      '/setting': (context) => Setting(),
       '/weChatConsent': (context) => WeChatConsent(),
       '/signUpConsent': (context) => SignUpConsent(),
       '/forgetPassword': (context) => ForgetPassword(),
