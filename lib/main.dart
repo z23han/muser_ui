@@ -12,8 +12,7 @@ import 'package:muser_ui/routes/wechat_consent.dart';
 import 'package:muser_ui/routes/signup_consent.dart';
 import 'package:muser_ui/routes/forget_password.dart';
 import 'package:muser_ui/routes/reset_password.dart';
-import 'package:muser_ui/routes/instruction.dart';
-import 'package:muser_ui/routes/instruction_routes/focus_training.dart';
+import 'package:muser_ui/routes/instruction/focus_training.dart';
 
 // This is our global ServiceLocator
 GetIt getIt = GetIt.instance;
@@ -47,7 +46,6 @@ void main() {
       '/signUpConsent': (context) => SignUpConsent(),
       '/forgetPassword': (context) => ForgetPassword(),
       '/resetPassword': (context) => ResetPassword(),
-      '/instruction': (context) => InstructionScreen(),
       '/instruction/focusTraining': (context) => FocusTraining()
     },
   ));

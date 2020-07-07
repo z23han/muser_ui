@@ -42,7 +42,10 @@ class Setting extends StatelessWidget {
                         width: size.width - 30 * 2,
                         height: 50,
                         child: FlatButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, '/loader', (route) => false);
+                            },
                             color: Color.fromRGBO(0, 0, 0, 0.1),
                             child: Center(
                               child: Text('退出登录',
