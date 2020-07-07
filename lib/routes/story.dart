@@ -191,7 +191,7 @@ class StoryPostsBuilder extends StatelessWidget {
             : now.hour != dateTimeRaw.hour
                 ? '${now.hour - dateTimeRaw.hour}小时前'
                 : now.minute != dateTimeRaw.minute
-                    ? '${now.minute - dateTimeRaw.minute}分钟����'
+                    ? '${now.minute - dateTimeRaw.minute}分钟前'
                     : '${now.second - dateTimeRaw.second}秒前';
   }
 }
