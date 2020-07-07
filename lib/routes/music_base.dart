@@ -10,6 +10,9 @@ import './my_account.dart';
 // access to global variables
 GetIt getIt = GetIt.instance;
 
+//tabs for bottom nav bar
+enum _Tab { TAB1, TAB2, TAB3, TAB4 }
+
 class MusicBase extends StatefulWidget {
   @override
   _MusicBaseState createState() => _MusicBaseState();
@@ -24,7 +27,6 @@ class _MusicBaseState extends State<MusicBase> {
     StoryScreen(),
     MyAccountScreen()
   ];
-  final List<String> _leading = ['音乐', '指导', '故事', '我的'];
   Map data = {};
 
   @override
@@ -38,73 +40,63 @@ class _MusicBaseState extends State<MusicBase> {
       _currentIndex = data['pageIndex'];
       isLanding--;
     }
+
     return Scaffold(
         //App bar
         appBar: AppBar(
-          automaticallyImplyLeading: true,
+          automaticallyImplyLeading: false,
           elevation: 0,
           backgroundColor: Theme.of(context).primaryColor,
           titleSpacing: 0,
+          title: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Row(
+              children: <Widget>[
+                //go back button
+                IconButton(
+                    icon: Icon(Icons.arrow_back,
+                        size: 24, color: Theme.of(context).buttonColor),
+                    onPressed: () => Navigator.of(context).pop()),
 
-          title: Row(
-            children: <Widget>[
-              //title of subpage
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10, 0, 20, 0),
-                child: Text(_leading[_currentIndex],
-                    style: TextStyle(fontSize: 22)),
-              ),
-
-              //search bar
-              Expanded(
-                child: Stack(
-                  children: <Widget>[
-                    ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        child: Container(
-                          height: 35,
-                          color: Color.fromRGBO(0, 0, 0, 0.2),
-                        )),
-                    ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      child: InkWell(
-                        onTap: () {
-                          print('Search bar was tapped');
-                          showSearch(context: context, delegate: DataSearch());
-                        },
-                        child: Container(
-                            height: 35,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Icon(Icons.search,
-                                    size: 18, color: Colors.grey[200]),
-                                Text('搜索:慕斯音乐 指导 以及故事',
-                                    style: TextStyle(
-                                        fontSize: 14, color: Colors.grey[200]))
-                              ],
-                            )),
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-
-          //trailing button for specific subpage
-          actions: <Widget>[
-            _currentIndex == 3
-                ? Padding(
+                //title of subpage
+                Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-                    child: IconButton(
-                        icon: Icon(Icons.settings,
-                            size: 24, color: Theme.of(context).accentColor),
-                        onPressed: () {}),
-                  )
-                : SizedBox(width: 36)
-          ],
+                    child: Text(_getCurScreenTitle(_Tab.values[_currentIndex]),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline1
+                            .copyWith(fontSize: 22))),
+
+                //search bar
+                Expanded(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    child: InkWell(
+                      onTap: () {
+                        print('Search bar was tapped');
+                        showSearch(context: context, delegate: DataSearch());
+                      },
+                      child: Container(
+                          color: Color.fromRGBO(0, 0, 0, 0.18),
+                          height: 35,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(Icons.search,
+                                  size: 18, color: Colors.grey[200]),
+                              Text('搜索:音乐 指导 以及故事',
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.grey[200]))
+                            ],
+                          )),
+                    ),
+                  ),
+                ),
+                _getCurAppBarButton(_Tab.values[_currentIndex])
+              ],
+            ),
+          ),
         ),
         backgroundColor: Theme.of(context).primaryColor,
         body: _children[_currentIndex],
@@ -118,22 +110,61 @@ class _MusicBaseState extends State<MusicBase> {
             },
             currentIndex: _currentIndex,
             type: BottomNavigationBarType.fixed,
-            selectedFontSize: 12,
-            unselectedFontSize: 12,
-            iconSize: 30,
-            selectedItemColor: Colors.teal[400],
-            unselectedItemColor: Colors.grey[400],
-            items: [
-              BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.double_music_note),
-                  title: Text('音乐')),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.music_video), title: Text('指导')),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.explore), title: Text('故事')),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.person), title: Text('我的'))
-            ]));
+            selectedFontSize: 14,
+            unselectedFontSize: 14,
+            selectedItemColor: Theme.of(context).accentColor,
+            unselectedItemColor: Color(0xff666666),
+            selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+            items: _Tab.values
+                .map((_Tab tab) => BottomNavigationBarItem(
+                    title: Text(_getCurScreenTitle(tab)),
+                    icon: Image.asset(_getCurBNBIcon(tab), scale: 8)))
+                .toList()));
+  }
+
+  Widget _getCurAppBarButton(_Tab tab) {
+    return
+        // tab == _Tab.TAB3
+        //     ? IconButton(
+        //         icon: Icon(Icons.create,
+        //             size: 24, color: Theme.of(context).buttonColor),
+        //         onPressed: () {})
+        //     :
+        tab == _Tab.TAB4
+            ? IconButton(
+                icon: Icon(Icons.settings,
+                    size: 24, color: Theme.of(context).buttonColor),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/setting');
+                })
+            : SizedBox(width: 15);
+  }
+
+  String _getCurScreenTitle(_Tab tab) {
+    return tab == _Tab.TAB1
+        ? '音乐'
+        : tab == _Tab.TAB2 ? '指导' : tab == _Tab.TAB3 ? '故事' : '我的';
+  }
+
+  String _getCurBNBIcon(_Tab tab) {
+    final isActive = tab == _Tab.values[_currentIndex];
+    if (tab == _Tab.TAB1) {
+      return isActive
+          ? 'assets/BNBIcon_Music_selected.png'
+          : 'assets/BNBIcon_Music.png';
+    } else if (tab == _Tab.TAB2) {
+      return isActive
+          ? 'assets/BNBIcon_Instruction_selected.png'
+          : 'assets/BNBIcon_Instruction.png';
+    } else if (tab == _Tab.TAB3) {
+      return isActive
+          ? 'assets/BNBIcon_Story_selected.png'
+          : 'assets/BNBIcon_Story.png';
+    } else {
+      return isActive
+          ? 'assets/BNBIcon_Account_selected.png'
+          : 'assets/BNBIcon_Account.png';
+    }
   }
 }
 
