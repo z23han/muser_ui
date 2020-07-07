@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import './music/music.dart';
-import './instruction.dart';
-import './story.dart';
-import './my_account.dart';
+import './instruction/instruction.dart';
+import './muser_story/story.dart';
+import './my_account/my_account.dart';
 
 // access to global variables
 GetIt getIt = GetIt.instance;
