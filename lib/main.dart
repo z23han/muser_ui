@@ -21,7 +21,7 @@ void main() {
   getIt.registerSingleton<FlutterSecureStorage>(FlutterSecureStorage());
   runApp(MaterialApp(
     theme: ThemeData(
-        scaffoldBackgroundColor: Color(0xffe5e5e5),
+        scaffoldBackgroundColor: Colors.white,
         primaryColor: Colors.white,
         primaryColorLight: Color(0xffa2ccdb),
         accentColor: Color(0xff4fa3c2),
@@ -33,7 +33,7 @@ void main() {
         headline4: TextStyle(color: Color(0xffe8e8e8)),
         headline5: TextStyle(color: Color(0xfff5f5f5)),
         button: TextStyle(fontSize: 20, color: Color(0x343434)))),
-    initialRoute: '/loader',
+    initialRoute: '/',
     routes: {
       '/': (context) => Home(),
       '/musicBase': (context) => MusicBase(),
