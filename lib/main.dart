@@ -11,6 +11,7 @@ import 'package:muser_ui/routes/wechat_consent.dart';
 import 'package:muser_ui/routes/signup_consent.dart';
 import 'package:muser_ui/routes/forget_password.dart';
 import 'package:muser_ui/routes/reset_password.dart';
+import 'package:muser_ui/routes/instruction.dart';
 
 // This is our global ServiceLocator
 GetIt getIt = GetIt.instance;
@@ -23,7 +24,7 @@ void main() {
         accentColor: Colors.grey[800],
         textTheme: TextTheme(
             button: TextStyle(fontSize: 20, color: Colors.grey[800]))),
-    initialRoute: '/loader',
+    initialRoute: '/instruction',
     routes: {
       '/': (context) => Home(),
       '/musicBase': (context) => MusicBase(),
@@ -35,6 +36,7 @@ void main() {
       '/signUpConsent': (context) => SignUpConsent(),
       '/forgetPassword': (context) => ForgetPassword(),
       '/resetPassword': (context) => ResetPassword(),
+      '/instruction': (context) => InstructionScreen(),
     },
   ));
 }
