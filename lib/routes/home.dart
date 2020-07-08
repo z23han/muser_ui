@@ -20,8 +20,9 @@ class _HomeState extends State<Home> {
     final double widthInstruction = (size.width - 30 * 2 - 20) / 2;
     final double heightInstruction = widthInstruction * (93 / 141);
     return Scaffold(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: Color(0xfff5f5f5),
         body: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           child: Column(
             children: <Widget>[
               SizedBox(height: 25),
@@ -244,54 +245,46 @@ class MusicCategoryScroller extends StatelessWidget {
     return SingleChildScrollView(
         physics: NeverScrollableScrollPhysics(),
         scrollDirection: Axis.horizontal,
-        child: Container(
-            child: FittedBox(
-                fit: BoxFit.fill,
-                alignment: Alignment.topCenter,
-                child: Row(
-                    children: musicCategory
-                        .map((e) => InkWell(
-                              onTap: () {
-                                print('${e.category} was tapped');
-                                Navigator.pushNamed(context, '/musicBase',
-                                    arguments: {'pageIndex': 0});
-                              },
-                              child: Container(
-                                width: width,
-                                height: height,
-                                margin: EdgeInsets.only(right: 15),
-                                child: Stack(
-                                    alignment: Alignment.bottomCenter,
-                                    children: <Widget>[
-                                      Container(
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(3)),
-                                            image: DecorationImage(
-                                                image: AssetImage(
-                                                    'assets/${e.coverImage}'),
-                                                fit: BoxFit.cover)),
-                                      ),
-                                      Container(
-                                          height: height * (25 / 95),
-                                          width: width,
-                                          decoration: BoxDecoration(
-                                              color: Color.fromRGBO(
-                                                  255, 255, 255, 0.2),
-                                              borderRadius: BorderRadius.only(
-                                                  bottomLeft:
-                                                      Radius.circular(3),
-                                                  bottomRight:
-                                                      Radius.circular(3))),
-                                          child: Center(
-                                            child: Text(e.category,
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    color: Colors.white)),
-                                          ))
-                                    ]),
+        child: Row(
+            children: musicCategory
+                .map((e) => InkWell(
+                      onTap: () {
+                        print('${e.category} was tapped');
+                        Navigator.pushNamed(context, '/musicBase',
+                            arguments: {'pageIndex': 0});
+                      },
+                      child: Container(
+                        width: width,
+                        height: height,
+                        margin: EdgeInsets.only(right: 15),
+                        child: Stack(
+                            alignment: Alignment.bottomCenter,
+                            children: <Widget>[
+                              Container(
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(3)),
+                                    image: DecorationImage(
+                                        image: AssetImage(
+                                            'assets/${e.coverImage}'),
+                                        fit: BoxFit.cover)),
                               ),
-                            ))
-                        .toList()))));
+                              Container(
+                                  height: height * (25 / 95),
+                                  width: width,
+                                  decoration: BoxDecoration(
+                                      color: Color.fromRGBO(255, 255, 255, 0.2),
+                                      borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(3),
+                                          bottomRight: Radius.circular(3))),
+                                  child: Center(
+                                    child: Text(e.category,
+                                        style: TextStyle(
+                                            fontSize: 16, color: Colors.white)),
+                                  ))
+                            ]),
+                      ),
+                    ))
+                .toList()));
   }
 }

@@ -8,10 +8,9 @@ class MusicScreen extends StatefulWidget {
   _MusicScreenState createState() => _MusicScreenState();
 }
 
-
 class _MusicScreenState extends State<MusicScreen> {
-
-  final List<MusicCategories> musicCategoryList = MusicConstants.musicCategoryList;
+  final List<MusicCategories> musicCategoryList =
+      MusicConstants.musicCategoryList;
 
   List<Tab> _getMusicCategoryTabs() {
     List<Tab> tabList = new List<Tab>();
@@ -23,7 +22,6 @@ class _MusicScreenState extends State<MusicScreen> {
     return tabList;
   }
 
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -31,6 +29,7 @@ class _MusicScreenState extends State<MusicScreen> {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
+          elevation: 0,
           flexibleSpace: new Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[

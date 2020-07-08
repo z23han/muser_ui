@@ -22,7 +22,9 @@ class _LoaderState extends State<Loader> {
         .then((result) => token = result);
   }
 
-  _LoaderState() {
+  @override
+  void initState() {
+    super.initState();
     getToken();
     _timer = new Timer(const Duration(milliseconds: 5000), () {
       print(token);
@@ -35,7 +37,6 @@ class _LoaderState extends State<Loader> {
     });
   }
 
-  @override
   void dispose() {
     super.dispose();
     _timer.cancel();
@@ -43,29 +44,22 @@ class _LoaderState extends State<Loader> {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+    final double logoWidth = size.width * (190 / 360);
     return Scaffold(
-        body: Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        Expanded(
-            child: Padding(
-          padding: EdgeInsets.only(left: 35.0, right: 35.0),
-          child: FittedBox(
-            fit: BoxFit.contain, // otherwise the logo will be tiny
-            child: const FlutterLogo(style: FlutterLogoStyle.stacked),
-          ),
-        )),
-        Padding(
-          padding: EdgeInsets.all(28.0),
-          child: FittedBox(
-            fit: BoxFit.fitWidth,
-            child: Text('你的专属音乐瑜伽',
-                style: TextStyle(color: Colors.grey[500], fontSize: 20)),
-          ),
-        ),
-      ],
+        body: Center(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          SizedBox(height: size.height * (200 / 640)),
+          Image(image: AssetImage('assets/Muser_Logo.png'), width: logoWidth),
+          Spacer(flex: 1),
+          Text('慕斯，你的专属音乐瑜伽',
+              style:
+                  Theme.of(context).textTheme.headline2.copyWith(fontSize: 18)),
+          SizedBox(height: size.height * (40 / 640)),
+        ],
+      ),
     ));
   }
 }

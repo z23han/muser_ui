@@ -13,8 +13,8 @@ import 'package:muser_ui/routes/signup_consent.dart';
 import 'package:muser_ui/routes/forget_password.dart';
 import 'package:muser_ui/routes/reset_password.dart';
 import 'package:muser_ui/routes/instruction.dart';
-import 'package:muser_ui/routes/about_music/about_music1.dart';
-import 'package:muser_ui/routes/about_music/about_music2.dart';
+import 'package:muser_ui/routes/instruction/about_music1.dart';
+import 'package:muser_ui/routes/instruction/about_music2.dart';
 import 'package:muser_ui/routes/instruction/focus_training.dart';
 
 // This is our global ServiceLocator
@@ -50,8 +50,8 @@ void main() {
       '/forgetPassword': (context) => ForgetPassword(),
       '/resetPassword': (context) => ResetPassword(),
       '/instruction': (context) => InstructionScreen(),
-      '/aboutMusic1': (context) => AboutMusic1(),
-      '/aboutMusic2': (context) => AboutMusic2(),
+      '/instruction/aboutMusic1': (context) => AboutMusic1(),
+      '/instruction/aboutMusic2': (context) => AboutMusic2(),
       '/instruction/focusTraining': (context) => FocusTraining()
     },
   ));

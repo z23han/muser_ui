@@ -66,7 +66,9 @@ class _InstructionScreenState extends State<InstructionScreen> {
                             fontWeight: FontWeight.bold),
                       ))),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, '/instruction/aboutMusic1');
+                },
                 child: Padding(
                   padding:
                       EdgeInsets.only(bottom: 5.0, left: 30.0, right: 30.0),

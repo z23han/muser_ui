@@ -30,17 +30,17 @@ class _MusicListScreenState extends State<MusicListScreen> {
 
   void _populateMusicMap() {
     _musicList = this._musicManager.getCategoryMusic(this._categoryId);
-    _recommendationMusicList =this._musicManager.getRecommendationMusic(this._categoryId);
+    _recommendationMusicList =
+        this._musicManager.getRecommendationMusic(this._categoryId);
   }
 
   List<Widget> _getRecommendationMusicList() {
-
     final Size size = MediaQuery.of(context).size;
     final blockHeight = size.width * (154 / 360);
     final blockWidth = size.width * (105 / 360);
     final imageHeight = size.width * (105 / 360);
     final imageWidth = imageHeight;
-    
+
     List<Container> musicBlocks = new List();
     for (Music music in this._recommendationMusicList) {
       Container block = Container(
@@ -54,16 +54,12 @@ class _MusicListScreenState extends State<MusicListScreen> {
                 height: imageHeight,
                 width: imageWidth,
                 decoration: BoxDecoration(
-                  image: DecorationImage(image: AssetImage(music.image))
-                ),
+                    image: DecorationImage(image: AssetImage(music.image))),
               ),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(music.name),
-                    Text(music.writer)
-                  ],
+                  children: <Widget>[Text(music.name), Text(music.writer)],
                 ),
               ),
             ],
@@ -76,7 +72,6 @@ class _MusicListScreenState extends State<MusicListScreen> {
   }
 
   List<Widget> _getAllMusicList(BuildContext context) {
-
     final Size size = MediaQuery.of(context).size;
     final double width = size.width * (42 / 360);
     final double height = width;
@@ -98,21 +93,26 @@ class _MusicListScreenState extends State<MusicListScreen> {
                     ),
                     image: DecorationImage(image: AssetImage(music.image))),
               ),
-              SizedBox(width: 12,),
+              SizedBox(
+                width: 12,
+              ),
               Expanded(
                 child: Wrap(direction: Axis.vertical, children: <Widget>[
                   RichText(
                       text: TextSpan(
                           text: music.name,
                           style: Theme.of(context).textTheme.headline1.copyWith(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold
-                          ),
-                          children: [TextSpan(text: '  ${music.writer}', 
-                            style: Theme.of(context).textTheme.headline1.copyWith(
-                            fontSize: 12,
-                            fontWeight: FontWeight.normal
-                          ))])),
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                          children: [
+                        TextSpan(
+                            text: '  ${music.writer}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline1
+                                .copyWith(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.normal))
+                      ])),
                   Text('#' + music.tag),
                 ]),
               ),
@@ -146,6 +146,7 @@ class _MusicListScreenState extends State<MusicListScreen> {
                 padding: EdgeInsets.only(
                     left: 28.0, right: 28.0, top: 15.0, bottom: 15.0),
                 child: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: _getRecommendationMusicList(),
