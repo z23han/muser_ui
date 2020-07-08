@@ -62,7 +62,7 @@ class _InstructionScreenState extends State<InstructionScreen> {
               )
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {Navigator.pushNamed(context, '/aboutMusic1');},
               child: Padding(
                 padding: EdgeInsets.only(bottom: 5.0, left: 30.0, right: 30.0),
                 child: Row(
