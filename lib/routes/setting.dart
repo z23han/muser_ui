@@ -7,7 +7,22 @@ class Setting extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(titleSpacing: size.width / 2 - 80, title: Text('设置')),
+        appBar: AppBar(
+            automaticallyImplyLeading: false,
+            elevation: 0,
+            backgroundColor: Theme.of(context).primaryColor,
+            title: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Row(children: <Widget>[
+                  //go back button
+                  IconButton(
+                      icon: Icon(Icons.arrow_back,
+                          size: 24, color: Theme.of(context).buttonColor),
+                      onPressed: () => Navigator.of(context).pop()),
+                  SizedBox(width: size.width / 2 - 85),
+                  Text('设置')
+                ])),
+            titleSpacing: 0),
         body: ListView.builder(
             itemCount: settingButton.length,
             itemBuilder: (context, index) => index != settingButton.length - 1
@@ -23,19 +38,23 @@ class Setting extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(30, 15, 30, 15),
                     child: ClipRRect(
                       borderRadius: BorderRadius.all(Radius.circular(30)),
-                      child: FlatButton(
-                          onPressed: () {},
-                          color: Color.fromRGBO(0, 0, 0, 0.1),
-                          child: Container(
-                              width: size.width - 30 * 2,
-                              height: 50,
-                              child: Center(
-                                child: Text('退出登录',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline2
-                                        .copyWith(fontSize: 16)),
-                              ))),
+                      child: Container(
+                        width: size.width - 30 * 2,
+                        height: 50,
+                        child: FlatButton(
+                            onPressed: () {
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, '/loader', (route) => false);
+                            },
+                            color: Color.fromRGBO(0, 0, 0, 0.1),
+                            child: Center(
+                              child: Text('退出登录',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline2
+                                      .copyWith(fontSize: 16)),
+                            )),
+                      ),
                     ),
                   )));
   }

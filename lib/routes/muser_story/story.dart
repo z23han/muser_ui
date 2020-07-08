@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:muser_ui/services/story_themes.dart';
 import 'package:muser_ui/services/story_posts.dart';
+import 'package:muser_ui/utils/story_constants.dart';
+
+//import for temporary constants
+import 'package:muser_ui/utils/post_constants.dart';
 
 //import for temporary helper
 import 'package:intl/intl.dart';
@@ -50,13 +54,7 @@ class _StoryScreenState extends State<StoryScreen> {
 
 class StoryThemeScroller extends StatelessWidget {
   // TODO: get story themes from database
-  final List<StoryThemes> storyTheme = [
-    StoryThemes(id: 0, storyTheme: '慕斯动态', coverImage: 'theme_MuserPosts.png'),
-    StoryThemes(
-        id: 1, storyTheme: '音乐与健康', coverImage: 'theme_MusicAndHealth.png'),
-    StoryThemes(id: 2, storyTheme: '志愿者', coverImage: 'theme_Volunteer.png'),
-    StoryThemes(id: 3, storyTheme: '音乐治疗研究', coverImage: 'theme_Research.png'),
-  ];
+  final List<StoryThemes> storyTheme = StoryConstants.storyThemeList;
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -71,10 +69,10 @@ class StoryThemeScroller extends StatelessWidget {
                 alignment: Alignment.topCenter,
                 child: Row(
                     children: storyTheme
-                        .map((e) => InkWell(
-                              onTap: () {},
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 15),
+                        .map((e) => Padding(
+                              padding: const EdgeInsets.only(right: 15),
+                              child: InkWell(
+                                onTap: () {},
                                 child: Wrap(
                                   direction: Axis.vertical,
                                   crossAxisAlignment: WrapCrossAlignment.center,
@@ -97,20 +95,7 @@ class StoryThemeScroller extends StatelessWidget {
 }
 
 class StoryPostsBuilder extends StatelessWidget {
-  final List<StoryPosts> posts = [
-    StoryPosts(
-        username: '朵思',
-        tag: '慕斯动态',
-        postContent: '音悦在一起，武汉项目启动',
-        postImage: 'post_image.png',
-        postDateTime: '2020-07-06T01:35'),
-    StoryPosts(
-        username: '酱油',
-        tag: '慕斯动态',
-        postContent: '音悦在一起，武汉项目启动',
-        postImage: 'post_image.png',
-        postDateTime: '2020-07-02T02:00')
-  ];
+  final List<StoryPosts> posts = PostConstants.postList;
 
   @override
   Widget build(BuildContext context) {
@@ -191,7 +176,7 @@ class StoryPostsBuilder extends StatelessWidget {
             : now.hour != dateTimeRaw.hour
                 ? '${now.hour - dateTimeRaw.hour}小时前'
                 : now.minute != dateTimeRaw.minute
-                    ? '${now.minute - dateTimeRaw.minute}分钟����'
+                    ? '${now.minute - dateTimeRaw.minute}分钟前'
                     : '${now.second - dateTimeRaw.second}秒前';
   }
 }
