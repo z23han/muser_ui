@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AboutMusic2 extends StatefulWidget {
-  @override
-  _AboutMusic2State createState() => _AboutMusic2State();
-}
-
-class _AboutMusic2State extends State<AboutMusic2> {
+class FocusTraining03 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -37,42 +32,29 @@ class _AboutMusic2State extends State<AboutMusic2> {
             Padding(
               padding: EdgeInsets.symmetric(vertical: 15.0),
               child: Image(
-                image: AssetImage('assets/p2of2.png'),
+                image: AssetImage('assets/p3of3.png'),
                 fit: BoxFit.fitWidth,
               ),
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 30.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(right: 15),
-                    child: Image(
-                      image: AssetImage('assets/book.png'),
-                      width: 32,
-                      height: 32,
-                    ),
-                  ),
-                  Text('音乐治疗金字塔',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline1
-                          .copyWith(fontSize: 18, fontWeight: FontWeight.bold))
-                ],
-              ),
+              child: Text('03. 游戏变化',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline1
+                      .copyWith(fontSize: 18, fontWeight: FontWeight.bold)),
             ),
             Padding(
-              padding:
-                  EdgeInsets.only(top: 15.0, bottom: 30.0, left: 20, right: 20),
+              padding: EdgeInsets.symmetric(horizontal: 30),
               child: Text(
-                "促进型音乐治疗专注于促进健康及多方面的健康目标，包括肢体、认知、情感、人际关系，以及个人发展。\n\n音乐治疗师或者受过音乐治疗培训的人员都是担任这项指导工作的适合人选。\n\n帮助孩子们从疫情影响中恢复身心健康的武汉前进计划，就是属于该类型的促进型音乐治疗。",
+                "除了听歌词中特定的字，也可以：\n（1）听歌曲中出现的指定伴奏乐器\n（2）听歌曲中出现的指定旋律\n（3）听歌曲中出现的指定音调",
                 style: Theme.of(context)
                     .textTheme
                     .headline1
                     .copyWith(fontSize: 16),
               ),
             ),
+            SizedBox(height: 30),
             Spacer(flex: 1),
             ButtonBar(
               alignment: MainAxisAlignment.spaceBetween,
@@ -81,7 +63,7 @@ class _AboutMusic2State extends State<AboutMusic2> {
                   onTap: () {
                     Navigator.pushReplacementNamed(
                       context,
-                      '/instruction/aboutMusic1',
+                      '/instruction/focus_training02',
                     );
                   },
                   child: Image(
@@ -106,7 +88,7 @@ class _AboutMusic2State extends State<AboutMusic2> {
                 ),
               ],
             ),
-            SizedBox(height: size.height * (55 / 640)),
+            SizedBox(height: size.height * (55 / 640))
           ]),
         ));
   }

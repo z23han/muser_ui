@@ -97,6 +97,7 @@ class FocusTraining extends StatelessWidget {
                               ]),
                         ),
                       ),
+                      Spacer(flex: 1),
                       ClipRRect(
                         borderRadius: BorderRadius.all(Radius.circular(3)),
                         child: Container(
@@ -110,7 +111,8 @@ class FocusTraining extends StatelessWidget {
                                       style:
                                           Theme.of(context).textTheme.button))),
                         ),
-                      )
+                      ),
+                      SizedBox(height: size.height * (55 / 640))
                     ],
                   )
                 ],
