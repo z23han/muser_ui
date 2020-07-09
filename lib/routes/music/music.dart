@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:muser_ui/routes/music/music_list.dart';
-import 'package:muser_ui/services/music_categories.dart';
+import 'package:muser_ui/models/music_category.dart';
 import 'package:muser_ui/utils/music_constants.dart';
 
 class MusicScreen extends StatefulWidget {
@@ -9,7 +9,7 @@ class MusicScreen extends StatefulWidget {
 }
 
 class _MusicScreenState extends State<MusicScreen> {
-  final List<MusicCategories> musicCategoryList =
+  final List<MusicCategory> musicCategoryList =
       MusicConstants.musicCategoryList;
 
   List<Tab> _getMusicCategoryTabs() {

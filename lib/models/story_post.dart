@@ -3,14 +3,14 @@ import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'dart:convert';
 
-class StoryPosts {
+class StoryPost {
   String username;
   String tag;
   String postContent;
   String postImage;
   String postDateTime;
 
-  StoryPosts(
+  StoryPost(
       {this.username,
       this.tag,
       this.postContent,

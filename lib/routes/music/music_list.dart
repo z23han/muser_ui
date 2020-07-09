@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:muser_ui/managers/music_managers.dart';
 import 'package:muser_ui/routes/music/music_player.dart';
-import 'package:muser_ui/services/music_object.dart';
+import 'package:muser_ui/models/music_object.dart';
 
 class MusicListScreen extends StatefulWidget {
   final int categoryId;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:muser_ui/services/story_themes.dart';
-import 'package:muser_ui/services/story_posts.dart';
+import 'package:muser_ui/models/story_theme.dart';
+import 'package:muser_ui/models/story_post.dart';
 import 'package:muser_ui/utils/story_constants.dart';
 
 //import for temporary constants
@@ -16,9 +16,9 @@ class StoryScreen extends StatefulWidget {
 
 class _StoryScreenState extends State<StoryScreen> {
   final StoryThemeScroller storyThemeScroller = StoryThemeScroller();
-  final StoryPostsBuilder storyPostsBuilder = StoryPostsBuilder();
+  final StoryPostBuilder storyPostBuilder = StoryPostBuilder();
   //TODO: save posts and post to database
-  // final savedPosts = Set<StoryPosts>();
+  // final savedPosts = Set<StoryPost>();
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class _StoryScreenState extends State<StoryScreen> {
                         .headline1
                         .copyWith(fontSize: 18, fontWeight: FontWeight.bold)),
               ),
-              storyPostsBuilder
+              storyPostBuilder
             ],
           ),
         ));
@@ -66,7 +66,7 @@ class _StoryScreenState extends State<StoryScreen> {
 
 class StoryThemeScroller extends StatelessWidget {
   // TODO: get story themes from database
-  final List<StoryThemes> storyTheme = StoryConstants.storyThemeList;
+  final List<StoryTheme> storyTheme = StoryConstants.storyThemeList;
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -104,8 +104,8 @@ class StoryThemeScroller extends StatelessWidget {
   }
 }
 
-class StoryPostsBuilder extends StatelessWidget {
-  final List<StoryPosts> posts = PostConstants.postList;
+class StoryPostBuilder extends StatelessWidget {
+  final List<StoryPost> posts = PostConstants.postList;
 
   @override
   Widget build(BuildContext context) {

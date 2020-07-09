@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:muser_ui/services/music_categories.dart';
+import 'package:muser_ui/models/music_category.dart';
 import 'package:muser_ui/utils/music_constants.dart';
 
 class Home extends StatefulWidget {
@@ -235,7 +235,7 @@ class _HomeState extends State<Home> {
 
 class MusicCategoryScroller extends StatelessWidget {
   //TODO: extract music categories from database in the future
-  final List<MusicCategories> musicCategory = MusicConstants.musicCategoryList;
+  final List<MusicCategory> musicCategory = MusicConstants.musicCategoryList;
 
   @override
   Widget build(BuildContext context) {

@@ -2,7 +2,7 @@ import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:muser_ui/services/music_object.dart';
+import 'package:muser_ui/models/music_object.dart';
 import 'dart:io';
 
 class MusicPlayerScreen extends StatefulWidget {
