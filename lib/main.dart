@@ -4,7 +4,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:muser_ui/routes/home.dart';
 import 'package:muser_ui/routes/music_base.dart';
 import 'package:muser_ui/routes/loader.dart';
-import 'package:muser_ui/routes/music/music_player.dart';
 import 'package:muser_ui/routes/signin.dart';
 import 'package:muser_ui/routes/signup.dart';
 import 'package:muser_ui/routes/setting.dart';
@@ -43,7 +42,6 @@ void main() {
       '/loader': (context) => Loader(),
       '/signin': (context) => SignIn(),
       '/signup': (context) => SignUp(),
-      '/musicPlayer': (context) => MusicPlayerScreen(),
       '/setting': (context) => Setting(),
       '/weChatConsent': (context) => WeChatConsent(),
       '/signUpConsent': (context) => SignUpConsent(),

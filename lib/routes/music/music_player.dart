@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:muser_ui/services/music_object.dart';
 
 class MusicPlayerScreen extends StatefulWidget {
+  final Music music;
+
+  const MusicPlayerScreen({this.music});
+
   @override
   _MusicPlayerScreenState createState() => _MusicPlayerScreenState();
 }
@@ -38,7 +43,7 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
                 ),
                 child: ClipRRect(
                   child: Image(
-                    image: AssetImage('assets/garfield14.jpg'),
+                    image: AssetImage(widget.music.image),
                     width: MediaQuery.of(context).size.width*0.7,
                     height: MediaQuery.of(context).size.width*0.7,
                     fit: BoxFit.cover,
@@ -47,13 +52,13 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
               ),
 
               Text(
-                'Music 1',
+                widget.music.name,
                 style: TextStyle(
                   fontSize: 25
                 ),
               ),
               Text(
-                'Singer Name - Daniel',
+                widget.music.writer,
                 style: TextStyle(
                   fontSize: 15
                 ),

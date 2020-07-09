@@ -1,6 +1,6 @@
 
 import 'dart:collection';
-import 'package:muser_ui/services/music.dart';
+import 'package:muser_ui/services/music_object.dart';
 
 class MusicManager {
 

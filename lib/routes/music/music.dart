@@ -41,10 +41,10 @@ class _MusicScreenState extends State<MusicScreen> {
         ),
         body: TabBarView(
           children: <Widget>[
-            MusicListScreen(0),
-            MusicListScreen(1),
-            MusicListScreen(2),
-            MusicListScreen(3),
+            MusicListScreen(categoryId: 0),
+            MusicListScreen(categoryId: 1),
+            MusicListScreen(categoryId: 2),
+            MusicListScreen(categoryId: 3),
           ],
         ),
       ),
