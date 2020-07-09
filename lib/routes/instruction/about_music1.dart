@@ -71,6 +71,7 @@ class _AboutMusic1State extends State<AboutMusic1> {
                         .textTheme
                         .headline1
                         .copyWith(fontSize: 18, fontWeight: FontWeight.bold))),
+            Spacer(flex: 1),
             ButtonBar(
               children: <Widget>[
                 GestureDetector(
@@ -87,7 +88,8 @@ class _AboutMusic1State extends State<AboutMusic1> {
                   ),
                 ),
               ],
-            )
+            ),
+            SizedBox(height: size.height * (55 / 640))
           ]),
         ));
   }
