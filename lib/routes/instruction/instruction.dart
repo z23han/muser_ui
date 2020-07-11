@@ -33,7 +33,10 @@ class _InstructionScreenState extends State<InstructionScreen> {
                     child: Padding(
                       padding: EdgeInsets.only(left: 30.0, right: 15.0),
                       child: FlatButton(
-                          onPressed: null,
+                          onPressed: () {
+                            Navigator.pushNamed(
+                                context, '/instruction/focusTraining');
+                          },
                           padding: EdgeInsets.all(0.0),
                           child: Image(
                               image: AssetImage('assets/tingge.png'),
@@ -44,7 +47,7 @@ class _InstructionScreenState extends State<InstructionScreen> {
                     child: Padding(
                       padding: EdgeInsets.only(left: 15.0, right: 30.0),
                       child: FlatButton(
-                          onPressed: null,
+                          onPressed: () {},
                           padding: EdgeInsets.all(0.0),
                           child: Image(
                               image: AssetImage('assets/shiqu.png'),
