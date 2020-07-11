@@ -1,9 +1,8 @@
-import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:muser_ui/models/music_object.dart';
-import 'dart:io';
+import 'package:muser_ui/services/music_service.dart';
 
 class MusicPlayerScreen extends StatefulWidget {
   final Music music;
@@ -17,8 +16,7 @@ class MusicPlayerScreen extends StatefulWidget {
 class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
 
   bool _isPlaying = true;
-  AudioCache audioCache = AudioCache();
-  AudioPlayer audioPlayer = AudioPlayer();
+  MusicService musicService;
   double _currPosition = 0;
   double _maxPosition = 60000;
   final double _minPosition = 0;
@@ -27,72 +25,108 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
   void initState() {
     super.initState();
 
-    if (Platform.isIOS) {
-      if (audioCache.fixedPlayer != null) {
-        audioCache.fixedPlayer.startHeadlessService();
-      }
-      audioPlayer.startHeadlessService();
-    }
+    this.musicService = new MusicService();
 
-    // init state is play
+    if (this.musicService.music != null && this.musicService.music.musicId == widget.music.musicId) {
+      print("${widget.music.name} is playing, do nothing");
+      // we still need to keep track of the music state
+      _updateMusicPlayerScreen();
+      return;
+    }
+    
+    this.musicService.setMusic(widget.music);
     initPlayer();
-    play();
-    _updateSlider();
   }
+
 
   initPlayer() async {
-    int result = await audioPlayer.setUrl(widget.music.url);
-    if (result == 1) {
-      print('${widget.music.name} is ready');
-    }
 
-    int totalMilliSec = 0;
-    while (totalMilliSec == 0 || totalMilliSec == null) {
-      totalMilliSec = await Future.delayed(Duration(seconds: 2), () => 
-        audioPlayer.getDuration()
-      );
-    }
-    print('${widget.music.name} total length in millisec: $totalMilliSec');
-    setState(() {
-      _maxPosition = totalMilliSec.toDouble();
-    });
+    await this.musicService.initMusicService();
+    await this.musicService.downloadFile();
+    
+    await play();
+
+    _updateMusicPlayerScreen();
   }
+
 
   play() async {
-    int result = await audioPlayer.play(widget.music.url);
-    if (result == 1) {
-      print("${widget.music.name} is playing");
-    }
+    await this.musicService.play();
   }
+
 
   pause() async {
-    int result = await audioPlayer.pause();
-    if (result == 1) {
-      print("${widget.music.name} is paused");
-    }
+    await this.musicService.pause();
   }
+
 
   stop() async {
-    int result = await audioPlayer.stop();
-    if (result == 1) {
-      print("${widget.music.name} is stopped");
-    }
+    await this.musicService.stop();
   }
+
 
   seek(double newValue) async {
-    int result = await audioPlayer.seek(Duration(milliseconds: newValue.toInt()));
-    if (result == 1) {
-      print('${widget.music.name} is set to $newValue in milliseconds');
+    await this.musicService.seek(newValue);
+  }
+
+
+  void _updateMusicPlayerScreen() {
+    this._maxPosition = this.musicService.duration.toDouble();
+    this._currPosition = this.musicService.currDuration.toDouble();
+    _updateSlider();
+    _updateState();
+    _checkClickButton();
+  }
+
+
+  void _updateSlider() {
+    this.musicService.audioPlayer.onAudioPositionChanged.listen((Duration p) {
+      if (mounted) {
+        setState(() {
+          _currPosition = p.inMilliseconds.toDouble();
+          this.musicService.currDuration = _currPosition.toInt();
+        });
+      }
+    });
+  }
+
+
+  void _updateState() {
+    this.musicService.audioPlayer.onPlayerStateChanged.listen((AudioPlayerState s) {
+      if (s == AudioPlayerState.PLAYING) {
+
+      } else if (s == AudioPlayerState.COMPLETED) {
+        print("${this.musicService.music.name} is completed");
+        if (mounted) {
+          setState(() {
+            _currPosition = 0;
+            _isPlaying = false;
+          });
+        }
+      } else if (s == AudioPlayerState.PAUSED) {
+        print("${this.musicService.music.name} is paused");
+        this.musicService.currDuration = _currPosition.toInt();
+      }
+    }, onError: (msg) {
+      print(msg);
+      print('re-init music ${this.musicService.music.name}');
+      initPlayer();
+    });
+  }
+
+
+  void _checkClickButton() {
+    if (mounted) {
+      setState(() {
+        if (this.musicService.isPlaying) {
+          this._isPlaying = true;
+        } else {
+          this._isPlaying = false;
+        }
+      });
     }
   }
 
-  void _updateSlider() {
-    audioPlayer.onAudioPositionChanged.listen((Duration p) {
-      setState(() {
-        _currPosition = p.inMilliseconds.toDouble();
-      });
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -174,7 +208,7 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
                       });
                     },
                     icon: Icon(
-                      _isPlaying ? FontAwesomeIcons.play : FontAwesomeIcons.pause
+                      _isPlaying ? FontAwesomeIcons.pause : FontAwesomeIcons.play
                     ),
                   ),
                   IconButton(

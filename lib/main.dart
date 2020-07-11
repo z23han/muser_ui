@@ -15,6 +15,9 @@ import 'package:muser_ui/routes/instruction.dart';
 import 'package:muser_ui/routes/instruction/about_music1.dart';
 import 'package:muser_ui/routes/instruction/about_music2.dart';
 import 'package:muser_ui/routes/instruction/focus_training.dart';
+import 'package:muser_ui/routes/instruction/focus_training01.dart';
+import 'package:muser_ui/routes/instruction/focus_training02.dart';
+import 'package:muser_ui/routes/instruction/focus_training03.dart';
 
 // This is our global ServiceLocator
 GetIt getIt = GetIt.instance;
@@ -33,7 +36,7 @@ void main() {
             headline2: TextStyle(color: Color(0xff666666)),
             headline3: TextStyle(color: Color(0xffc7c7c7)),
             headline4: TextStyle(color: Color(0xffe8e8e8)),
-            headline5: TextStyle(color: Color(0xfff5f5f5)),
+            headline5: TextStyle(color: Color(0xff343434)),
             button: TextStyle(color: Colors.white, fontSize: 16))),
     initialRoute: '/loader',
     routes: {
@@ -50,7 +53,10 @@ void main() {
       '/instruction': (context) => InstructionScreen(),
       '/instruction/aboutMusic1': (context) => AboutMusic1(),
       '/instruction/aboutMusic2': (context) => AboutMusic2(),
-      '/instruction/focusTraining': (context) => FocusTraining()
+      '/instruction/focusTraining': (context) => FocusTraining(),
+      '/instruction/focusTraining01': (context) => FocusTraining01(),
+      '/instruction/focusTraining02': (context) => FocusTraining02(),
+      '/instruction/focusTraining03': (context) => FocusTraining03(),
     },
   ));
 }
