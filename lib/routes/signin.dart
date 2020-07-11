@@ -105,7 +105,7 @@ class _SignInState extends State<SignIn> {
                   Text('账号',
                       style: Theme.of(context)
                           .textTheme
-                          .headline1
+                          .headline5
                           .copyWith(fontSize: 16)),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20),
@@ -146,7 +146,7 @@ class _SignInState extends State<SignIn> {
                   Text('密码',
                       style: Theme.of(context)
                           .textTheme
-                          .headline1
+                          .headline5
                           .copyWith(fontSize: 16)),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20),
@@ -178,10 +178,8 @@ class _SignInState extends State<SignIn> {
               endIndent: 0,
             ),
             SizedBox(height: 25),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                GestureDetector(
+            Row(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
+              GestureDetector(
                   onTap: () {
                     login(context);
                   },
@@ -189,40 +187,42 @@ class _SignInState extends State<SignIn> {
                     image: AssetImage('assets/arrow_right.png'),
                     width: arrowSize,
                     height: arrowSize,
-                  )
-                )
-              ]
-            ),
-            Text('其他登陆方式',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline3
-                    .copyWith(fontSize: 14)),
-            SizedBox(height: 5),
-            Row(
-              children: <Widget>[
-                Padding(
-                    padding: EdgeInsets.only(right: 10),
-                    child: InkWell(
-                      onTap: () {},
-                      child: Image(
-                        image: AssetImage('assets/signin_logo_wechat.png'),
-                        width: otherIconSize,
-                        height: otherIconSize,
-                      ),
-                    )),
-                Padding(
-                    padding: EdgeInsets.only(right: 10),
-                    child: InkWell(
-                      onTap: () {},
-                      child: Image(
-                        image: AssetImage('assets/signin_logo_qq.png'),
-                        width: otherIconSize,
-                        height: otherIconSize,
-                      ),
-                    )),
-              ],
-            ),
+                  ))
+            ]),
+
+            //TODO: replace wechat and qq icons with 50px height sizedbox since the functionality is not implemeted
+            SizedBox(height: 50),
+            // Text('其他登陆方式',
+            //     style: Theme.of(context)
+            //         .textTheme
+            //         .headline3
+            //         .copyWith(fontSize: 14)),
+            // SizedBox(height: 5),
+            // Row(
+            //   children: <Widget>[
+            //     Padding(
+            //         padding: EdgeInsets.only(right: 10),
+            //         child: InkWell(
+            //           onTap: () {},
+            //           child: Image(
+            //             image: AssetImage('assets/signin_logo_wechat.png'),
+            //             width: otherIconSize,
+            //             height: otherIconSize,
+            //           ),
+            //         )),
+            //     Padding(
+            //         padding: EdgeInsets.only(right: 10),
+            //         child: InkWell(
+            //           onTap: () {},
+            //           child: Image(
+            //             image: AssetImage('assets/signin_logo_qq.png'),
+            //             width: otherIconSize,
+            //             height: otherIconSize,
+            //           ),
+            //         )),
+            //   ],
+            // ),
+
             SizedBox(height: 30),
             Row(children: <Widget>[
               GestureDetector(

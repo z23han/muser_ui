@@ -50,7 +50,7 @@ class FocusTraining extends StatelessWidget {
                   Text('注意力训练：听歌寻字',
                       style: Theme.of(context)
                           .textTheme
-                          .headline1
+                          .headline5
                           .copyWith(fontSize: 18, fontWeight: FontWeight.bold))
                 ],
               ),

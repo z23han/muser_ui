@@ -15,10 +15,6 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     //TODO: get user data from database
     // data = data.isNotEmpty ? data : ModalRoute.of(context).settings.arguments;
-
-    final Size size = MediaQuery.of(context).size;
-    final double widthInstruction = (size.width - 30 * 2 - 20) / 2;
-    final double heightInstruction = widthInstruction * (93 / 141);
     return Scaffold(
         backgroundColor: Color(0xfff5f5f5),
         body: SingleChildScrollView(
@@ -31,26 +27,9 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: Row(
                   children: <Widget>[
-                    Text(
-                      _getGreeting() + '，\n薯条',
-                      style: Theme.of(context).textTheme.headline1.copyWith(
-                          fontSize: size.width * (24 / 360),
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline,
-                          decorationColor:
-                              Theme.of(context).accentColor.withOpacity(0.5),
-                          decorationThickness: 5),
-                    ),
+                    _displayUserGreeting(),
                     Spacer(flex: 1),
-                    InkWell(
-                      onTap: () {
-                        Navigator.pushReplacementNamed(context, '/musicBase',
-                            arguments: {'pageIndex': 3});
-                      },
-                      child: CircleAvatar(
-                          radius: size.width * (36 / 360),
-                          backgroundImage: AssetImage('assets/avatar.png')),
-                    )
+                    _buildMyAccountAvatar()
                   ],
                 ),
               ),
@@ -68,145 +47,30 @@ class _HomeState extends State<Home> {
                             Text('音乐馆',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline1
+                                    .headline5
                                     .copyWith(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold)),
                             SizedBox(height: 20),
-                            musicCategoryScroller,
+                            _buildMusicLibrary(),
                             SizedBox(height: 30),
                             Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
-                                  Container(
-                                    child: Wrap(
-                                        direction: Axis.vertical,
-                                        crossAxisAlignment:
-                                            WrapCrossAlignment.start,
-                                        children: <Widget>[
-                                          Text('个人疗愈',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headline1
-                                                  .copyWith(
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                          SizedBox(height: 15),
-                                          InkWell(
-                                              onTap: () {
-                                                print('个人疗愈 was tapped');
-                                                Navigator.pushNamed(
-                                                    context, '/musicBase',
-                                                    arguments: {
-                                                      'pageIndex': 1
-                                                    });
-                                              },
-                                              child: Container(
-                                                height: heightInstruction,
-                                                width: widthInstruction,
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(3)),
-                                                    image: DecorationImage(
-                                                        image: AssetImage(
-                                                            'assets/Instruction_Individual.png'),
-                                                        fit: BoxFit.cover)),
-                                              )),
-                                        ]),
-                                  ),
-                                  Container(
-                                    child: Wrap(
-                                        direction: Axis.vertical,
-                                        crossAxisAlignment:
-                                            WrapCrossAlignment.start,
-                                        children: <Widget>[
-                                          Text('小组疗愈',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headline1
-                                                  .copyWith(
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                          SizedBox(height: 15),
-                                          InkWell(
-                                              onTap: () {
-                                                print('小组疗愈 was tapped');
-                                                Navigator.pushNamed(
-                                                    context, '/musicBase',
-                                                    arguments: {
-                                                      'pageIndex': 1
-                                                    });
-                                              },
-                                              child: Container(
-                                                height: heightInstruction,
-                                                width: widthInstruction,
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                      Radius.circular(3),
-                                                    ),
-                                                    image: DecorationImage(
-                                                        image: AssetImage(
-                                                            'assets/Instruction_Group.png'),
-                                                        fit: BoxFit.cover)),
-                                              )),
-                                        ]),
-                                  )
+                                  _buildInstruction('Individual'),
+                                  _buildInstruction('Group')
                                 ]),
                             SizedBox(height: 30),
                             Text('慕斯故事',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline1
+                                    .headline5
                                     .copyWith(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold)),
                             SizedBox(height: 15),
-                            InkWell(
-                                onTap: () {
-                                  print('慕斯故事 was tapped');
-                                  Navigator.pushNamed(context, '/musicBase',
-                                      arguments: {'pageIndex': 2});
-                                },
-                                child: Container(
-                                    height: (size.width - 30 * 2) * (200 / 300),
-                                    child: Stack(
-                                      alignment: Alignment.topLeft,
-                                      children: <Widget>[
-                                        Container(
-                                            decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(3)),
-                                                image: DecorationImage(
-                                                    image: AssetImage(
-                                                        'assets/MuserStory.png'),
-                                                    fit: BoxFit.cover))),
-                                        Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              10, 20, 0, 0),
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(5)),
-                                            child: Container(
-                                                height: 30,
-                                                width: size.width * (180 / 360),
-                                                alignment: Alignment.center,
-                                                color: Color.fromRGBO(
-                                                    196, 196, 196, 0.5),
-                                                child: Text('当我谈论吉他时我在谈些什么',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .headline1
-                                                        .copyWith(
-                                                            fontSize: 14))),
-                                          ),
-                                        )
-                                      ],
-                                    ))),
+                            _buildMuserStory(),
                             SizedBox(height: 30),
                           ],
                         ),
@@ -214,6 +78,19 @@ class _HomeState extends State<Home> {
             ],
           ),
         ));
+  }
+
+  Text _displayUserGreeting() {
+    final Size size = MediaQuery.of(context).size;
+    return Text(
+      _getGreeting() + '，\n薯条',
+      style: Theme.of(context).textTheme.headline5.copyWith(
+          fontSize: size.width * (24 / 360),
+          fontWeight: FontWeight.bold,
+          decoration: TextDecoration.underline,
+          decorationColor: Theme.of(context).accentColor.withOpacity(0.5),
+          decorationThickness: 5),
+    );
   }
 
   String _getGreeting() {
@@ -229,10 +106,98 @@ class _HomeState extends State<Home> {
                     ? '上午好'
                     : hour >= 12 && hour < 14 ? '午安' : '下午好';
   }
+
+  InkWell _buildMyAccountAvatar() {
+    final Size size = MediaQuery.of(context).size;
+    return InkWell(
+      onTap: () {
+        Navigator.pushReplacementNamed(context, '/musicBase',
+            arguments: {'pageIndex': 3});
+      },
+      child: CircleAvatar(
+          radius: size.width * (36 / 360),
+          backgroundImage: AssetImage('assets/avatar.png')),
+    );
+  }
+
+  Widget _buildMusicLibrary() {
+    return musicCategoryScroller;
+  }
+
+  Container _buildInstruction(String type) {
+    final Size size = MediaQuery.of(context).size;
+    final double widthInstruction = (size.width - 30 * 2 - 20) / 2;
+    final double heightInstruction = widthInstruction * (93 / 141);
+    return Container(
+      child: Wrap(
+          direction: Axis.vertical,
+          crossAxisAlignment: WrapCrossAlignment.start,
+          children: <Widget>[
+            Text(type == 'Individual' ? '个人疗愈' : '小组疗愈',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline5
+                    .copyWith(fontSize: 16, fontWeight: FontWeight.bold)),
+            SizedBox(height: 15),
+            InkWell(
+                onTap: () {
+                  Navigator.pushReplacementNamed(context, '/musicBase',
+                      arguments: {'pageIndex': type == 'Individual' ? 1 : 1});
+                },
+                child: Container(
+                  height: heightInstruction,
+                  width: widthInstruction,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(3)),
+                      image: DecorationImage(
+                          image: AssetImage('assets/Instruction_$type.png'),
+                          fit: BoxFit.cover)),
+                )),
+          ]),
+    );
+  }
+
+  InkWell _buildMuserStory() {
+    final Size size = MediaQuery.of(context).size;
+    return InkWell(
+        onTap: () {
+          print('慕斯故事 was tapped');
+          Navigator.pushReplacementNamed(context, '/musicBase',
+              arguments: {'pageIndex': 2});
+        },
+        child: Container(
+            height: (size.width - 30 * 2) * (200 / 300),
+            child: Stack(
+              alignment: Alignment.topLeft,
+              children: <Widget>[
+                Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(3)),
+                        image: DecorationImage(
+                            image: AssetImage('assets/MuserStory.png'),
+                            fit: BoxFit.cover))),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 20, 0, 0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                    child: Container(
+                        height: 30,
+                        width: size.width * (180 / 360),
+                        alignment: Alignment.center,
+                        color: Color.fromRGBO(196, 196, 196, 0.5),
+                        child: Text('当我谈论吉他时我在谈些什么',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline5
+                                .copyWith(fontSize: 14))),
+                  ),
+                )
+              ],
+            )));
+  }
 }
 
 class MusicCategoryScroller extends StatelessWidget {
-  //TODO: extract music categories from database in the future
   final List<MusicCategory> musicCategory = MusicConstants.musicCategoryList;
 
   @override
@@ -247,8 +212,7 @@ class MusicCategoryScroller extends StatelessWidget {
             children: musicCategory
                 .map((e) => InkWell(
                       onTap: () {
-                        print('${e.category} was tapped');
-                        Navigator.pushNamed(context, '/musicBase',
+                        Navigator.pushReplacementNamed(context, '/musicBase',
                             arguments: {'pageIndex': 0});
                       },
                       child: Container(

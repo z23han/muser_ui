@@ -3,6 +3,8 @@ import 'package:muser_ui/managers/music_managers.dart';
 import 'package:muser_ui/models/music_object.dart';
 
 class MusicSelection extends StatefulWidget {
+  final int musiclistCategoryId;
+  const MusicSelection({this.musiclistCategoryId});
   @override
   _MusicSelectionState createState() => _MusicSelectionState();
 }
@@ -15,13 +17,12 @@ class _MusicSelectionState extends State<MusicSelection> {
       PageController(initialPage: 0, viewportFraction: 0.6);
 
   void _populateMusicMap() {
-    _recommendationMusicList = this._musicManager.getRecommendationMusic(0);
+    _recommendationMusicList =
+        this._musicManager.getRecommendationMusic(widget.musiclistCategoryId);
   }
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-
     return Container(child: _buildMusicSelection());
   }
 
@@ -58,7 +59,6 @@ class _MusicSelectionState extends State<MusicSelection> {
 
   Container _buildMusicSelectionPageView() {
     final Size size = MediaQuery.of(context).size;
-
     return Container(
         height: size.width * 0.8,
         child: PageView.builder(

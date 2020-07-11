@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:muser_ui/models/story_theme.dart';
-import 'package:muser_ui/models/story_post.dart';
 import 'package:muser_ui/utils/story_constants.dart';
-
-//import for temporary constants
-import 'package:muser_ui/utils/post_constants.dart';
-
-//import for temporary helper
-import 'package:intl/intl.dart';
+import 'package:muser_ui/routes/muser_story/story_post_list.dart';
 
 class StoryScreen extends StatefulWidget {
   @override
@@ -15,9 +9,18 @@ class StoryScreen extends StatefulWidget {
 }
 
 class _StoryScreenState extends State<StoryScreen> {
-  final StoryThemeScroller storyThemeScroller = StoryThemeScroller();
-  final StoryPostBuilder storyPostBuilder = StoryPostBuilder();
-  //TODO: save posts and post to database
+  final List<StoryTheme> storyTheme = StoryConstants.storyThemeList;
+  // final StoryThemeScroller storyThemeScroller = StoryThemeScroller();
+  int _curPostListTheme = 0;
+  final List<Widget> _childrenPostLists = [
+    StoryPostList(themeId: 0),
+    StoryPostList(themeId: 1),
+    StoryPostList(themeId: 2),
+    StoryPostList(themeId: 3),
+  ];
+  // final StoryPostBuilder storyPostBuilder = StoryPostBuilder();
+
+  //TODO: save posts to database
   // final savedPosts = Set<StoryPost>();
 
   @override
@@ -35,10 +38,10 @@ class _StoryScreenState extends State<StoryScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text('慕斯主题',
-                        style: Theme.of(context).textTheme.headline1.copyWith(
+                        style: Theme.of(context).textTheme.headline5.copyWith(
                             fontSize: 18, fontWeight: FontWeight.bold)),
                     SizedBox(height: 15),
-                    storyThemeScroller
+                    _buildStoryThemeScroller()
                   ],
                 ),
               ),
@@ -47,21 +50,16 @@ class _StoryScreenState extends State<StoryScreen> {
                 child: Text('慕斯故事',
                     style: Theme.of(context)
                         .textTheme
-                        .headline1
+                        .headline5
                         .copyWith(fontSize: 18, fontWeight: FontWeight.bold)),
               ),
-              storyPostBuilder
+              _childrenPostLists[_curPostListTheme]
             ],
           ),
         ));
   }
-}
 
-class StoryThemeScroller extends StatelessWidget {
-  // TODO: get story themes from database
-  final List<StoryTheme> storyTheme = StoryConstants.storyThemeList;
-  @override
-  Widget build(BuildContext context) {
+  SingleChildScrollView _buildStoryThemeScroller() {
     final Size size = MediaQuery.of(context).size;
     final double width = (size.width - 30 * 2 - 15 * 3) / 3;
     final double height = width;
@@ -73,7 +71,11 @@ class StoryThemeScroller extends StatelessWidget {
                 .map((e) => Padding(
                       padding: const EdgeInsets.only(right: 15),
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          setState(() {
+                            _curPostListTheme = e.id;
+                          });
+                        },
                         child: Wrap(
                           direction: Axis.vertical,
                           crossAxisAlignment: WrapCrossAlignment.center,
@@ -97,92 +99,132 @@ class StoryThemeScroller extends StatelessWidget {
   }
 }
 
-class StoryPostBuilder extends StatelessWidget {
-  final List<StoryPost> posts = PostConstants.postList;
+// class StoryThemeScroller extends StatelessWidget {
+//   // TODO: get story themes from database
+//   final List<StoryTheme> storyTheme = StoryConstants.storyThemeList;
+//   @override
+//   Widget build(BuildContext context) {
+//     final Size size = MediaQuery.of(context).size;
+//     final double width = (size.width - 30 * 2 - 15 * 3) / 3;
+//     final double height = width;
+//     return SingleChildScrollView(
+//         physics: BouncingScrollPhysics(),
+//         scrollDirection: Axis.horizontal,
+//         child: Row(
+//             children: storyTheme
+//                 .map((e) => Padding(
+//                       padding: const EdgeInsets.only(right: 15),
+//                       child: InkWell(
+//                         onTap: () {},
+//                         child: Wrap(
+//                           direction: Axis.vertical,
+//                           crossAxisAlignment: WrapCrossAlignment.center,
+//                           children: <Widget>[
+//                             Container(
+//                                 width: width,
+//                                 height: height,
+//                                 decoration: BoxDecoration(
+//                                     borderRadius:
+//                                         BorderRadius.all(Radius.circular(8)),
+//                                     image: DecorationImage(
+//                                         image: AssetImage(
+//                                             'assets/${e.coverImage}'),
+//                                         fit: BoxFit.cover))),
+//                             Text(e.storyTheme)
+//                           ],
+//                         ),
+//                       ),
+//                     ))
+//                 .toList()));
+//   }
+// }
 
-  @override
-  Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-    final double postImageSize = size.width * (50 / 360);
-    final double postUserAvatarSize = size.width * (16 / 360);
-    return Column(
-        children: posts
-            .map((e) => Container(
-                  width: size.width,
-                  margin: const EdgeInsets.only(top: 15),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(30, 15, 30, 30),
-                    child: Column(
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            CircleAvatar(
-                              radius: postUserAvatarSize,
-                              backgroundImage: AssetImage(
-                                  'assets/avatar_muser_assistant.png'),
-                            ),
-                            SizedBox(width: 15),
-                            Wrap(
-                              direction: Axis.vertical,
-                              crossAxisAlignment: WrapCrossAlignment.start,
-                              children: <Widget>[
-                                Text(e.username,
-                                    style: TextStyle(
-                                        color: Color(0xff343434),
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold)),
-                                Text(_t(e.postDateTime),
-                                    style: TextStyle(
-                                        color: Color(0xffc7c7c7), fontSize: 12))
-                              ],
-                            ),
-                            Spacer(flex: 1),
-                            Text('#' + e.tag,
-                                style: TextStyle(
-                                    color: Color(0xff4fa3c2), fontSize: 18))
-                          ],
-                        ),
-                        SizedBox(height: 5),
-                        Row(
-                          children: <Widget>[
-                            Text(e.postContent,
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 18)),
-                            Spacer(flex: 1),
-                            Container(
-                              width: postImageSize,
-                              height: postImageSize,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage('assets/post_image.png'),
-                                    fit: BoxFit.cover),
-                              ),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ))
-            .toList());
-  }
+// class StoryPostBuilder extends StatelessWidget {
+//   final List<StoryPost> posts = PostConstants.postList;
 
-  //Temporary helper to format post date time
-  String _t(String time) {
-    DateTime dateTimeRaw = DateTime.parse(time);
-    DateTime now = DateTime.now();
-    return now.year != dateTimeRaw.year
-        ? DateFormat.yMd().add_Hm().format(dateTimeRaw)
-        : now.month != dateTimeRaw.month || now.day != dateTimeRaw.day
-            ? DateFormat.Md().add_Hm().format(dateTimeRaw)
-            : now.hour != dateTimeRaw.hour
-                ? '${now.hour - dateTimeRaw.hour}小时前'
-                : now.minute != dateTimeRaw.minute
-                    ? '${now.minute - dateTimeRaw.minute}分钟前'
-                    : '${now.second - dateTimeRaw.second}秒前';
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     final Size size = MediaQuery.of(context).size;
+//     final double postImageSize = size.width * (50 / 360);
+//     final double postUserAvatarSize = size.width * (16 / 360);
+//     return Column(
+//         children: posts
+//             .map((e) => Container(
+//                   width: size.width,
+//                   margin: const EdgeInsets.only(top: 15),
+//                   decoration: BoxDecoration(
+//                     color: Colors.white,
+//                     borderRadius: BorderRadius.all(Radius.circular(5)),
+//                   ),
+//                   child: Padding(
+//                     padding: const EdgeInsets.fromLTRB(30, 15, 30, 30),
+//                     child: Column(
+//                       children: <Widget>[
+//                         Row(
+//                           children: <Widget>[
+//                             CircleAvatar(
+//                               radius: postUserAvatarSize,
+//                               backgroundImage: AssetImage(
+//                                   'assets/avatar_muser_assistant.png'),
+//                             ),
+//                             SizedBox(width: 15),
+//                             Wrap(
+//                               direction: Axis.vertical,
+//                               crossAxisAlignment: WrapCrossAlignment.start,
+//                               children: <Widget>[
+//                                 Text(e.username,
+//                                     style: TextStyle(
+//                                         color: Color(0xff343434),
+//                                         fontSize: 16,
+//                                         fontWeight: FontWeight.bold)),
+//                                 Text(_t(e.postDateTime),
+//                                     style: TextStyle(
+//                                         color: Color(0xffc7c7c7), fontSize: 12))
+//                               ],
+//                             ),
+//                             Spacer(flex: 1),
+//                             Text('#' + e.tag,
+//                                 style: TextStyle(
+//                                     color: Color(0xff4fa3c2), fontSize: 18))
+//                           ],
+//                         ),
+//                         SizedBox(height: 5),
+//                         Row(
+//                           children: <Widget>[
+//                             Text(e.postContent,
+//                                 style: TextStyle(
+//                                     color: Colors.black, fontSize: 18)),
+//                             Spacer(flex: 1),
+//                             Container(
+//                               width: postImageSize,
+//                               height: postImageSize,
+//                               decoration: BoxDecoration(
+//                                 image: DecorationImage(
+//                                     image: AssetImage('assets/post_image.png'),
+//                                     fit: BoxFit.cover),
+//                               ),
+//                             )
+//                           ],
+//                         )
+//                       ],
+//                     ),
+//                   ),
+//                 ))
+//             .toList());
+//   }
+
+//   //Temporary helper to format post date time
+//   String _t(String time) {
+//     DateTime dateTimeRaw = DateTime.parse(time);
+//     DateTime now = DateTime.now();
+//     return now.year != dateTimeRaw.year
+//         ? DateFormat.yMd().add_Hm().format(dateTimeRaw)
+//         : now.month != dateTimeRaw.month || now.day != dateTimeRaw.day
+//             ? DateFormat.Md().add_Hm().format(dateTimeRaw)
+//             : now.hour != dateTimeRaw.hour
+//                 ? '${now.hour - dateTimeRaw.hour}小时前'
+//                 : now.minute != dateTimeRaw.minute
+//                     ? '${now.minute - dateTimeRaw.minute}分钟前'
+//                     : '${now.second - dateTimeRaw.second}秒前';
+//   }
+// }

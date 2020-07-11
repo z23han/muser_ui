@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:muser_ui/routes/instruction/music_selection.dart';
+import 'package:muser_ui/routes/instruction/services/music_selection.dart';
 
 class FocusTraining01 extends StatefulWidget {
   @override
@@ -7,11 +7,10 @@ class FocusTraining01 extends StatefulWidget {
 }
 
 class _FocusTraining01State extends State<FocusTraining01> {
-  MusicSelection musicSelection = MusicSelection();
+  MusicSelection musicSelection = MusicSelection(musiclistCategoryId: 0);
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    final double paddingTop = MediaQuery.of(context).padding.top;
     final double arrowSize = size.width * (34 / 360);
     return Scaffold(
         appBar: AppBar(
@@ -48,13 +47,13 @@ class _FocusTraining01State extends State<FocusTraining01> {
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 30.0),
                     child: Text('01. 课前准备',
-                        style: Theme.of(context).textTheme.headline1.copyWith(
+                        style: Theme.of(context).textTheme.headline5.copyWith(
                             fontSize: 18, fontWeight: FontWeight.bold)),
                   ),
                   Text('选择一首歌：',
                       style: Theme.of(context)
                           .textTheme
-                          .headline1
+                          .headline5
                           .copyWith(fontSize: 16)),
                   Spacer(flex: 1),
                   ButtonBar(

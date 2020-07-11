@@ -57,7 +57,7 @@ class _AboutMusic2State extends State<AboutMusic2> {
                   Text('音乐治疗金字塔',
                       style: Theme.of(context)
                           .textTheme
-                          .headline1
+                          .headline5
                           .copyWith(fontSize: 18, fontWeight: FontWeight.bold))
                 ],
               ),
@@ -69,7 +69,7 @@ class _AboutMusic2State extends State<AboutMusic2> {
                 "促进型音乐治疗专注于促进健康及多方面的健康目标，包括肢体、认知、情感、人际关系，以及个人发展。\n\n音乐治疗师或者受过音乐治疗培训的人员都是担任这项指导工作的适合人选。\n\n帮助孩子们从疫情影响中恢复身心健康的武汉前进计划，就是属于该类型的促进型音乐治疗。",
                 style: Theme.of(context)
                     .textTheme
-                    .headline1
+                    .headline5
                     .copyWith(fontSize: 16),
               ),
             ),
