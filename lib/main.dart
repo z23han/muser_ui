@@ -35,7 +35,7 @@ void main() {
             headline4: TextStyle(color: Color(0xffe8e8e8)),
             headline5: TextStyle(color: Color(0xfff5f5f5)),
             button: TextStyle(color: Colors.white, fontSize: 16))),
-    initialRoute: '/',
+    initialRoute: '/loader',
     routes: {
       '/': (context) => Home(),
       '/musicBase': (context) => MusicBase(),
