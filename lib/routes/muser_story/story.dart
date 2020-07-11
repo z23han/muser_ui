@@ -29,26 +29,19 @@ class _StoryScreenState extends State<StoryScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(5))),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(30, 20, 0, 30),
-                    child: Wrap(
-                      direction: Axis.vertical,
-                      crossAxisAlignment: WrapCrossAlignment.start,
-                      children: <Widget>[
-                        Text('慕斯主题',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline1
-                                .copyWith(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
-                        SizedBox(height: 15),
-                        storyThemeScroller
-                      ],
-                    ),
-                  )),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(30, 20, 0, 30),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text('慕斯主题',
+                        style: Theme.of(context).textTheme.headline1.copyWith(
+                            fontSize: 18, fontWeight: FontWeight.bold)),
+                    SizedBox(height: 15),
+                    storyThemeScroller
+                  ],
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.only(left: 30.0),
                 child: Text('慕斯故事',

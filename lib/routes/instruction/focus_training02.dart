@@ -56,16 +56,16 @@ class FocusTraining02 extends StatelessWidget {
                     text: '参与者围成一圈1-3报数，不同数字对应不同听到音乐后的动作。当听到歌词中有',
                     style: Theme.of(context)
                         .textTheme
-                        .headline1
+                        .headline6
                         .copyWith(fontSize: 16),
                     children: [
                       TextSpan(
                           text: '   "x"   ',
-                          style: TextStyle(fontWeight: FontWeight.bold)),
+                          style: TextStyle(fontWeight: FontWeight.normal)),
                       TextSpan(text: '(例如：'),
                       TextSpan(
                           text: '   "爱"   ',
-                          style: TextStyle(fontWeight: FontWeight.bold)),
+                          style: TextStyle(fontWeight: FontWeight.normal)),
                       TextSpan(text: ')的时候，参与者同时拍手/跺脚/跳跃。'),
                     ]),
               ),
@@ -78,7 +78,7 @@ class FocusTraining02 extends StatelessWidget {
                   onTap: () {
                     Navigator.pushReplacementNamed(
                       context,
-                      '/instruction/focus_training01',
+                      '/instruction/focusTraining01',
                     );
                   },
                   child: Image(
@@ -91,7 +91,7 @@ class FocusTraining02 extends StatelessWidget {
                   onTap: () {
                     Navigator.pushReplacementNamed(
                       context,
-                      '/instruction/focus_training03',
+                      '/instruction/focusTraining03',
                     );
                   },
                   child: Image(

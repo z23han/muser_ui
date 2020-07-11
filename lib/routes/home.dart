@@ -56,9 +56,7 @@ class _HomeState extends State<Home> {
               ),
               SizedBox(height: 15),
               ClipRRect(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20)),
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
                   child: Container(
                       color: Color.fromRGBO(255, 255, 255, 0.8),
                       child: Padding(

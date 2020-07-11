@@ -86,38 +86,40 @@ class FocusTraining extends StatelessWidget {
                               text: '当听到歌词中有',
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline1
+                                  .headline6
                                   .copyWith(fontSize: 16),
                               children: [
                                 TextSpan(
                                     text: '   "x"   ',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold)),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.normal)),
                                 TextSpan(text: '的时候，\n拍手/跺脚/发声。')
                               ]),
                         ),
                       ),
-                      Spacer(flex: 1),
-                      ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(3)),
-                        child: Container(
-                          width: buttonWidth,
-                          height: buttonHeight,
-                          child: FlatButton(
-                              color: Theme.of(context).accentColor,
-                              onPressed: () {},
-                              child: Center(
-                                  child: Text('开始学习',
-                                      style:
-                                          Theme.of(context).textTheme.button))),
-                        ),
-                      ),
-                      SizedBox(height: size.height * (55 / 640))
                     ],
                   )
                 ],
               ),
-            )
+            ),
+            Spacer(flex: 1),
+            ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(3)),
+              child: Container(
+                width: buttonWidth,
+                height: buttonHeight,
+                child: FlatButton(
+                    color: Theme.of(context).accentColor,
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(
+                          context, '/instruction/focusTraining01');
+                    },
+                    child: Center(
+                        child: Text('开始学习',
+                            style: Theme.of(context).textTheme.button))),
+              ),
+            ),
+            SizedBox(height: size.height * (55 / 640))
           ],
         ),
       ),

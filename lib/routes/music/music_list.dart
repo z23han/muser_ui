@@ -22,7 +22,8 @@ class _MusicListScreenState extends State<MusicListScreen> {
 
   void _populateMusicMap() {
     _musicList = this._musicManager.getCategoryMusic(widget.categoryId);
-    _recommendationMusicList = this._musicManager.getRecommendationMusic(widget.categoryId);
+    _recommendationMusicList =
+        this._musicManager.getRecommendationMusic(widget.categoryId);
   }
 
   List<Widget> _getRecommendationMusicList() {
@@ -61,9 +62,9 @@ class _MusicListScreenState extends State<MusicListScreen> {
         onTap: () {
           print("${music.name} is tapped");
           Navigator.push(
-            context, 
-            MaterialPageRoute(builder: (context) => MusicPlayerScreen(music: music))
-          );
+              context,
+              MaterialPageRoute(
+                  builder: (context) => MusicPlayerScreen(music: music)));
         },
       );
       musicBlocks.add(block);
@@ -102,8 +103,11 @@ class _MusicListScreenState extends State<MusicListScreen> {
                     RichText(
                         text: TextSpan(
                             text: music.name,
-                            style: Theme.of(context).textTheme.headline1.copyWith(
-                                fontSize: 16, fontWeight: FontWeight.bold),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline1
+                                .copyWith(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
                             children: [
                           TextSpan(
                               text: '  ${music.writer}',
@@ -125,9 +129,9 @@ class _MusicListScreenState extends State<MusicListScreen> {
         onTap: () {
           print("${music.name} is tapped");
           Navigator.push(
-            context, 
-            MaterialPageRoute(builder: (context) => MusicPlayerScreen(music: music))
-          );
+              context,
+              MaterialPageRoute(
+                  builder: (context) => MusicPlayerScreen(music: music)));
         },
       );
       musicBlocks.add(block);
@@ -137,7 +141,6 @@ class _MusicListScreenState extends State<MusicListScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     _populateMusicMap();
 
     return Scaffold(

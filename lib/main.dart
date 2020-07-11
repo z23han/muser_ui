@@ -36,9 +36,9 @@ void main() {
             headline2: TextStyle(color: Color(0xff666666)),
             headline3: TextStyle(color: Color(0xffc7c7c7)),
             headline4: TextStyle(color: Color(0xffe8e8e8)),
-            headline5: TextStyle(color: Color(0xfff5f5f5)),
+            headline5: TextStyle(color: Color(0xff343434)),
             button: TextStyle(color: Colors.white, fontSize: 16))),
-    initialRoute: '/',
+    initialRoute: '/instruction/focusTraining01',
     routes: {
       '/': (context) => Home(),
       '/musicBase': (context) => MusicBase(),
@@ -56,7 +56,7 @@ void main() {
       '/instruction/focusTraining': (context) => FocusTraining(),
       '/instruction/focusTraining01': (context) => FocusTraining01(),
       '/instruction/focusTraining02': (context) => FocusTraining02(),
-      '/instruction/focusTraining03': (context) => FocusTraining03()
+      '/instruction/focusTraining03': (context) => FocusTraining03(),
     },
   ));
 }
