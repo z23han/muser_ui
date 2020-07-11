@@ -50,7 +50,7 @@ class FocusTraining03 extends StatelessWidget {
                 "除了听歌词中特定的字，也可以：\n（1）听歌曲中出现的指定伴奏乐器\n（2）听歌曲中出现的指定旋律\n（3）听歌曲中出现的指定音调",
                 style: Theme.of(context)
                     .textTheme
-                    .headline1
+                    .headline6
                     .copyWith(fontSize: 16),
               ),
             ),
@@ -63,7 +63,7 @@ class FocusTraining03 extends StatelessWidget {
                   onTap: () {
                     Navigator.pushReplacementNamed(
                       context,
-                      '/instruction/focus_training02',
+                      '/instruction/focusTraining02',
                     );
                   },
                   child: Image(
