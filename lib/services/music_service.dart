@@ -14,6 +14,8 @@ class MusicService {
   String filePath;
   int duration;
   bool isInited;
+  int currDuration = 0;
+  bool isPlaying;
 
   // singleton method 
   static final MusicService _singleton = MusicService._internal();
@@ -27,6 +29,7 @@ class MusicService {
     audioCache = new AudioCache();
     audioPlayer = new AudioPlayer();
     isInited = false;
+    isPlaying = false;
   }
 
   void setMusic(Music music) {
@@ -56,6 +59,7 @@ class MusicService {
     int result = await audioPlayer.play(this.filePath, isLocal: true);
     if (result == 1) {
       print("${this.music.name} is playing");
+      this.isPlaying = true;
     }
   }
 
@@ -63,6 +67,7 @@ class MusicService {
     int result = await audioPlayer.pause();
     if (result == 1) {
       print("${this.music.name} is paused");
+      this.isPlaying = false;
     }
   }
 
@@ -70,6 +75,7 @@ class MusicService {
     int result = await audioPlayer.stop();
     if (result == 1) {
       print("${this.music.name} is stopped");
+      this.isPlaying = false;
     }
   }
 
