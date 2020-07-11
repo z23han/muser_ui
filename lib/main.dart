@@ -38,7 +38,7 @@ void main() {
             headline4: TextStyle(color: Color(0xffe8e8e8)),
             headline5: TextStyle(color: Color(0xff343434)),
             button: TextStyle(color: Colors.white, fontSize: 16))),
-    initialRoute: '/instruction/focusTraining01',
+    initialRoute: '/loader',
     routes: {
       '/': (context) => Home(),
       '/musicBase': (context) => MusicBase(),

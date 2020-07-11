@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:muser_ui/models/user.dart';
+import 'package:muser_ui/managers/user_manager.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -14,6 +16,102 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController _cityController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   Gender _gender = Gender.male;
+  bool isConsented = true;
+
+  Future<void> signUp(BuildContext context) async {
+    String name = _usernameController.text;
+    String password = _passwordController.text;
+    String age = _ageController.text;
+    String city = _cityController.text;
+    String phone = _phoneController.text;
+  
+    if (name.isEmpty || password.isEmpty || age.isEmpty || city.isEmpty || phone.isEmpty){
+      return showDialog<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('您的填写信息不完整'),
+            content: const Text('请重新尝试'),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('返回'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
+    if (phone.length != 11 || double.tryParse(phone) == null || double.tryParse(age) == null
+      || double.tryParse(age) <= 0 || double.tryParse(age) >= 150) {
+      return showDialog<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('您的部分信息不正确'),
+            content: const Text('请重新尝试'),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('返回'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+    
+    String gender = 'm';
+    if (_gender == Gender.female) {
+      gender = 'f';
+    }
+  
+    User newUser = User(name, password, gender, age, phone, city, isConsented);
+    bool checker = await UserManager.register(newUser);
+    if (checker) {
+      Navigator.pushNamed(context, '/signin');
+      return showDialog<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('注册成功'),
+            content: const Text('请尝试登陆'),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('确定'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      return showDialog<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('注册失败'),
+            content: const Text('请稍后不同的用户名或手机号码'),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('返回'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,35 +132,74 @@ class _SignUpState extends State<SignUp> {
               children: <Widget>[
                 Expanded(
                   flex: 5,
-                  child: TextFormField(
-                    controller: _usernameController,
-                    decoration: InputDecoration(
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      labelText: '用户名',
-                      contentPadding: EdgeInsets.only(bottom: 0),
-                    ),
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.grey[700],            
-                    ),
-                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text(
+                        "用户名",
+                        style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                      ),
+                      SizedBox(height: 10),
+                      TextFormField(
+                        controller: _usernameController,
+                        decoration: InputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
+                          isDense: true,
+                          contentPadding: EdgeInsets.only(bottom: 0),
+                          border: InputBorder.none,
+                        ),
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: Color(0xff343434),       
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      Divider(
+                        color: Color(0xff343434),
+                        height: 0.5,
+                        thickness: 0.5,
+                        indent: 0,
+                        endIndent: 0,
+                      ),
+                    ],
+                  )
                 ),
                 Spacer(flex: 1),
                 Expanded(
                   flex: 5,
-                  child: TextFormField(
-                    obscureText: true,
-                    controller: _passwordController,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(bottom: 0),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      labelText: '密码',
-                    ),
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.grey[700]            
-                    ),
-                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        '密码',
+                        style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                      ),
+                      SizedBox(height: 10),
+                      TextFormField(
+                        controller: _passwordController,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
+                          isDense: true,
+                          contentPadding: EdgeInsets.only(bottom: 0),
+                          border: InputBorder.none,
+                        ),
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: Colors.grey[700],            
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      Divider(
+                        color: Color(0xff343434),
+                        height: 0.5,
+                        thickness: 0.5,
+                        indent: 0,
+                        endIndent: 0,
+                      ),
+                    ],
+                  )
                 ),
               ],
             )
@@ -79,10 +216,12 @@ class _SignUpState extends State<SignUp> {
                     children: <Widget>[
                       Text(
                         "男",
-                        style: TextStyle(color: Colors.grey[500], fontSize: 18),
+                        style: TextStyle(color: Colors.grey[600], fontSize: 14),
                       ),
                       Radio(
                         value: Gender.male,
+                        activeColor: Theme.of(context).accentColor,
+                        focusColor: Theme.of(context).accentColor,
                         groupValue: _gender,
                         onChanged: (Gender value) {
                           setState(() {
@@ -92,7 +231,7 @@ class _SignUpState extends State<SignUp> {
                       ),
                       Text(
                         "女",
-                        style: TextStyle(color: Colors.grey[500], fontSize: 18),
+                        style: TextStyle(color: Colors.grey[600], fontSize: 14),
                       ),
                       Radio(
                         value: Gender.female,
@@ -109,38 +248,76 @@ class _SignUpState extends State<SignUp> {
                 Spacer(flex: 1),
                 Expanded(
                   flex: 5,
-                  child: TextFormField(
-                    keyboardType: TextInputType.number,
-                    controller: _ageController,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(bottom: 0),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      labelText: '年龄',
-                    ),
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.grey[700]            
-                    ),
-                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        '年龄',
+                        style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                      ),
+                      SizedBox(height: 10),
+                      TextFormField(
+                        controller: _ageController,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
+                          isDense: true,
+                          contentPadding: EdgeInsets.only(bottom: 0),
+                          border: InputBorder.none,
+                        ),
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: Colors.grey[700],            
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      Divider(
+                        color: Color(0xff343434),
+                        height: 0.5,
+                        thickness: 0.5,
+                        indent: 0,
+                        endIndent: 0,
+                      ),
+                    ],
+                  )
                 ),
               ],
             )
           ),
           Padding(
             padding: EdgeInsets.only(bottom: 18.0),
-            child: TextFormField(
-              controller: _phoneController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(bottom: 0),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                labelText: '手机号',
-              ),
-              style: TextStyle(
-                fontSize: 16.0,
-                color: Colors.grey[700]               
-              )
-            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  '手机号',
+                  style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                ),
+                SizedBox(height: 10),
+                TextFormField(
+                  controller: _phoneController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    floatingLabelBehavior: FloatingLabelBehavior.never,
+                    isDense: true,
+                    contentPadding: EdgeInsets.only(bottom: 0),
+                    border: InputBorder.none,
+                  ),
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.grey[700],            
+                  ),
+                ),
+                SizedBox(height: 5),
+                Divider(
+                  color: Color(0xff343434),
+                  height: 0.5,
+                  thickness: 0.5,
+                  indent: 0,
+                  endIndent: 0,
+                ),
+              ],
+            )
           ),
           Padding(
             padding: EdgeInsets.only(bottom: 68.0),
@@ -148,18 +325,37 @@ class _SignUpState extends State<SignUp> {
               children: <Widget>[
                 Expanded(
                   flex: 5,
-                  child: TextFormField(
-                    controller: _cityController,
-                    decoration: InputDecoration(
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      labelText: '城市',
-                      contentPadding: EdgeInsets.only(bottom: 0),
-                    ),
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.grey[700],            
-                    ),
-                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        '城市',
+                        style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                      ),
+                      SizedBox(height: 10),
+                      TextFormField(
+                        controller: _cityController,
+                        decoration: InputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
+                          isDense: true,
+                          contentPadding: EdgeInsets.only(bottom: 0),
+                          border: InputBorder.none,
+                        ),
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: Colors.grey[700],            
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      Divider(
+                        color: Color(0xff343434),
+                        height: 0.5,
+                        thickness: 0.5,
+                        indent: 0,
+                        endIndent: 0,
+                      ),
+                    ],
+                  )
                 ),
                 Spacer(flex: 1,),
                 Spacer(flex: 5,),
@@ -179,11 +375,11 @@ class _SignUpState extends State<SignUp> {
                 ),
               ),
               FlatButton(
-                color: Colors.grey[600],
+                color: Theme.of(context).accentColor,
                 textColor: Colors.white,
-                splashColor: Colors.grey[600],
+                splashColor: Theme.of(context).accentColor,
                 onPressed: () {
-                  Navigator.pushNamed(context, '/');
+                  signUp(context);
                 },
                 child: Text('完成', style: TextStyle(fontSize: 18)),
               ),

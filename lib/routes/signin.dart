@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
-// access to global variables
-GetIt getIt = GetIt.instance;
+import 'package:muser_ui/managers/user_manager.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -14,15 +10,32 @@ class _SignInState extends State<SignIn> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void login() {
-    String token = 'fake_token';
+  Future<void> login(BuildContext context) async {
     var username = _usernameController.text;
     var password = _passwordController.text;
     print('username: $username, password: $password');
-    // Anything is written by Flutter Secure Storage will not be reset, even you rerun the debugger.
-    // TODO: get token by given username and password.
-    // getIt<FlutterSecureStorage>().write(key: 'auth_token', value: token)
-    //   .then((result) => Navigator.pushNamed(context, '/'));
+    var checker = await UserManager.login(username, password);
+    if (checker) {
+      Navigator.pushNamed(context, '/');
+    } else {
+      return showDialog<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('您输入的账号或密码错误'),
+            content: const Text('请重新尝试'),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('再试一次'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   @override
@@ -165,13 +178,21 @@ class _SignInState extends State<SignIn> {
               endIndent: 0,
             ),
             SizedBox(height: 25),
-            Row(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
-              Image(
-                image: AssetImage('assets/arrow_right.png'),
-                width: arrowSize,
-                height: arrowSize,
-              )
-            ]),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                GestureDetector(
+                  onTap: () {
+                    login(context);
+                  },
+                  child: Image(
+                    image: AssetImage('assets/arrow_right.png'),
+                    width: arrowSize,
+                    height: arrowSize,
+                  )
+                )
+              ]
+            ),
             Text('其他登陆方式',
                 style: Theme.of(context)
                     .textTheme
