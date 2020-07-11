@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:muser_ui/models/music_category.dart';
 import 'package:muser_ui/utils/music_constants.dart';
+import 'package:muser_ui/models/user.dart';
+import 'package:muser_ui/managers/user_manager.dart';
+
+
 
 class Home extends StatefulWidget {
   @override
@@ -8,13 +12,23 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  Map data = {};
   final MusicCategoryScroller musicCategoryScroller = MusicCategoryScroller();
+  User user;
+  String user_name = "";
 
   @override
-  Widget build(BuildContext context) {
-    //TODO: get user data from database
-    // data = data.isNotEmpty ? data : ModalRoute.of(context).settings.arguments;
+  void initState() {
+    UserManager.getUserFromStorage().then((value) {
+      setState(() {
+        user = value;
+        user_name = user.name;
+      });
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context){
     return Scaffold(
         backgroundColor: Color(0xfff5f5f5),
         body: SingleChildScrollView(
@@ -83,7 +97,7 @@ class _HomeState extends State<Home> {
   Text _displayUserGreeting() {
     final Size size = MediaQuery.of(context).size;
     return Text(
-      _getGreeting() + '，\n薯条',
+      _getGreeting() + '，\n' + user_name,
       style: Theme.of(context).textTheme.headline5.copyWith(
           fontSize: size.width * (24 / 360),
           fontWeight: FontWeight.bold,

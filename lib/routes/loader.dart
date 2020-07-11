@@ -11,9 +11,9 @@ class _LoaderState extends State<Loader> {
   Timer _timer;
 
   void validateToken() async {
-    var checker = await UserManager.validateToken();
+    bool checker = await UserManager.validateToken();
     if (checker) {
-      Navigator.pushReplacementNamed(context, '/');
+      Navigator.pushReplacementNamed(context, '/home');
     } else {
       Navigator.pushReplacementNamed(context, '/signin');
     }
