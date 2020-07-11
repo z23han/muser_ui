@@ -15,6 +15,7 @@ class _MusicSelectionState extends State<MusicSelection> {
   Set<Music> selectedMusic = {};
   PageController pageController =
       PageController(initialPage: 0, viewportFraction: 0.6);
+  bool isPlaying = false;
 
   void _populateMusicMap() {
     _recommendationMusicList =
@@ -112,12 +113,24 @@ class _MusicSelectionState extends State<MusicSelection> {
                   SizedBox(
                     width: coverSize,
                     height: coverSize,
-                    child: Container(
-                        decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                      image: DecorationImage(
-                          image: AssetImage(music.image), fit: BoxFit.cover),
-                    )),
+                    child: Stack(children: [
+                      Container(
+                          decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                        image: DecorationImage(
+                            image: AssetImage(music.image), fit: BoxFit.cover),
+                      )),
+                      Center(
+                          child: IconButton(
+                        icon: Icon(
+                            !isPlaying
+                                ? Icons.play_circle_outline
+                                : Icons.pause_circle_outline,
+                            size: 34,
+                            color: Colors.white.withOpacity(0.6)),
+                        onPressed: () {},
+                      ))
+                    ]),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
