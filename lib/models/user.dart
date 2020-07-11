@@ -11,6 +11,16 @@ class User {
 
   // User({this.username, this.avatar});
   User(this.name, this.password, this.gender, this.age, this.phone, this.city, this.isConsented);
+  
+  User.fromJson(Map<String, dynamic> json)
+      : name = json['name'],
+        password = json['password'],
+        gender = json['gender'],
+        city = json['city'],
+        age = json['age'],
+        phone = json['phone'],
+        isConsented = json['isConsented'];
+  
   Map<String, dynamic> toJson() =>
   {
     'name': name,

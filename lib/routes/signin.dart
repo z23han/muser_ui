@@ -16,7 +16,7 @@ class _SignInState extends State<SignIn> {
     print('username: $username, password: $password');
     var checker = await UserManager.login(username, password);
     if (checker) {
-      Navigator.pushNamed(context, '/');
+      Navigator.pushNamed(context, '/home');
     } else {
       return showDialog<void>(
         context: context,
@@ -68,15 +68,16 @@ class _SignInState extends State<SignIn> {
                   //             TextStyle(color: Colors.grey[500], fontSize: 14)),
                   //   ),
                   // ),
-                  GestureDetector(
-                      onTap: () {
-                        Navigator.pushReplacementNamed(context, '/');
-                      },
-                      child: Text('跳过',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline3
-                              .copyWith(fontSize: 16)))
+                  // GestureDetector(
+                  //     onTap: () {
+                  //       Navigator.pushReplacementNamed(context, '/home');
+                  //     },
+                  //     child: Text('跳过',
+                  //         style: Theme.of(context)
+                  //             .textTheme
+                  //             .headline3
+                  //             .copyWith(fontSize: 16)))
+                  SizedBox(height: 16,)
                 ],
               ),
             ),
