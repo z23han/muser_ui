@@ -11,13 +11,12 @@ import 'package:muser_ui/routes/wechat_consent.dart';
 import 'package:muser_ui/routes/signup_consent.dart';
 import 'package:muser_ui/routes/forget_password.dart';
 import 'package:muser_ui/routes/reset_password.dart';
-import 'package:muser_ui/routes/instruction.dart';
-import 'package:muser_ui/routes/instruction/about_music1.dart';
-import 'package:muser_ui/routes/instruction/about_music2.dart';
-import 'package:muser_ui/routes/instruction/focus_training.dart';
-import 'package:muser_ui/routes/instruction/focus_training01.dart';
-import 'package:muser_ui/routes/instruction/focus_training02.dart';
-import 'package:muser_ui/routes/instruction/focus_training03.dart';
+import 'package:muser_ui/routes/instruction/group/about_music1.dart';
+import 'package:muser_ui/routes/instruction/group/about_music2.dart';
+import 'package:muser_ui/routes/instruction/group/focus_training.dart';
+import 'package:muser_ui/routes/instruction/group/focus_training01.dart';
+import 'package:muser_ui/routes/instruction/group/focus_training02.dart';
+import 'package:muser_ui/routes/instruction/group/focus_training03.dart';
 
 // This is our global ServiceLocator
 GetIt getIt = GetIt.instance;
@@ -38,7 +37,7 @@ void main() {
             headline4: TextStyle(color: Color(0xffe8e8e8)),
             headline5: TextStyle(color: Color(0xff343434)),
             button: TextStyle(color: Colors.white, fontSize: 16))),
-    initialRoute: '/loader',
+    initialRoute: '/',
     routes: {
       '/': (context) => Home(),
       '/musicBase': (context) => MusicBase(),
@@ -50,7 +49,6 @@ void main() {
       '/signUpConsent': (context) => SignUpConsent(),
       '/forgetPassword': (context) => ForgetPassword(),
       '/resetPassword': (context) => ResetPassword(),
-      '/instruction': (context) => InstructionScreen(),
       '/instruction/aboutMusic1': (context) => AboutMusic1(),
       '/instruction/aboutMusic2': (context) => AboutMusic2(),
       '/instruction/focusTraining': (context) => FocusTraining(),

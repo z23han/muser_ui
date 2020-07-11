@@ -55,7 +55,7 @@ class _AboutMusic1State extends State<AboutMusic1> {
                   Text('音乐治疗金字塔',
                       style: Theme.of(context)
                           .textTheme
-                          .headline1
+                          .headline5
                           .copyWith(fontSize: 18, fontWeight: FontWeight.bold))
                 ],
               ),
@@ -69,7 +69,7 @@ class _AboutMusic1State extends State<AboutMusic1> {
                 child: Text('Pizzi的音乐治疗金字塔模型',
                     style: Theme.of(context)
                         .textTheme
-                        .headline1
+                        .headline5
                         .copyWith(fontSize: 18, fontWeight: FontWeight.bold))),
             Spacer(flex: 1),
             ButtonBar(

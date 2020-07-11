@@ -105,7 +105,7 @@ class _MusicListScreenState extends State<MusicListScreen> {
                             text: music.name,
                             style: Theme.of(context)
                                 .textTheme
-                                .headline1
+                                .headline5
                                 .copyWith(
                                     fontSize: 16, fontWeight: FontWeight.bold),
                             children: [
@@ -113,7 +113,7 @@ class _MusicListScreenState extends State<MusicListScreen> {
                               text: '  ${music.writer}',
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline1
+                                  .headline5
                                   .copyWith(
                                       fontSize: 12,
                                       fontWeight: FontWeight.normal))

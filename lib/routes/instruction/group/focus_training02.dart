@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
-class FocusTraining03 extends StatelessWidget {
+class FocusTraining02 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    final double buttonWidth = size.width * (88 / 360);
-    final double buttonHeight = buttonWidth * (36 / 88);
     final double arrowSize = size.width * (34 / 360);
     return Scaffold(
         appBar: AppBar(
@@ -14,7 +12,7 @@ class FocusTraining03 extends StatelessWidget {
             backgroundColor: Theme.of(context).primaryColor,
             titleSpacing: 0,
             title: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
+              padding: EdgeInsets.symmetric(horizontal: 30),
               child: GestureDetector(
                 onTap: () {
                   Navigator.pop(context);
@@ -32,29 +30,46 @@ class FocusTraining03 extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(vertical: 15.0),
               child: Image(
-                image: AssetImage('assets/p3of3.png'),
+                image: AssetImage('assets/p2of3.png'),
                 fit: BoxFit.fitWidth,
               ),
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 30.0),
-              child: Text('03. 游戏变化',
+              child: Text('02. 游戏规则',
                   style: Theme.of(context)
                       .textTheme
-                      .headline1
+                      .headline5
                       .copyWith(fontSize: 18, fontWeight: FontWeight.bold)),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30),
-              child: Text(
-                "除了听歌词中特定的字，也可以：\n（1）听歌曲中出现的指定伴奏乐器\n（2）听歌曲中出现的指定旋律\n（3）听歌曲中出现的指定音调",
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6
-                    .copyWith(fontSize: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              child: Image(
+                image: AssetImage('assets/focus_training_game_rules.png'),
+                fit: BoxFit.fitWidth,
               ),
             ),
-            SizedBox(height: 30),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+              child: RichText(
+                text: TextSpan(
+                    text: '参与者围成一圈1-3报数，不同数字对应不同听到音乐后的动作。当听到歌词中有',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6
+                        .copyWith(fontSize: 16),
+                    children: [
+                      TextSpan(
+                          text: '   "x"   ',
+                          style: TextStyle(fontWeight: FontWeight.normal)),
+                      TextSpan(text: '(例如：'),
+                      TextSpan(
+                          text: '   "爱"   ',
+                          style: TextStyle(fontWeight: FontWeight.normal)),
+                      TextSpan(text: ')的时候，参与者同时拍手/跺脚/跳跃。'),
+                    ]),
+              ),
+            ),
             Spacer(flex: 1),
             ButtonBar(
               alignment: MainAxisAlignment.spaceBetween,
@@ -62,9 +77,7 @@ class FocusTraining03 extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     Navigator.pushReplacementNamed(
-                      context,
-                      '/instruction/focusTraining02',
-                    );
+                        context, '/instruction/focusTraining01');
                   },
                   child: Image(
                     image: AssetImage('assets/backward.png'),
@@ -72,18 +85,15 @@ class FocusTraining03 extends StatelessWidget {
                     height: arrowSize,
                   ),
                 ),
-                ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(3)),
-                  child: Container(
-                    width: buttonWidth,
-                    height: buttonHeight,
-                    child: FlatButton(
-                        color: Theme.of(context).accentColor,
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text('完成',
-                            style: Theme.of(context).textTheme.button)),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushReplacementNamed(
+                        context, '/instruction/focusTraining03');
+                  },
+                  child: Image(
+                    image: AssetImage('assets/forward.png'),
+                    width: arrowSize,
+                    height: arrowSize,
                   ),
                 ),
               ],

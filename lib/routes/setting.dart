@@ -30,7 +30,7 @@ class Setting extends StatelessWidget {
                     leading: Text(settingButton[index],
                         style: Theme.of(context)
                             .textTheme
-                            .headline1
+                            .headline5
                             .copyWith(fontSize: 16)),
                     trailing: Icon(Icons.arrow_forward_ios),
                   )
