@@ -142,7 +142,10 @@ class _HomeState extends State<Home> {
             InkWell(
                 onTap: () {
                   Navigator.pushReplacementNamed(context, '/musicBase',
-                      arguments: {'pageIndex': type == 'Individual' ? 1 : 1});
+                      arguments: {
+                        'pageIndex': 1,
+                        'tabIndex': type == 'Individual' ? 0 : 1
+                      });
                 },
                 child: Container(
                   height: heightInstruction,
@@ -213,7 +216,7 @@ class MusicCategoryScroller extends StatelessWidget {
                 .map((e) => InkWell(
                       onTap: () {
                         Navigator.pushReplacementNamed(context, '/musicBase',
-                            arguments: {'pageIndex': 0});
+                            arguments: {'pageIndex': 0, 'tabIndex': e.id});
                       },
                       child: Container(
                         width: width,

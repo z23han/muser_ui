@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'dart:collection';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import './music/music.dart';
 import './instruction/instruction.dart';
@@ -21,23 +22,34 @@ class MusicBase extends StatefulWidget {
 class _MusicBaseState extends State<MusicBase> {
   int _currentIndex = 0;
   int isLanding = 1;
-  final List<Widget> _children = [
-    MusicScreen(),
-    InstructionScreen(),
-    StoryScreen(),
-    MyAccountScreen()
-  ];
+  int _tabIndex = 0;
+  HashMap<int, List<Widget>> _children = HashMap();
+
+  // final List<Widget> _childrenf = [
+  //   MusicScreen(),
+  //   InstructionScreen(),
+  //   StoryScreen(),
+  //   MyAccountScreen()
+  // ];
   Map data = {};
+
+  void _populateChildrenMap() {
+    _children.putIfAbsent(0, () => [MusicScreen()]);
+    _children.putIfAbsent(1,
+        () => [InstructionScreen(tabIndex: 0), InstructionScreen(tabIndex: 1)]);
+    _children.putIfAbsent(2, () => [StoryScreen()]);
+    _children.putIfAbsent(3, () => [MyAccountScreen()]);
+  }
 
   @override
   Widget build(BuildContext context) {
     // Temporarily used to set auth_token to default value.
     getIt<FlutterSecureStorage>().delete(key: 'auth_token');
-
-    // TODO: get user data retrieved from database besides the page index
+    _populateChildrenMap();
     data = data.isNotEmpty ? data : ModalRoute.of(context).settings.arguments;
     if (isLanding > 0) {
       _currentIndex = data['pageIndex'];
+      _tabIndex = data['tabIndex'] ?? 0;
       isLanding--;
     }
 
@@ -63,7 +75,7 @@ class _MusicBaseState extends State<MusicBase> {
           ),
         ),
         backgroundColor: Theme.of(context).primaryColor,
-        body: _children[_currentIndex],
+        body: _children[_currentIndex][_tabIndex],
         bottomNavigationBar: _buildBottomNavBar());
   }
 
