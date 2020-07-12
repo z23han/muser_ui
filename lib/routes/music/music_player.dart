@@ -96,10 +96,16 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
 
     if (this.musicService.audioPlayer != null) {
 
-      int duration = await Future.delayed(
-        Duration(seconds: 1), () => this.musicService.audioPlayer.getDuration()
-      );
-    
+      int duration;
+
+      while (duration == null) {
+        
+        duration = await Future.delayed(
+          Duration(seconds: 1), () => this.musicService.audioPlayer.getDuration()
+
+        );
+      }
+
       this._maxPosition = duration.toDouble();
 
       _updateSlider();
@@ -180,7 +186,7 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
           this._isPlaying = true;
 
         } else {
-          
+
           this._isPlaying = false;
         }
       });

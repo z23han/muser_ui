@@ -77,6 +77,8 @@ class MusicService {
     await audioPlayer.stop();
 
     await audioPlayer.dispose();
+
+    print('musicService audioPlayer is re-inited');
   }
 
   reInitCache() async {
@@ -86,6 +88,8 @@ class MusicService {
     audioCache = new AudioCache(prefix: "music/");
 
     await loadCache();
+
+    print('musicService audioCache is re-inited');
   }
   
   init() async {
@@ -180,7 +184,7 @@ class MusicService {
       this.duration = await Future.delayed(
         Duration(seconds: 1), () => audioPlayer.getDuration()
       );
-      
+
       print('music duration ${this.duration}');
     }
   }

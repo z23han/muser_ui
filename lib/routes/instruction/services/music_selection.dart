@@ -3,10 +3,12 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:muser_ui/managers/music_managers.dart';
 import 'package:muser_ui/models/music_object.dart';
+import 'package:muser_ui/services/music_service.dart';
 
 class MusicSelection extends StatefulWidget {
 
   final int musiclistCategoryId;
+
   const MusicSelection({this.musiclistCategoryId});
 
   @override
@@ -14,12 +16,82 @@ class MusicSelection extends StatefulWidget {
 }
 
 class _MusicSelectionState extends State<MusicSelection> {
+
   final MusicManager _musicManager = MusicManager();
+
   List<Music> _recommendationMusicList;
+
   Set<Music> selectedMusic = {};
-  PageController pageController =
-      PageController(initialPage: 0, viewportFraction: 0.6);
+
+  PageController pageController = PageController(initialPage: 0, viewportFraction: 0.6);
+
   HashMap<Music, bool> buttonPlayingChecks = new HashMap();
+
+  MusicService musicService = new MusicService();
+
+  Music currMusic;
+
+  void onPressMusicButton(Music music) async {
+    
+    // if the music is playing, just pause
+    if (buttonPlayingChecks[music] == false) {
+
+      await this.musicService.pause();
+
+    } else {
+
+      // we need to check the rest music button to be false if any
+      this.turnOffMusicButtons(music);
+
+      await this.onMusicServicePlay(music);
+    }
+  }
+
+  // this method is used for setting up musicService for playing/resuming music
+  onMusicServicePlay(Music music) async {
+
+    // if there's no current music, we need to play music
+    if (currMusic == null) {
+
+      currMusic = music;
+
+      // if there is no music in musicService, we need to initialize musicService
+      if (this.musicService.music == null) {
+
+        await this.musicService.initMusicService();
+      }
+
+      await this.musicService.reInitAudio();
+
+      await this.musicService.play(music.musicId);
+
+    } else {
+      
+      // if the current music is the same as new music, we resume playing
+      if (currMusic.musicId == music.musicId) {
+
+        await this.musicService.resume();
+      } 
+      // otherwise we reinit musicService audio and play music
+      else {
+        
+        currMusic = music;
+        
+        await this.musicService.reInitAudio();
+
+        await this.musicService.play(music.musicId);
+      }
+    }
+  }
+
+  void turnOffMusicButtons(Music music) {
+
+    this.buttonPlayingChecks.forEach((Music k, bool v) => {
+      if (k.musicId != music.musicId) {
+        this.buttonPlayingChecks[k] = false
+      }
+    });
+  }
 
   void _populateMusicMap() {
     _recommendationMusicList =
@@ -113,15 +185,17 @@ class _MusicSelectionState extends State<MusicSelection> {
           child: Container(
             decoration: BoxDecoration(
                 color: Colors.white,
-                border: Border.all(width: 2, color: Color(0xff343434)),
+                border: Border.all(width: 2, color: Colors.white),
                 borderRadius: BorderRadius.all(Radius.circular(8)),
                 boxShadow: [
                   BoxShadow(
-                      color: Color(0xff343434).withOpacity(0.2),
+                      color: Colors.black.withOpacity(0.1),
                       spreadRadius: 2,
-                      blurRadius: 2,
-                      offset: Offset(5, 5))
-                ]),
+                      blurRadius: 3,
+                      offset: Offset(1, 3)
+                  )
+                ]
+            ),
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: Column(
@@ -140,14 +214,18 @@ class _MusicSelectionState extends State<MusicSelection> {
                           child: IconButton(
                         icon: Icon(
                             !this.buttonPlayingChecks[music]
-                                ? Icons.play_circle_outline
-                                : Icons.pause_circle_outline,
+                                ? Icons.play_circle_filled
+                                : Icons.pause_circle_filled,
                             size: 34,
                             color: Colors.white.withOpacity(0.6)),
                         onPressed: () {
                           if (mounted) {
                             setState(() {
+
                               this.buttonPlayingChecks[music] = !this.buttonPlayingChecks[music];
+
+                              onPressMusicButton(music);
+                              
                             });
                           }
                         },
