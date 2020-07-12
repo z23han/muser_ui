@@ -1,10 +1,14 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:muser_ui/managers/music_managers.dart';
 import 'package:muser_ui/models/music_object.dart';
 
 class MusicSelection extends StatefulWidget {
+
   final int musiclistCategoryId;
   const MusicSelection({this.musiclistCategoryId});
+
   @override
   _MusicSelectionState createState() => _MusicSelectionState();
 }
@@ -15,11 +19,17 @@ class _MusicSelectionState extends State<MusicSelection> {
   Set<Music> selectedMusic = {};
   PageController pageController =
       PageController(initialPage: 0, viewportFraction: 0.6);
-  bool isPlaying = false;
+  HashMap<Music, bool> buttonPlayingChecks = new HashMap();
 
   void _populateMusicMap() {
     _recommendationMusicList =
         this._musicManager.getRecommendationMusic(widget.musiclistCategoryId);
+  }
+
+  void _initButtonChecks() {
+    for (Music music in this._recommendationMusicList) {
+      this.buttonPlayingChecks.putIfAbsent(music, () => false);
+    }
   }
 
   @override
@@ -28,7 +38,11 @@ class _MusicSelectionState extends State<MusicSelection> {
   }
 
   Stack _buildMusicSelection() {
+
     _populateMusicMap();
+
+    _initButtonChecks();
+
     return Stack(
       children: <Widget>[
         _buildMusicSelectionPageView(),
@@ -76,9 +90,11 @@ class _MusicSelectionState extends State<MusicSelection> {
   }
 
   GestureDetector _buildPageViewItem(Music music, int index) {
+
     final Size size = MediaQuery.of(context).size;
     final double coverSize = size.width * 0.5 - 20 * 2 - 15 * 2;
     bool active = selectedMusic.contains(music);
+
     return GestureDetector(
         onTap: () {
           setState(() {
@@ -123,18 +139,24 @@ class _MusicSelectionState extends State<MusicSelection> {
                       Center(
                           child: IconButton(
                         icon: Icon(
-                            !isPlaying
+                            !this.buttonPlayingChecks[music]
                                 ? Icons.play_circle_outline
                                 : Icons.pause_circle_outline,
                             size: 34,
                             color: Colors.white.withOpacity(0.6)),
-                        onPressed: () {},
+                        onPressed: () {
+                          if (mounted) {
+                            setState(() {
+                              this.buttonPlayingChecks[music] = !this.buttonPlayingChecks[music];
+                            });
+                          }
+                        },
                       ))
                     ]),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
-                    child: Text(music.name,
+                    child: Text(music.name.length <= 14 ? music.name : music.name.substring(0, 12) + "..",
                         style: Theme.of(context).textTheme.headline5.copyWith(
                             fontSize: 20, fontWeight: FontWeight.bold)),
                   ),
