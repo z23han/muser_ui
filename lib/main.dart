@@ -39,9 +39,9 @@ void main() {
             button: TextStyle(color: Colors.white, fontSize: 16))),
     initialRoute: '/',
     routes: {
-      '/': (context) => Home(),
+      '/home': (context) => Home(),
       '/musicBase': (context) => MusicBase(),
-      '/loader': (context) => Loader(),
+      '/': (context) => Loader(),
       '/signin': (context) => SignIn(),
       '/signup': (context) => SignUp(),
       '/setting': (context) => Setting(),

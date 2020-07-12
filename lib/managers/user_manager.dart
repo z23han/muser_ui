@@ -29,15 +29,29 @@ class UserManager {
       },
       body: jsonEncode(resBody),
     );
-    print("received response");
 
     if (response.statusCode == 200) {
       Map<String, dynamic> responseMap = json.decode(response.body);
       await getIt<FlutterSecureStorage>().write(key: 'auth_token', value: responseMap['token']);
+      User u = convertDynamic2User(responseMap['user']);
+      await getIt<FlutterSecureStorage>().write(key: 'user', value: jsonEncode(u));
       return true;
     } else {
       return false;
     }
+  }
+
+  static User convertDynamic2User(dynamic d) {
+    String name = d['name'];
+    String password = d['password'];
+    String age = d['age'];
+    String gender = d['gender'];
+    String city = d['city'];
+    String phone = d['phone'];
+    bool isConsented = true;
+
+    User res = User(name, password, gender, age, phone, city, isConsented);
+    return res;
   }
 
   static Future<bool> validateToken() async {
@@ -53,6 +67,9 @@ class UserManager {
     );
 
     if (response.statusCode == 200) {
+      Map<String, dynamic> responseMap = json.decode(response.body);
+      User u = convertDynamic2User(responseMap['user']);
+      await getIt<FlutterSecureStorage>().write(key: 'user', value: jsonEncode(u));
       return true;
     } else {
       return false;
@@ -74,5 +91,12 @@ class UserManager {
     } else {
       return false;
     }
+  }
+
+  static Future<User> getUserFromStorage() async {
+    String userString = await getIt<FlutterSecureStorage>().read(key: 'user');
+    Map userMap = jsonDecode(userString);
+    User res = User.fromJson(userMap);
+    return res;
   }
 }
