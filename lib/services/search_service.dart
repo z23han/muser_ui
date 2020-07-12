@@ -5,21 +5,16 @@ import 'package:muser_ui/routes/music/music_player.dart';
 
 class DataSearch extends SearchDelegate<String> {
   DataSearch() : super(searchFieldLabel: '搜索慕斯');
-  
-  final searchSuggestionList = [
-    'search suggestion1',
-    'search suggestion2',
-    'search suggestion3',
-    'search suggestion4',
-    'search suggestion5',
-    'search suggestion6',
-    'search suggestion7',
-    'search suggestion8',
-    'search suggestion9',
-  ];
 
   static MusicManager _musicManager = new MusicManager();
   final matchResultsList = _musicManager.nameToId.keys;
+  final searchSuggestionList = [
+    'BBQ song',
+    'Everybody has a Name',
+    'Feelings',
+    'Goodbye My Friend',
+    'Hello And Welcome'
+  ];
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -59,8 +54,11 @@ class DataSearch extends SearchDelegate<String> {
     final searchingDisplayList = query.isEmpty
         ? searchSuggestionList
         : matchResultsList.where((p) => p.startsWith(query)).toList();
-    return ListView.builder(
+    return ListView.separated(
         itemCount: searchingDisplayList.length,
+        separatorBuilder: (context, index) {
+          return Divider();
+        },
         itemBuilder: (context, index) => Padding(
               padding: const EdgeInsets.fromLTRB(25, 20, 30, 20),
               child : GestureDetector(
@@ -73,11 +71,32 @@ class DataSearch extends SearchDelegate<String> {
                 child: Row(
                   children: <Widget>[
                     Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 0, 40, 0),
-                        child: Text('$index',
-                            style: Theme.of(context).textTheme.headline5.copyWith(
-                                fontSize: 16, fontWeight: FontWeight.bold))),
-                    RichText(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 40, 0),
+                      child: Icon(Icons.music_note)
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+                      child: Container(
+                        height: 60,
+                        width: 60,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(5),
+                          ),
+                          image: DecorationImage(image: 
+                            AssetImage(
+                              _musicManager.musicMap[_musicManager.nameToId[searchingDisplayList[index]]].image
+                            ), 
+                            fit: BoxFit.cover
+                          )
+                        ),
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        RichText(
                         text: TextSpan(
                             text: searchingDisplayList[index]
                                 .substring(0, query.length),
@@ -93,6 +112,20 @@ class DataSearch extends SearchDelegate<String> {
                                   .headline5
                                   .copyWith(fontSize: 16))
                         ])),
+                        Padding(
+                          padding: EdgeInsets.only(top: 10),
+                          child: Text(
+                            _musicManager.musicMap[_musicManager.nameToId[searchingDisplayList[index]]].writer,
+                            style: Theme.of(context)
+                                    .textTheme
+                                    .headline2
+                                    .copyWith(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.normal)
+                          ),
+                        )
+                      ],
+                    )
                   ],
                 )
               ),

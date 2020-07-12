@@ -99,4 +99,9 @@ class UserManager {
     User res = User.fromJson(userMap);
     return res;
   }
+
+  static void removeUserToken() async{
+    await getIt<FlutterSecureStorage>().delete(key: 'user');
+    await getIt<FlutterSecureStorage>().delete(key: 'auth_token');
+  }
 }
