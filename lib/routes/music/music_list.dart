@@ -28,7 +28,7 @@ class _MusicListScreenState extends State<MusicListScreen> {
 
   List<Widget> _getRecommendationMusicList() {
     final Size size = MediaQuery.of(context).size;
-    final blockHeight = size.width * (154 / 360);
+    final blockHeight = size.width * (140 / 360);
     final blockWidth = size.width * (105 / 360);
     final imageHeight = size.width * (105 / 360);
     final imageWidth = imageHeight;
@@ -36,23 +36,35 @@ class _MusicListScreenState extends State<MusicListScreen> {
     List<InkWell> musicBlocks = new List();
     for (Music music in this._recommendationMusicList) {
       InkWell block = new InkWell(
-        child: Container(
-          width: blockWidth,
-          height: blockHeight,
-          child: Padding(
-            padding: EdgeInsets.all(0.0),
+        child: Padding(
+          padding: EdgeInsets.only(right: 15),
+          child: Container(
+            width: blockWidth,
+            height: blockHeight,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
                   height: imageHeight,
                   width: imageWidth,
                   decoration: BoxDecoration(
-                      image: DecorationImage(image: AssetImage(music.image))),
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                    image: DecorationImage(image: AssetImage(music.image), fit: BoxFit.cover)
+                  ),
                 ),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[Text(music.name), Text(music.writer)],
+                    children: <Widget>[
+                      Text(music.name,
+                        style: Theme.of(context).textTheme.headline5.copyWith(
+                            fontSize: 16)
+                      ), 
+                      Text(music.writer,
+                        style: Theme.of(context).textTheme.headline2.copyWith(
+                            fontSize: 14),
+                      )
+                    ],
                   ),
                 ),
               ],
@@ -76,12 +88,19 @@ class _MusicListScreenState extends State<MusicListScreen> {
     final Size size = MediaQuery.of(context).size;
     final double width = size.width * (42 / 360);
     final double height = width;
+    final double playIconWidth = size.width * (26 / 360);
 
     List<InkWell> musicBlocks = new List();
     for (Music music in this._musicList) {
       InkWell block = new InkWell(
         child: Container(
-          color: Colors.grey[300],
+          decoration: BoxDecoration(
+            border: Border(
+              bottom: BorderSide( //                   <--- left side
+                color: Color(0xffe8e8e8),
+                width: 0.5,
+              ),
+            )),
           child: Padding(
             padding: const EdgeInsets.all(15.0),
             child: Row(
@@ -93,7 +112,7 @@ class _MusicListScreenState extends State<MusicListScreen> {
                       borderRadius: BorderRadius.all(
                         Radius.circular(5),
                       ),
-                      image: DecorationImage(image: AssetImage(music.image))),
+                      image: DecorationImage(image: AssetImage(music.image), fit: BoxFit.cover)),
                 ),
                 SizedBox(
                   width: 12,
@@ -101,27 +120,40 @@ class _MusicListScreenState extends State<MusicListScreen> {
                 Expanded(
                   child: Wrap(direction: Axis.vertical, children: <Widget>[
                     RichText(
-                        text: TextSpan(
-                            text: music.name,
+                      text: TextSpan(
+                          text: music.name,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline5
+                              .copyWith(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                          children: [
+                        TextSpan(
+                            text: '    ${music.writer}',
                             style: Theme.of(context)
                                 .textTheme
                                 .headline5
                                 .copyWith(
-                                    fontSize: 16, fontWeight: FontWeight.bold),
-                            children: [
-                          TextSpan(
-                              text: '  ${music.writer}',
-                              style: Theme.of(context)
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal))
+                      ])
+                    ),
+                    SizedBox(height: 5,),
+                    Text('#' + music.tag, 
+                      style: Theme.of(context)
                                   .textTheme
-                                  .headline5
+                                  .headline2
                                   .copyWith(
                                       fontSize: 12,
-                                      fontWeight: FontWeight.normal))
-                        ])),
-                    Text('#' + music.tag),
+                                      fontWeight: FontWeight.normal)
+                    ),
                   ]),
                 ),
-                Icon(FontAwesomeIcons.play)
+                Image(
+                  image: AssetImage('assets/play.png'),
+                  width: playIconWidth,
+                  height: playIconWidth,
+                )
               ],
             ),
           ),
@@ -153,13 +185,14 @@ class _MusicListScreenState extends State<MusicListScreen> {
               padding: EdgeInsets.only(
                   left: 28.0, right: 28.0, top: 15.0, bottom: 15.0),
               child: Text(
-                'Recommanded Songs',
-                style: TextStyle(color: Colors.black, fontSize: 16),
+                '推荐歌单',
+                style: Theme.of(context).textTheme.headline5.copyWith(
+                            fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
             Container(
                 padding: EdgeInsets.only(
-                    left: 28.0, right: 28.0, top: 15.0, bottom: 15.0),
+                    left: 28.0, right: 0.0, top: 15.0, bottom: 15.0),
                 child: SingleChildScrollView(
                   physics: BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,

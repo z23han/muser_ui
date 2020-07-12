@@ -97,15 +97,17 @@ class _MusicSelectionState extends State<MusicSelection> {
           child: Container(
             decoration: BoxDecoration(
                 color: Colors.white,
-                border: Border.all(width: 2, color: Color(0xff343434)),
+                border: Border.all(width: 2, color: Colors.white),
                 borderRadius: BorderRadius.all(Radius.circular(8)),
                 boxShadow: [
                   BoxShadow(
-                      color: Color(0xff343434).withOpacity(0.2),
+                      color: Colors.black.withOpacity(0.1),
                       spreadRadius: 2,
-                      blurRadius: 2,
-                      offset: Offset(5, 5))
-                ]),
+                      blurRadius: 3,
+                      offset: Offset(1, 3)
+                  )
+                ]
+            ),
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: Column(
@@ -124,10 +126,10 @@ class _MusicSelectionState extends State<MusicSelection> {
                           child: IconButton(
                         icon: Icon(
                             !isPlaying
-                                ? Icons.play_circle_outline
-                                : Icons.pause_circle_outline,
+                                ? Icons.play_circle_filled
+                                : Icons.pause_circle_filled,
                             size: 34,
-                            color: Colors.white.withOpacity(0.6)),
+                            color: Colors.white),
                         onPressed: () {},
                       ))
                     ]),
