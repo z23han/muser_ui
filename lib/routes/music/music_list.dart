@@ -190,40 +190,38 @@ class _MusicListScreenState extends State<MusicListScreen> {
     _populateMusicMap();
 
     return Scaffold(
-      body: Padding(
+      body: ListView(
+        physics: BouncingScrollPhysics(),
         padding: EdgeInsets.all(0),
-        child: ListView(
-          padding: EdgeInsets.all(0),
-          children: <Widget>[
-            Padding(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(
+                left: 28.0, right: 28.0, top: 15.0, bottom: 15.0),
+            child: Text(
+              '推荐歌单',
+              style: Theme.of(context)
+                  .textTheme
+                  .headline5
+                  .copyWith(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          ),
+          Container(
+              padding: EdgeInsets.only(
+                  left: 28.0, right: 0.0, top: 15.0, bottom: 15.0),
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: _getRecommendationMusicList(),
+                ),
+              )),
+          Container(
               padding: EdgeInsets.only(
                   left: 28.0, right: 28.0, top: 15.0, bottom: 15.0),
-              child: Text(
-                '推荐歌单',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline5
-                    .copyWith(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ),
-            Container(
-                padding: EdgeInsets.only(
-                    left: 28.0, right: 0.0, top: 15.0, bottom: 15.0),
-                child: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: _getRecommendationMusicList(),
-                  ),
-                )),
-            Container(
-                padding: EdgeInsets.only(
-                    left: 28.0, right: 28.0, top: 15.0, bottom: 15.0),
-                child: Column(
-                  children: _getAllMusicList(context),
-                )),
-          ],
-        ),
+              child: Column(
+                children: _getAllMusicList(context),
+              )),
+        ],
       ),
     );
   }
