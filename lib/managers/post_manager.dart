@@ -16,35 +16,35 @@ class PostManager {
         themeId: 0,
         postContent: '音悦在一起，武汉项目启动',
         postImage: 'post_image_nike.png',
-        postDateTime: '2020-07-02T22:02');
+        postDateTime: '2020-07-12T09:02');
     StoryPost post_01 = StoryPost(
         username: '慕斯小助手',
         tag: '慕斯动态',
         themeId: 0,
         postContent: '慕斯故事功能正在测试中，启用后将能够看到更多 #慕斯动态 主题的故事，敬请期待！',
         postImage: 'post_image.png',
-        postDateTime: '2020-07-02T22:00');
+        postDateTime: '2020-07-12T09:00');
     StoryPost post_10 = StoryPost(
         username: '慕斯小助手',
         tag: '慕斯动态',
         themeId: 1,
         postContent: '慕斯故事功能正在测试中，启用后将能够看到更多 #音乐与健康 主题的故事，敬请期待！',
         postImage: 'post_image.png',
-        postDateTime: '2020-07-02T22:00');
+        postDateTime: '2020-07-12T09:00');
     StoryPost post_20 = StoryPost(
         username: '慕斯小助手',
         tag: '慕斯动态',
         themeId: 2,
         postContent: '慕斯故事功能正在测试中，启用后将能够看到更多 #志愿者 主题的故事，敬请期待！',
         postImage: 'post_image.png',
-        postDateTime: '2020-07-02T22:00');
+        postDateTime: '2020-07-12T09:00');
     StoryPost post_30 = StoryPost(
         username: '慕斯小助手',
         tag: '慕斯动态',
         themeId: 3,
         postContent: '慕斯故事功能正在测试中，启用后将能够看到更多 #音乐治疗研究 主题的故事，敬请期待！',
         postImage: 'post_image.png',
-        postDateTime: '2020-07-02T22:00');
+        postDateTime: '2020-07-12T09:00');
 
     List<StoryPost> _postlist_0 = List();
     List<StoryPost> _postlist_1 = List();

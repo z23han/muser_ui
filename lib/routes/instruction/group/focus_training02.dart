@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:muser_ui/routes/instruction/group/focus_training01.dart';
+import 'package:muser_ui/routes/instruction/group/focus_training03.dart';
 
 class FocusTraining02 extends StatelessWidget {
   @override
@@ -76,8 +78,10 @@ class FocusTraining02 extends StatelessWidget {
               children: <Widget>[
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushReplacementNamed(
-                        context, '/instruction/focusTraining01');
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => FocusTraining01()));
                   },
                   child: Image(
                     image: AssetImage('assets/backward.png'),
@@ -87,8 +91,10 @@ class FocusTraining02 extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushReplacementNamed(
-                        context, '/instruction/focusTraining03');
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => FocusTraining03()));
                   },
                   child: Image(
                     image: AssetImage('assets/forward.png'),

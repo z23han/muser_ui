@@ -18,43 +18,47 @@ class DataSearch extends SearchDelegate<String> {
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
-      FlatButton(
+      IconButton(
+          icon: Icon(Icons.clear, size: 24),
           onPressed: () {
-            close(context, null);
-          },
-          child: Text('取消',
-              style:
-                  Theme.of(context).textTheme.headline5.copyWith(fontSize: 20)))
+            query = '';
+          })
     ];
   }
 
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-        icon: Icon(Icons.clear),
         onPressed: () {
-          query = '';
-        });
+          close(context, null);
+        },
+        icon: Icon(Icons.arrow_back,
+            size: 24, color: Theme.of(context).buttonColor));
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    // TODO: implement buildResults
-    return Center(
-        child: FlatButton(
-            child: Text('返回'),
-            onPressed: () {
-              close(context, null);
-            }));
+    final searchingDisplayList = query.isEmpty
+        ? []
+        : matchResultsList
+            .where((p) => p.toLowerCase().startsWith(query.toLowerCase()))
+            .toList();
+    return _buildSearchDisplayList(searchingDisplayList);
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
     final searchingDisplayList = query.isEmpty
         ? searchSuggestionList
-        : matchResultsList.where((p) => p.startsWith(query)).toList();
+        : matchResultsList
+            .where((p) => p.toLowerCase().startsWith(query.toLowerCase()))
+            .toList();
+    return _buildSearchDisplayList(searchingDisplayList);
+  }
+
+  Widget _buildSearchDisplayList(List displayList) {
     return ListView.separated(
-        itemCount: searchingDisplayList.length,
+        itemCount: displayList.length,
         separatorBuilder: (context, index) {
           return Divider();
         },
@@ -62,12 +66,12 @@ class DataSearch extends SearchDelegate<String> {
               padding: const EdgeInsets.fromLTRB(25, 20, 30, 20),
               child: GestureDetector(
                   onTap: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) => MusicPlayerScreen(
                                 music: _musicManager.musicMap[_musicManager
-                                    .nameToId[searchingDisplayList[index]]])));
+                                    .nameToId[displayList[index]]])));
                   },
                   child: Row(
                     children: <Widget>[
@@ -85,8 +89,8 @@ class DataSearch extends SearchDelegate<String> {
                               ),
                               image: DecorationImage(
                                   image: AssetImage(_musicManager
-                                      .musicMap[_musicManager.nameToId[
-                                          searchingDisplayList[index]]]
+                                      .musicMap[_musicManager
+                                          .nameToId[displayList[index]]]
                                       .image),
                                   fit: BoxFit.cover)),
                         ),
@@ -97,14 +101,14 @@ class DataSearch extends SearchDelegate<String> {
                         children: <Widget>[
                           RichText(
                               text: TextSpan(
-                                  text: searchingDisplayList[index]
+                                  text: displayList[index]
                                       .substring(0, query.length),
                                   style: TextStyle(
                                       color: Theme.of(context).accentColor,
                                       fontSize: 16),
                                   children: [
                                 TextSpan(
-                                    text: searchingDisplayList[index]
+                                    text: displayList[index]
                                         .substring(query.length),
                                     style: Theme.of(context)
                                         .textTheme
@@ -116,7 +120,7 @@ class DataSearch extends SearchDelegate<String> {
                             child: Text(
                                 _musicManager
                                     .musicMap[_musicManager
-                                        .nameToId[searchingDisplayList[index]]]
+                                        .nameToId[displayList[index]]]
                                     .writer,
                                 style: Theme.of(context)
                                     .textTheme

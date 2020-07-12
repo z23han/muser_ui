@@ -19,13 +19,17 @@ class _SignUpState extends State<SignUp> {
   bool isConsented = true;
 
   Future<void> signUp(BuildContext context) async {
-    String name = _usernameController.text;
+    String name = _usernameController.text.trim();
     String password = _passwordController.text;
-    String age = _ageController.text;
-    String city = _cityController.text;
-    String phone = _phoneController.text;
-  
-    if (name.isEmpty || password.isEmpty || age.isEmpty || city.isEmpty || phone.isEmpty){
+    String age = _ageController.text.trim();
+    String city = _cityController.text.trim();
+    String phone = _phoneController.text.trim();
+
+    if (name.isEmpty ||
+        password.isEmpty ||
+        age.isEmpty ||
+        city.isEmpty ||
+        phone.isEmpty) {
       return showDialog<void>(
         context: context,
         builder: (BuildContext context) {
@@ -45,8 +49,11 @@ class _SignUpState extends State<SignUp> {
       );
     }
 
-    if (phone.length != 11 || double.tryParse(phone) == null || double.tryParse(age) == null
-      || double.tryParse(age) <= 0 || double.tryParse(age) >= 150) {
+    if (phone.length != 11 ||
+        double.tryParse(phone) == null ||
+        double.tryParse(age) == null ||
+        double.tryParse(age) <= 0 ||
+        double.tryParse(age) >= 150) {
       return showDialog<void>(
         context: context,
         builder: (BuildContext context) {
@@ -65,12 +72,12 @@ class _SignUpState extends State<SignUp> {
         },
       );
     }
-    
+
     String gender = 'm';
     if (_gender == Gender.female) {
       gender = 'f';
     }
-  
+
     User newUser = User(name, password, gender, age, phone, city, isConsented);
     bool checker = await UserManager.register(newUser);
     if (checker) {
@@ -116,175 +123,174 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        padding: EdgeInsets.only(left: 28.0, right: 28.0, top: 108.0, bottom: 68.0),
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(bottom: 68.0),
-            child: Text(
-              "慕斯 (Muser) 个人信息注册",
-              style: TextStyle(color: Colors.grey[800], fontSize: 20),
-            ),
+        body: ListView(
+      padding:
+          EdgeInsets.only(left: 28.0, right: 28.0, top: 108.0, bottom: 68.0),
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(bottom: 68.0),
+          child: Text(
+            "慕斯 (Muser) 个人信息注册",
+            style: TextStyle(color: Colors.grey[800], fontSize: 20),
           ),
-          Padding(
+        ),
+        Padding(
             padding: EdgeInsets.only(bottom: 18.0),
             child: Row(
               children: <Widget>[
                 Expanded(
-                  flex: 5,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Text(
-                        "用户名",
-                        style: TextStyle(fontSize: 12, color: Colors.grey[600]),
-                      ),
-                      SizedBox(height: 10),
-                      TextFormField(
-                        controller: _usernameController,
-                        decoration: InputDecoration(
-                          floatingLabelBehavior: FloatingLabelBehavior.never,
-                          isDense: true,
-                          contentPadding: EdgeInsets.only(bottom: 0),
-                          border: InputBorder.none,
+                    flex: 5,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Text(
+                          "用户名",
+                          style:
+                              TextStyle(fontSize: 12, color: Colors.grey[600]),
                         ),
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          color: Color(0xff343434),       
+                        SizedBox(height: 10),
+                        TextFormField(
+                          controller: _usernameController,
+                          decoration: InputDecoration(
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                            isDense: true,
+                            contentPadding: EdgeInsets.only(bottom: 0),
+                            border: InputBorder.none,
+                          ),
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            color: Color(0xff343434),
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 5),
-                      Divider(
-                        color: Color(0xff343434),
-                        height: 0.5,
-                        thickness: 0.5,
-                        indent: 0,
-                        endIndent: 0,
-                      ),
-                    ],
-                  )
-                ),
+                        SizedBox(height: 5),
+                        Divider(
+                          color: Color(0xff343434),
+                          height: 0.5,
+                          thickness: 0.5,
+                          indent: 0,
+                          endIndent: 0,
+                        ),
+                      ],
+                    )),
                 Spacer(flex: 1),
                 Expanded(
-                  flex: 5,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        '密码',
-                        style: TextStyle(fontSize: 12, color: Colors.grey[600]),
-                      ),
-                      SizedBox(height: 10),
-                      TextFormField(
-                        controller: _passwordController,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          floatingLabelBehavior: FloatingLabelBehavior.never,
-                          isDense: true,
-                          contentPadding: EdgeInsets.only(bottom: 0),
-                          border: InputBorder.none,
+                    flex: 5,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          '密码',
+                          style:
+                              TextStyle(fontSize: 12, color: Colors.grey[600]),
                         ),
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          color: Colors.grey[700],            
+                        SizedBox(height: 10),
+                        TextFormField(
+                          controller: _passwordController,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                            isDense: true,
+                            contentPadding: EdgeInsets.only(bottom: 0),
+                            border: InputBorder.none,
+                          ),
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.grey[700],
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 5),
-                      Divider(
-                        color: Color(0xff343434),
-                        height: 0.5,
-                        thickness: 0.5,
-                        indent: 0,
-                        endIndent: 0,
-                      ),
-                    ],
-                  )
-                ),
+                        SizedBox(height: 5),
+                        Divider(
+                          color: Color(0xff343434),
+                          height: 0.5,
+                          thickness: 0.5,
+                          indent: 0,
+                          endIndent: 0,
+                        ),
+                      ],
+                    )),
               ],
-            )
-          ),
-          Padding(
+            )),
+        Padding(
             padding: EdgeInsets.only(bottom: 18.0),
             child: Row(
               children: <Widget>[
                 Expanded(
-                  flex: 5,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        "男",
-                        style: TextStyle(color: Colors.grey[600], fontSize: 14),
-                      ),
-                      Radio(
-                        value: Gender.male,
-                        activeColor: Theme.of(context).accentColor,
-                        focusColor: Theme.of(context).accentColor,
-                        groupValue: _gender,
-                        onChanged: (Gender value) {
-                          setState(() {
-                            _gender = value;
-                          });
-                        },
-                      ),
-                      Text(
-                        "女",
-                        style: TextStyle(color: Colors.grey[600], fontSize: 14),
-                      ),
-                      Radio(
-                        value: Gender.female,
-                        groupValue: _gender,
-                        onChanged: (Gender value) {
-                          setState(() {
-                            _gender = value;
-                          });
-                        },
-                      ),
-                    ]
-                  )
-                ),
+                    flex: 5,
+                    child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            "男",
+                            style: TextStyle(
+                                color: Colors.grey[600], fontSize: 14),
+                          ),
+                          Radio(
+                            value: Gender.male,
+                            activeColor: Theme.of(context).accentColor,
+                            focusColor: Theme.of(context).accentColor,
+                            groupValue: _gender,
+                            onChanged: (Gender value) {
+                              setState(() {
+                                _gender = value;
+                              });
+                            },
+                          ),
+                          Text(
+                            "女",
+                            style: TextStyle(
+                                color: Colors.grey[600], fontSize: 14),
+                          ),
+                          Radio(
+                            value: Gender.female,
+                            groupValue: _gender,
+                            onChanged: (Gender value) {
+                              setState(() {
+                                _gender = value;
+                              });
+                            },
+                          ),
+                        ])),
                 Spacer(flex: 1),
                 Expanded(
-                  flex: 5,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        '年龄',
-                        style: TextStyle(fontSize: 12, color: Colors.grey[600]),
-                      ),
-                      SizedBox(height: 10),
-                      TextFormField(
-                        controller: _ageController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          floatingLabelBehavior: FloatingLabelBehavior.never,
-                          isDense: true,
-                          contentPadding: EdgeInsets.only(bottom: 0),
-                          border: InputBorder.none,
+                    flex: 5,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          '年龄',
+                          style:
+                              TextStyle(fontSize: 12, color: Colors.grey[600]),
                         ),
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          color: Colors.grey[700],            
+                        SizedBox(height: 10),
+                        TextFormField(
+                          controller: _ageController,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                            isDense: true,
+                            contentPadding: EdgeInsets.only(bottom: 0),
+                            border: InputBorder.none,
+                          ),
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.grey[700],
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 5),
-                      Divider(
-                        color: Color(0xff343434),
-                        height: 0.5,
-                        thickness: 0.5,
-                        indent: 0,
-                        endIndent: 0,
-                      ),
-                    ],
-                  )
-                ),
+                        SizedBox(height: 5),
+                        Divider(
+                          color: Color(0xff343434),
+                          height: 0.5,
+                          thickness: 0.5,
+                          indent: 0,
+                          endIndent: 0,
+                        ),
+                      ],
+                    )),
               ],
-            )
-          ),
-          Padding(
+            )),
+        Padding(
             padding: EdgeInsets.only(bottom: 18.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -305,7 +311,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                   style: TextStyle(
                     fontSize: 16.0,
-                    color: Colors.grey[700],            
+                    color: Colors.grey[700],
                   ),
                 ),
                 SizedBox(height: 5),
@@ -317,76 +323,84 @@ class _SignUpState extends State<SignUp> {
                   endIndent: 0,
                 ),
               ],
-            )
-          ),
-          Padding(
+            )),
+        Padding(
             padding: EdgeInsets.only(bottom: 68.0),
             child: Row(
               children: <Widget>[
                 Expanded(
+                    flex: 5,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          '城市',
+                          style:
+                              TextStyle(fontSize: 12, color: Colors.grey[600]),
+                        ),
+                        SizedBox(height: 10),
+                        TextFormField(
+                          controller: _cityController,
+                          decoration: InputDecoration(
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                            isDense: true,
+                            contentPadding: EdgeInsets.only(bottom: 0),
+                            border: InputBorder.none,
+                          ),
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.grey[700],
+                          ),
+                        ),
+                        SizedBox(height: 5),
+                        Divider(
+                          color: Color(0xff343434),
+                          height: 0.5,
+                          thickness: 0.5,
+                          indent: 0,
+                          endIndent: 0,
+                        ),
+                      ],
+                    )),
+                Spacer(
+                  flex: 1,
+                ),
+                Spacer(
                   flex: 5,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        '城市',
-                        style: TextStyle(fontSize: 12, color: Colors.grey[600]),
-                      ),
-                      SizedBox(height: 10),
-                      TextFormField(
-                        controller: _cityController,
-                        decoration: InputDecoration(
-                          floatingLabelBehavior: FloatingLabelBehavior.never,
-                          isDense: true,
-                          contentPadding: EdgeInsets.only(bottom: 0),
-                          border: InputBorder.none,
-                        ),
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          color: Colors.grey[700],            
-                        ),
-                      ),
-                      SizedBox(height: 5),
-                      Divider(
-                        color: Color(0xff343434),
-                        height: 0.5,
-                        thickness: 0.5,
-                        indent: 0,
-                        endIndent: 0,
-                      ),
-                    ],
-                  )
                 ),
-                Spacer(flex: 1,),
-                Spacer(flex: 5,),
               ],
-            )
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Align(
-                alignment: Alignment.centerLeft,
-                child:GestureDetector(
-                  onTap: () {Navigator.pushNamed(context, '/signUpConsent');},
-                  child: Text('返回', style: TextStyle(fontSize: 18, color: Colors.grey[500], decoration: TextDecoration.underline,)),
-                ),
-              ),
-              FlatButton(
-                color: Theme.of(context).accentColor,
-                textColor: Colors.white,
-                splashColor: Theme.of(context).accentColor,
-                onPressed: () {
-                  signUp(context);
+            )),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Align(
+              alignment: Alignment.centerLeft,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/signUpConsent');
                 },
-                child: Text('完成', style: TextStyle(fontSize: 18)),
+                child: Text('返回',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.grey[500],
+                      decoration: TextDecoration.underline,
+                    )),
               ),
-            ],
-          ),
-        ],
-      )
-    );
+            ),
+            FlatButton(
+              color: Theme.of(context).accentColor,
+              textColor: Colors.white,
+              splashColor: Theme.of(context).accentColor,
+              onPressed: () {
+                signUp(context);
+              },
+              child: Text('完成', style: TextStyle(fontSize: 18)),
+            ),
+          ],
+        ),
+      ],
+    ));
   }
 }

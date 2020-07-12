@@ -1,10 +1,24 @@
 import 'package:flutter/material.dart';
+import 'dart:collection';
 import 'package:muser_ui/managers/user_manager.dart';
+import 'package:muser_ui/routes/about_muser.dart';
 
-class Setting extends StatelessWidget {
-  final List<String> settingButton = ['关于慕斯', '退出登录'];
+class Setting extends StatefulWidget {
+  @override
+  _SettingState createState() => _SettingState();
+}
+
+class _SettingState extends State<Setting> {
+  final List<String> buttonName = ['关于Muser', '退出登录'];
+  HashMap<int, Widget> buttonMap = HashMap();
+
+  void _populateMap() {
+    buttonMap.putIfAbsent(0, () => AboutMuser());
+  }
+
   @override
   Widget build(BuildContext context) {
+    _populateMap();
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: Colors.white,
@@ -25,10 +39,16 @@ class Setting extends StatelessWidget {
                 ])),
             titleSpacing: 0),
         body: ListView.builder(
-            itemCount: settingButton.length,
-            itemBuilder: (context, index) => index != settingButton.length - 1
+            itemCount: buttonName.length,
+            itemBuilder: (context, index) => index != buttonName.length - 1
                 ? ListTile(
-                    leading: Text(settingButton[index],
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => buttonMap[index]));
+                    },
+                    leading: Text(buttonName[index],
                         style: Theme.of(context)
                             .textTheme
                             .headline5
@@ -50,7 +70,7 @@ class Setting extends StatelessWidget {
                             },
                             color: Color.fromRGBO(0, 0, 0, 0.1),
                             child: Center(
-                              child: Text('退出登录',
+                              child: Text(buttonName[index],
                                   style: Theme.of(context)
                                       .textTheme
                                       .headline2

@@ -104,10 +104,8 @@ class _MusicSelectionState extends State<MusicSelection> {
                       color: Colors.black.withOpacity(0.1),
                       spreadRadius: 2,
                       blurRadius: 3,
-                      offset: Offset(1, 3)
-                  )
-                ]
-            ),
+                      offset: Offset(1, 3))
+                ]),
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: Column(
@@ -136,18 +134,28 @@ class _MusicSelectionState extends State<MusicSelection> {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
-                    child: Text(music.name,
+                    child: Text(
+                        music.name.length >= 12
+                            ? music.name.substring(0, 12) + '..'
+                            : music.name,
                         style: Theme.of(context).textTheme.headline5.copyWith(
                             fontSize: 20, fontWeight: FontWeight.bold)),
                   ),
-                  Text(music.writer,
+                  Text(
+                      music.writer.length >= 14
+                          ? music.writer.substring(0, 14) + '..'
+                          : music.writer,
                       style: Theme.of(context)
                           .textTheme
                           .headline2
                           .copyWith(fontSize: 16)),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
-                    child: Text('#' + music.tag,
+                    child: Text(
+                        '#' +
+                            (music.tag.length >= 18
+                                ? music.tag.substring(0, 18) + '..'
+                                : music.tag),
                         style: Theme.of(context)
                             .textTheme
                             .headline3

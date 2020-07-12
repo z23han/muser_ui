@@ -13,6 +13,7 @@ class _HomeState extends State<Home> {
   final MusicCategoryScroller musicCategoryScroller = MusicCategoryScroller();
   User user;
   String user_name = "";
+  String user_gender = "";
 
   @override
   void initState() {
@@ -20,6 +21,7 @@ class _HomeState extends State<Home> {
       setState(() {
         user = value;
         user_name = user.name;
+        user_gender = user.gender;
       });
     });
     super.initState();
@@ -128,7 +130,11 @@ class _HomeState extends State<Home> {
       },
       child: CircleAvatar(
           radius: size.width * (36 / 360),
-          backgroundImage: AssetImage('assets/avatar.png')),
+          backgroundImage: AssetImage(user_gender == 'm'
+              ? 'assets/avatar_male.png'
+              : user_gender == 'f'
+                  ? 'assets/avatar_female.png'
+                  : 'assets/avatar.png')),
     );
   }
 
@@ -145,7 +151,7 @@ class _HomeState extends State<Home> {
           direction: Axis.vertical,
           crossAxisAlignment: WrapCrossAlignment.start,
           children: <Widget>[
-            Text(type == 'Individual' ? '个人疗愈' : '小组疗愈',
+            Text(type == 'Individual' ? '疗愈指导 · 个人' : '疗愈指导 · 小组',
                 style: Theme.of(context)
                     .textTheme
                     .headline5

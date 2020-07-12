@@ -11,7 +11,7 @@ class _SignInState extends State<SignIn> {
   final TextEditingController _passwordController = TextEditingController();
 
   Future<void> login(BuildContext context) async {
-    var username = _usernameController.text;
+    var username = _usernameController.text.trim();
     var password = _passwordController.text;
     print('username: $username, password: $password');
     var checker = await UserManager.login(username, password);
@@ -77,7 +77,9 @@ class _SignInState extends State<SignIn> {
                   //             .textTheme
                   //             .headline3
                   //             .copyWith(fontSize: 16)))
-                  SizedBox(height: 16,)
+                  SizedBox(
+                    height: 16,
+                  )
                 ],
               ),
             ),

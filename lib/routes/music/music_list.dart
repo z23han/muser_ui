@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:muser_ui/managers/music_managers.dart';
 import 'package:muser_ui/routes/music/music_player.dart';
 import 'package:muser_ui/models/music_object.dart';
@@ -48,21 +47,30 @@ class _MusicListScreenState extends State<MusicListScreen> {
                   height: imageHeight,
                   width: imageWidth,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                    image: DecorationImage(image: AssetImage(music.image), fit: BoxFit.cover)
-                  ),
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      image: DecorationImage(
+                          image: AssetImage(music.image), fit: BoxFit.cover)),
                 ),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(music.name.length >= 12 ? music.name.substring(0, 12) + ".." : music.name,
-                        style: Theme.of(context).textTheme.headline5.copyWith(
-                            fontSize: 16)
-                      ), 
-                      Text(music.writer,
-                        style: Theme.of(context).textTheme.headline2.copyWith(
-                            fontSize: 14),
+                      Text(
+                          music.name.length >= 12
+                              ? music.name.substring(0, 12) + ".."
+                              : music.name,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline5
+                              .copyWith(fontSize: 16)),
+                      Text(
+                        music.writer.length >= 14
+                            ? music.writer.substring(0, 14) + ".."
+                            : music.writer,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline2
+                            .copyWith(fontSize: 14),
                       )
                     ],
                   ),
@@ -95,12 +103,13 @@ class _MusicListScreenState extends State<MusicListScreen> {
       InkWell block = new InkWell(
         child: Container(
           decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide( //                   <--- left side
-                color: Color(0xffe8e8e8),
-                width: 0.5,
-              ),
-            )),
+              border: Border(
+            bottom: BorderSide(
+              //                   <--- left side
+              color: Color(0xffe8e8e8),
+              width: 0.5,
+            ),
+          )),
           child: Padding(
             padding: const EdgeInsets.all(15.0),
             child: Row(
@@ -112,7 +121,8 @@ class _MusicListScreenState extends State<MusicListScreen> {
                       borderRadius: BorderRadius.all(
                         Radius.circular(5),
                       ),
-                      image: DecorationImage(image: AssetImage(music.image), fit: BoxFit.cover)),
+                      image: DecorationImage(
+                          image: AssetImage(music.image), fit: BoxFit.cover)),
                 ),
                 SizedBox(
                   width: 12,
@@ -120,33 +130,37 @@ class _MusicListScreenState extends State<MusicListScreen> {
                 Expanded(
                   child: Wrap(direction: Axis.vertical, children: <Widget>[
                     RichText(
-                      text: TextSpan(
-                          text: music.name,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline5
-                              .copyWith(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                          children: [
-                        TextSpan(
-                            text: '    ${music.writer}',
+                        text: TextSpan(
+                            text: music.name.length >= 10
+                                ? music.name.substring(0, 10) + ".."
+                                : music.name,
                             style: Theme.of(context)
                                 .textTheme
                                 .headline5
                                 .copyWith(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal))
-                      ])
-                    ),
-                    SizedBox(height: 5,),
-                    Text('#' + music.tag, 
-                      style: Theme.of(context)
+                                    fontSize: 18, fontWeight: FontWeight.bold),
+                            children: [
+                          TextSpan(
+                              text: music.writer.length >= 10
+                                  ? '   ${music.writer.substring(0, 10)}' + ".."
+                                  : '   ${music.writer}',
+                              style: Theme.of(context)
                                   .textTheme
-                                  .headline2
+                                  .headline5
                                   .copyWith(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.normal)
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal))
+                        ])),
+                    SizedBox(
+                      height: 5,
                     ),
+                    Text(
+                        '#' +
+                            (music.tag.length >= 20
+                                ? music.tag.substring(0, 20) + '..'
+                                : music.tag),
+                        style: Theme.of(context).textTheme.headline2.copyWith(
+                            fontSize: 12, fontWeight: FontWeight.normal)),
                   ]),
                 ),
                 Image(
@@ -186,8 +200,10 @@ class _MusicListScreenState extends State<MusicListScreen> {
                   left: 28.0, right: 28.0, top: 15.0, bottom: 15.0),
               child: Text(
                 '推荐歌单',
-                style: Theme.of(context).textTheme.headline5.copyWith(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                style: Theme.of(context)
+                    .textTheme
+                    .headline5
+                    .copyWith(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
             Container(
