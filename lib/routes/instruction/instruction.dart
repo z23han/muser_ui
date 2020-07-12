@@ -13,8 +13,6 @@ class InstructionScreen extends StatefulWidget {
 
 class _InstructionScreenState extends State<InstructionScreen>
     with TickerProviderStateMixin {
-  // int _curIndex = 0;
-  // int isLanding = 0;
   final List<Widget> _children = [IndividualInstruction(), GroupInstruction()];
   TabController _tabController;
 
@@ -29,10 +27,6 @@ class _InstructionScreenState extends State<InstructionScreen>
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final double tabWidth = size.width * (30 / 360);
-    // if (isLanding > 1) {
-    //   _curIndex = widget.tabIndex;
-    //   isLanding--;
-    // }
     return Scaffold(
         appBar: AppBar(
             automaticallyImplyLeading: false,

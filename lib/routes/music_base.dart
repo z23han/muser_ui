@@ -34,7 +34,14 @@ class _MusicBaseState extends State<MusicBase> {
   Map data = {};
 
   void _populateChildrenMap() {
-    _children.putIfAbsent(0, () => [MusicScreen()]);
+    _children.putIfAbsent(
+        0,
+        () => [
+              MusicScreen(tabIndex: 0),
+              MusicScreen(tabIndex: 1),
+              MusicScreen(tabIndex: 2),
+              MusicScreen(tabIndex: 3)
+            ]);
     _children.putIfAbsent(1,
         () => [InstructionScreen(tabIndex: 0), InstructionScreen(tabIndex: 1)]);
     _children.putIfAbsent(2, () => [StoryScreen()]);

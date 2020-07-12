@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:muser_ui/managers/search_manager.dart';
 import 'package:muser_ui/managers/music_managers.dart';
 import 'package:muser_ui/routes/music/music_player.dart';
 
 class DataSearch extends SearchDelegate<String> {
   DataSearch() : super(searchFieldLabel: '搜索慕斯');
-  
+
   final searchSuggestionList = [
     'search suggestion1',
     'search suggestion2',
@@ -63,39 +62,44 @@ class DataSearch extends SearchDelegate<String> {
         itemCount: searchingDisplayList.length,
         itemBuilder: (context, index) => Padding(
               padding: const EdgeInsets.fromLTRB(25, 20, 30, 20),
-              child : GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => MusicPlayerScreen(music: _musicManager.musicMap[_musicManager.nameToId[searchingDisplayList[index]]])));
-                },
-                child: Row(
-                  children: <Widget>[
-                    Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 0, 40, 0),
-                        child: Text('$index',
-                            style: Theme.of(context).textTheme.headline5.copyWith(
-                                fontSize: 16, fontWeight: FontWeight.bold))),
-                    RichText(
-                        text: TextSpan(
-                            text: searchingDisplayList[index]
-                                .substring(0, query.length),
-                            style: TextStyle(
-                                color: Theme.of(context).accentColor,
-                                fontSize: 16),
-                            children: [
-                          TextSpan(
-                              text: searchingDisplayList[index]
-                                  .substring(query.length),
+              child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MusicPlayerScreen(
+                                music: _musicManager.musicMap[_musicManager
+                                    .nameToId[searchingDisplayList[index]]])));
+                  },
+                  child: Row(
+                    children: <Widget>[
+                      Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 40, 0),
+                          child: Text('$index',
                               style: Theme.of(context)
                                   .textTheme
                                   .headline5
-                                  .copyWith(fontSize: 16))
-                        ])),
-                  ],
-                )
-              ),
+                                  .copyWith(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold))),
+                      RichText(
+                          text: TextSpan(
+                              text: searchingDisplayList[index]
+                                  .substring(0, query.length),
+                              style: TextStyle(
+                                  color: Theme.of(context).accentColor,
+                                  fontSize: 16),
+                              children: [
+                            TextSpan(
+                                text: searchingDisplayList[index]
+                                    .substring(query.length),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline5
+                                    .copyWith(fontSize: 16))
+                          ])),
+                    ],
+                  )),
             ));
   }
 }

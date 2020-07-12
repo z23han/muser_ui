@@ -4,8 +4,6 @@ import 'package:muser_ui/utils/music_constants.dart';
 import 'package:muser_ui/models/user.dart';
 import 'package:muser_ui/managers/user_manager.dart';
 
-
-
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
@@ -28,7 +26,7 @@ class _HomeState extends State<Home> {
   }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color(0xfff5f5f5),
         body: SingleChildScrollView(
