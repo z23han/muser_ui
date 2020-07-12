@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:muser_ui/managers/user_manager.dart';
 
 class Setting extends StatelessWidget {
-  final List<String> settingButton = ['帮助与反馈', '关于慕斯', '退出登录'];
+  final List<String> settingButton = ['关于慕斯', '退出登录'];
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -43,6 +44,7 @@ class Setting extends StatelessWidget {
                         height: 50,
                         child: FlatButton(
                             onPressed: () {
+                              UserManager.removeUserToken();
                               Navigator.pushNamedAndRemoveUntil(
                                   context, '/signin', (route) => false);
                             },

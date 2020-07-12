@@ -56,7 +56,7 @@ class _MusicListScreenState extends State<MusicListScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(music.name,
+                      Text(music.name.length >= 12 ? music.name.substring(0, 12) + ".." : music.name,
                         style: Theme.of(context).textTheme.headline5.copyWith(
                             fontSize: 16)
                       ), 
