@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class FocusTraining03 extends StatelessWidget {
+
+  GetIt getIt = GetIt.instance;
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final double buttonWidth = size.width * (88 / 360);
     final double buttonHeight = buttonWidth * (36 / 88);
     final double arrowSize = size.width * (34 / 360);
+
+
     return Scaffold(
         appBar: AppBar(
             automaticallyImplyLeading: false,
@@ -81,6 +87,8 @@ class FocusTraining03 extends StatelessWidget {
                         color: Theme.of(context).accentColor,
                         onPressed: () {
                           Navigator.pop(context);
+                          print(getIt.toString());
+                          print('completed');
                         },
                         child: Text('完成',
                             style: Theme.of(context).textTheme.button)),

@@ -1,6 +1,8 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:get_it/get_it.dart';
 import 'package:muser_ui/managers/music_managers.dart';
 import 'package:muser_ui/models/music_object.dart';
 import 'package:muser_ui/services/music_service.dart';
@@ -30,6 +32,8 @@ class _MusicSelectionState extends State<MusicSelection> {
   MusicService musicService = new MusicService();
 
   Music currMusic;
+
+  final GetIt getIt = GetIt.instance;
 
   void onPressMusicButton(Music music) async {
 
@@ -172,6 +176,11 @@ class _MusicSelectionState extends State<MusicSelection> {
     final double coverSize = size.width * 0.5 - 20 * 2 - 15 * 2;
     bool active = selectedMusic.contains(music);
 
+    updateSelectedMusic(Music music) async {
+
+      await getIt<FlutterSecureStorage>().write(key: 'selected_music', value: music.musicId.toString());
+    }
+
     return GestureDetector(
         onTap: () {
           setState(() {
@@ -182,6 +191,9 @@ class _MusicSelectionState extends State<MusicSelection> {
                 selectedMusic.clear();
               }
               selectedMusic.add(music);
+            }
+            if (selectedMusic.length > 0) {
+              updateSelectedMusic(selectedMusic.toList()[0]);
             }
           });
         },
