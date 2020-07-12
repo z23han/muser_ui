@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:muser_ui/routes/instruction/group/focus_training.dart';
+import 'package:muser_ui/routes/instruction/group/focus_training02.dart';
 import 'package:muser_ui/routes/instruction/services/music_selection.dart';
 
 class FocusTraining01 extends StatefulWidget {
@@ -61,10 +63,10 @@ class _FocusTraining01State extends State<FocusTraining01> {
                     children: <Widget>[
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushReplacementNamed(
-                            context,
-                            '/instruction/focusTraining',
-                          );
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => FocusTraining()));
                         },
                         child: Image(
                           image: AssetImage('assets/backward.png'),
@@ -74,10 +76,10 @@ class _FocusTraining01State extends State<FocusTraining01> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushReplacementNamed(
-                            context,
-                            '/instruction/focusTraining02',
-                          );
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => FocusTraining02()));
                         },
                         child: Image(
                           image: AssetImage('assets/forward.png'),

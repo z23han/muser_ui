@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:muser_ui/routes/instruction/group/focus_training01.dart';
 import 'package:muser_ui/services/music_service.dart';
 
 class FocusTraining extends StatelessWidget {
-
   final MusicService musicService = new MusicService();
 
   turnOffMusic() async {
-    if (this.musicService.music != null ) {
+    if (this.musicService.music != null) {
       await this.musicService.reInitAudio();
     }
   }
@@ -123,8 +123,10 @@ class FocusTraining extends StatelessWidget {
                 child: FlatButton(
                     color: Theme.of(context).accentColor,
                     onPressed: () {
-                      Navigator.pushReplacementNamed(
-                          context, '/instruction/focusTraining01');
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FocusTraining01()));
                     },
                     child: Center(
                         child: Text('开始学习',
