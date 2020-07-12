@@ -28,9 +28,9 @@ class _MusicListScreenState extends State<MusicListScreen> {
 
   List<Widget> _getRecommendationMusicList() {
     final Size size = MediaQuery.of(context).size;
-    final blockHeight = size.width * (160 / 360);
-    final blockWidth = size.width * (125 / 360);
-    final imageHeight = size.width * (125 / 360);
+    final blockHeight = size.width * (140 / 360);
+    final blockWidth = size.width * (105 / 360);
+    final imageHeight = size.width * (105 / 360);
     final imageWidth = imageHeight;
 
     List<InkWell> musicBlocks = new List();
@@ -58,11 +58,11 @@ class _MusicListScreenState extends State<MusicListScreen> {
                     children: <Widget>[
                       Text(music.name,
                         style: Theme.of(context).textTheme.headline5.copyWith(
-                            fontSize: 18)
+                            fontSize: 16)
                       ), 
                       Text(music.writer,
                         style: Theme.of(context).textTheme.headline2.copyWith(
-                            fontSize: 16),
+                            fontSize: 14),
                       )
                     ],
                   ),
