@@ -7,6 +7,7 @@ class MusicManager {
   HashMap<int, List<Music>> recommendationMusicMap = new HashMap();
   HashMap<int, List<Music>> categoryMusicMap = new HashMap();
   HashMap<int, Music> musicMap = new HashMap();
+  HashMap<String, int> nameToId = new HashMap();
 
   static final MusicManager _singleton = MusicManager._internal();
 
@@ -63,6 +64,27 @@ class MusicManager {
     musicMap.putIfAbsent(17, () => music_17);
     musicMap.putIfAbsent(18, () => music_18);
     musicMap.putIfAbsent(19, () => music_19);
+
+    nameToId.putIfAbsent(music_0.name, () => 0);
+    nameToId.putIfAbsent(music_1.name, () => 1);
+    nameToId.putIfAbsent(music_2.name, () => 2);
+    nameToId.putIfAbsent(music_3.name, () => 3);
+    nameToId.putIfAbsent(music_4.name, () => 4);
+    nameToId.putIfAbsent(music_5.name, () => 5);
+    nameToId.putIfAbsent(music_6.name, () => 6);
+    nameToId.putIfAbsent(music_7.name, () => 7);
+    nameToId.putIfAbsent(music_8.name, () => 8);
+    nameToId.putIfAbsent(music_9.name, () => 9);
+    nameToId.putIfAbsent(music_10.name, () => 10);
+    nameToId.putIfAbsent(music_11.name, () => 11);
+    nameToId.putIfAbsent(music_12.name, () => 12);
+    nameToId.putIfAbsent(music_13.name, () => 13);
+    nameToId.putIfAbsent(music_14.name, () => 14);
+    nameToId.putIfAbsent(music_15.name, () => 15);
+    nameToId.putIfAbsent(music_16.name, () => 16);
+    nameToId.putIfAbsent(music_17.name, () => 17);
+    nameToId.putIfAbsent(music_18.name, () => 18);
+    nameToId.putIfAbsent(music_19.name, () => 19);
 
     List<Music> _musiclist_0 = new List();
     List<Music> _musiclist_1 = new List();
