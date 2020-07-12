@@ -164,7 +164,7 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
     return IconButton(
         icon: Icon(Icons.arrow_back,
             size: 24, color: Theme.of(context).buttonColor),
-        onPressed: () => Navigator.pushReplacementNamed(context, '/home'));
+        onPressed: () => Navigator.pop(context));
   }
 
   @override
@@ -213,11 +213,15 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
                   ),
                 ),
                 Text(
-                  widget.music.name,
+                  widget.music.name.length >= 20
+                      ? widget.music.name.substring(0, 20) + '..'
+                      : widget.music.name,
                   style: TextStyle(fontSize: 25),
                 ),
                 Text(
-                  widget.music.writer,
+                  widget.music.writer.length >= 25
+                      ? widget.music.writer.substring(0, 25) + '..'
+                      : widget.music.writer,
                   style: TextStyle(fontSize: 15),
                 ),
                 Slider(

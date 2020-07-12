@@ -1,9 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
+import 'package:muser_ui/managers/music_managers.dart';
+import 'package:muser_ui/models/music_object.dart';
+import 'package:muser_ui/routes/instruction/group/focus_training02.dart';
+import 'package:muser_ui/routes/music/music_player.dart';
 
 class FocusTraining03 extends StatelessWidget {
 
-  GetIt getIt = GetIt.instance;
+  final GetIt getIt = GetIt.instance;
+  final MusicManager musicManager = new MusicManager();
+  
+  renderMusicPlayer(context) async {
+
+    String musicId = await getIt<FlutterSecureStorage>().read(key: 'selected_music_id');
+
+    if (musicId != null) {
+
+      Music music = musicManager.musicMap[int.parse(musicId)];
+
+      print('get selected music ${music.name}');
+
+      Navigator.push(
+        context, 
+        MaterialPageRoute(
+          builder: (context) => MusicPlayerScreen(
+            music: music
+          )
+        )
+      );
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -67,10 +95,10 @@ class FocusTraining03 extends StatelessWidget {
               children: <Widget>[
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushReplacementNamed(
-                      context,
-                      '/instruction/focusTraining02',
-                    );
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => FocusTraining02()));
                   },
                   child: Image(
                     image: AssetImage('assets/backward.png'),
@@ -85,10 +113,13 @@ class FocusTraining03 extends StatelessWidget {
                     height: buttonHeight,
                     child: FlatButton(
                         color: Theme.of(context).accentColor,
+
                         onPressed: () {
+
                           Navigator.pop(context);
-                          print(getIt.toString());
-                          print('completed');
+                          
+                          renderMusicPlayer(context);
+
                         },
                         child: Text('完成',
                             style: Theme.of(context).textTheme.button)),

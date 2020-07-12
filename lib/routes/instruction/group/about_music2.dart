@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:muser_ui/routes/instruction/group/about_music1.dart';
 
 class AboutMusic2 extends StatefulWidget {
   @override
@@ -79,10 +80,8 @@ class _AboutMusic2State extends State<AboutMusic2> {
               children: <Widget>[
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushReplacementNamed(
-                      context,
-                      '/instruction/aboutMusic1',
-                    );
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => AboutMusic1()));
                   },
                   child: Image(
                     image: AssetImage('assets/backward.png'),

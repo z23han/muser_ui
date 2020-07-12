@@ -8,7 +8,6 @@ import 'package:muser_ui/models/music_object.dart';
 import 'package:muser_ui/services/music_service.dart';
 
 class MusicSelection extends StatefulWidget {
-
   final int musiclistCategoryId;
 
   const MusicSelection({this.musiclistCategoryId});
@@ -18,14 +17,14 @@ class MusicSelection extends StatefulWidget {
 }
 
 class _MusicSelectionState extends State<MusicSelection> {
-
   final MusicManager _musicManager = MusicManager();
 
   List<Music> _recommendationMusicList;
 
   Set<Music> selectedMusic = {};
 
-  PageController pageController = PageController(initialPage: 0, viewportFraction: 0.6);
+  PageController pageController =
+      PageController(initialPage: 0, viewportFraction: 0.6);
 
   HashMap<Music, bool> buttonPlayingChecks = new HashMap();
 
@@ -36,14 +35,10 @@ class _MusicSelectionState extends State<MusicSelection> {
   final GetIt getIt = GetIt.instance;
 
   void onPressMusicButton(Music music) async {
-
     // if the music is playing, just pause
     if (buttonPlayingChecks[music] == false) {
-
       await this.musicService.pause();
-
     } else {
-
       // we need to check the rest music button to be false if any
       this.turnOffMusicButtons(music);
 
@@ -53,39 +48,31 @@ class _MusicSelectionState extends State<MusicSelection> {
 
   // this method is used for setting up musicService for playing/resuming music
   onMusicServicePlay(Music music) async {
-
     // if there's no current music, we need to play music
     if (currMusic == null) {
-
       currMusic = music;
 
       // if there is no music in musicService, we need to initialize musicService
       if (this.musicService.music == null) {
-
         await this.musicService.initMusicService();
       }
 
       await this.musicService.reInitAudio();
 
       await this.musicService.play(music.musicId);
-
     } else {
-      
       // if the current music is the same as new music, we resume playing
       if (currMusic.musicId == music.musicId) {
-
         await this.musicService.resume();
-      } 
+      }
       // otherwise we reinit musicService audio and play music
       else {
-        
         currMusic = music;
 
         if (this.musicService.music != null) {
-
           await this.musicService.initMusicService();
         }
-        
+
         await this.musicService.reInitAudio();
 
         await this.musicService.play(music.musicId);
@@ -94,12 +81,9 @@ class _MusicSelectionState extends State<MusicSelection> {
   }
 
   void turnOffMusicButtons(Music music) {
-
     this.buttonPlayingChecks.forEach((Music k, bool v) => {
-      if (k.musicId != music.musicId) {
-        this.buttonPlayingChecks[k] = false
-      }
-    });
+          if (k.musicId != music.musicId) {this.buttonPlayingChecks[k] = false}
+        });
   }
 
   void _populateMusicMap() {
@@ -119,7 +103,7 @@ class _MusicSelectionState extends State<MusicSelection> {
   }
 
   Stack _buildMusicSelection() {
-
+    
     _populateMusicMap();
 
     _initButtonChecks();
@@ -170,16 +154,30 @@ class _MusicSelectionState extends State<MusicSelection> {
             controller: pageController));
   }
 
-  GestureDetector _buildPageViewItem(Music music, int index) {
+  _updateSelectedMusic(Music music) async {
 
+    print('pick music ${music.url} ');
+
+    String musicId = await getIt<FlutterSecureStorage>().read(key: 'selected_music_id');
+
+    if (musicId != null) {
+
+      print('deleting old selected_music_id $musicId');
+
+      await getIt<FlutterSecureStorage>().delete(key: 'selected_music_id');
+
+      print('old selected_music_id $musicId is deleted');
+    }
+
+    await getIt<FlutterSecureStorage>().write(key: 'selected_music_id', value: music.musicId.toString());
+
+    print('updated selected_music_id to be ${music.musicId}');
+  }
+
+  GestureDetector _buildPageViewItem(Music music, int index) {
     final Size size = MediaQuery.of(context).size;
     final double coverSize = size.width * 0.5 - 20 * 2 - 15 * 2;
     bool active = selectedMusic.contains(music);
-
-    updateSelectedMusic(Music music) async {
-
-      await getIt<FlutterSecureStorage>().write(key: 'selected_music', value: music.musicId.toString());
-    }
 
     return GestureDetector(
         onTap: () {
@@ -193,7 +191,7 @@ class _MusicSelectionState extends State<MusicSelection> {
               selectedMusic.add(music);
             }
             if (selectedMusic.length > 0) {
-              updateSelectedMusic(selectedMusic.toList()[0]);
+              _updateSelectedMusic(selectedMusic.toList()[0]);
             }
           });
         },
@@ -209,10 +207,8 @@ class _MusicSelectionState extends State<MusicSelection> {
                       color: Colors.black.withOpacity(0.1),
                       spreadRadius: 2,
                       blurRadius: 3,
-                      offset: Offset(1, 3)
-                  )
-                ]
-            ),
+                      offset: Offset(1, 3))
+                ]),
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: Column(
@@ -238,11 +234,10 @@ class _MusicSelectionState extends State<MusicSelection> {
                         onPressed: () {
                           if (mounted) {
                             setState(() {
-
-                              this.buttonPlayingChecks[music] = !this.buttonPlayingChecks[music];
+                              this.buttonPlayingChecks[music] =
+                                  !this.buttonPlayingChecks[music];
 
                               onPressMusicButton(music);
-                              
                             });
                           }
                         },
@@ -251,18 +246,28 @@ class _MusicSelectionState extends State<MusicSelection> {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
-                    child: Text(music.name.length <= 14 ? music.name : music.name.substring(0, 12) + "..",
+                    child: Text(
+                        music.name.length >= 12
+                            ? music.name.substring(0, 12) + '..'
+                            : music.name,
                         style: Theme.of(context).textTheme.headline5.copyWith(
                             fontSize: 20, fontWeight: FontWeight.bold)),
                   ),
-                  Text(music.writer,
+                  Text(
+                      music.writer.length >= 14
+                          ? music.writer.substring(0, 14) + '..'
+                          : music.writer,
                       style: Theme.of(context)
                           .textTheme
                           .headline2
                           .copyWith(fontSize: 16)),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
-                    child: Text('#' + music.tag,
+                    child: Text(
+                        '#' +
+                            (music.tag.length >= 18
+                                ? music.tag.substring(0, 18) + '..'
+                                : music.tag),
                         style: Theme.of(context)
                             .textTheme
                             .headline3

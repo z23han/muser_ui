@@ -25,12 +25,6 @@ class _MusicBaseState extends State<MusicBase> {
   int _tabIndex = 0;
   HashMap<int, List<Widget>> _children = HashMap();
 
-  // final List<Widget> _childrenf = [
-  //   MusicScreen(),
-  //   InstructionScreen(),
-  //   StoryScreen(),
-  //   MyAccountScreen()
-  // ];
   Map data = {};
 
   void _populateChildrenMap() {
@@ -120,7 +114,7 @@ class _MusicBaseState extends State<MusicBase> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Icon(Icons.search, size: 18, color: Colors.white),
-                Text('搜索:音乐 指导 以及故事',
+                Text('搜索:音乐',
                     style: TextStyle(fontSize: 14, color: Colors.white))
               ],
             )),
@@ -151,6 +145,7 @@ class _MusicBaseState extends State<MusicBase> {
         onTap: (index) {
           setState(() {
             _currentIndex = index;
+            _tabIndex = index == 1 ? 1 : 0;
           });
         },
         currentIndex: _currentIndex,

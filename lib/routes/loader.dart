@@ -37,20 +37,28 @@ class _LoaderState extends State<Loader> {
     final Size size = MediaQuery.of(context).size;
     final double logoWidth = size.width * (190 / 360);
     return Scaffold(
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(height: size.height * (200 / 640)),
-            Image(image: AssetImage('assets/Muser_Logo.png'), width: logoWidth),
-            Spacer(flex: 1),
-            Text('慕斯，你的专属音乐瑜伽',
-                style:
-                    Theme.of(context).textTheme.headline2.copyWith(fontSize: 18)),
-            SizedBox(height: size.height * (40 / 640)),
-          ],
-        ),
-      )
-    );
+        body: Center(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          SizedBox(height: size.height * (200 / 640)),
+          Image(image: AssetImage('assets/Muser_Logo.png'), width: logoWidth),
+
+          //version beta, remove after 1.0
+          Padding(
+            padding: const EdgeInsets.only(top: 50.0),
+            child: Text('b  e  t  a ',
+                style: TextStyle(
+                    color: Theme.of(context).accentColor, fontSize: 16)),
+          ),
+
+          Spacer(flex: 1),
+          Text('慕斯，你的专属音乐瑜伽',
+              style:
+                  Theme.of(context).textTheme.headline2.copyWith(fontSize: 18)),
+          SizedBox(height: size.height * (40 / 640)),
+        ],
+      ),
+    ));
   }
 }
