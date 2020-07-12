@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:muser_ui/services/music_service.dart';
 
 class FocusTraining extends StatelessWidget {
+
+  final MusicService musicService = new MusicService();
+
+  turnOffMusic() async {
+    if (this.musicService.music != null ) {
+      await this.musicService.reInitAudio();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -9,6 +19,8 @@ class FocusTraining extends StatelessWidget {
     final double quoteDecorWidth = size.width * (253 / 360);
     final double buttonWidth = size.width * (190 / 360);
     final double buttonHeight = buttonWidth * (34 / 190);
+
+    turnOffMusic();
 
     return Scaffold(
       appBar: AppBar(

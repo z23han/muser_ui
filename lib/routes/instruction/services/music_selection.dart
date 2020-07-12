@@ -32,7 +32,7 @@ class _MusicSelectionState extends State<MusicSelection> {
   Music currMusic;
 
   void onPressMusicButton(Music music) async {
-    
+
     // if the music is playing, just pause
     if (buttonPlayingChecks[music] == false) {
 
@@ -76,6 +76,11 @@ class _MusicSelectionState extends State<MusicSelection> {
       else {
         
         currMusic = music;
+
+        if (this.musicService.music != null) {
+
+          await this.musicService.initMusicService();
+        }
         
         await this.musicService.reInitAudio();
 

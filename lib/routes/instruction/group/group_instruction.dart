@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:muser_ui/services/music_service.dart';
 
 class GroupInstruction extends StatelessWidget {
+
+  final MusicService musicService = new MusicService();
+
+  turnOffMusic() async {
+    if (this.musicService.music != null) {
+      this.musicService.reInitAudio();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+
+    turnOffMusic();
+
     final Size size = MediaQuery.of(context).size;
     final double buttonWidth = size.width * (135 / 360);
     return Scaffold(

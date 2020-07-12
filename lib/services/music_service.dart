@@ -74,18 +74,28 @@ class MusicService {
 
   reInitAudio() async {
 
-    await audioPlayer.stop();
+    if (this.audioPlayer != null) {
 
-    await audioPlayer.dispose();
+      await this.audioPlayer.stop();
+
+      await this.audioPlayer.dispose();
+    }
+
+    this.audioPlayer = null;
+
+    this.music = null;
 
     print('musicService audioPlayer is re-inited');
   }
 
   reInitCache() async {
 
-    audioCache.clearCache();
+    if (this.audioCache != null) {
 
-    audioCache = new AudioCache(prefix: "music/");
+      this.audioCache.clearCache();
+    }
+
+    this.audioCache = new AudioCache(prefix: "music/");
 
     await loadCache();
 
@@ -110,7 +120,7 @@ class MusicService {
 
     String musicUrl = this.music.url;
 
-    audioPlayer = await audioCache.play(musicUrl);
+    this.audioPlayer = await audioCache.play(musicUrl);
 
     print("$musicUrl is playing");
 
