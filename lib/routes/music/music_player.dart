@@ -27,36 +27,58 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
 
     this.musicService = new MusicService();
 
-    if (this.musicService.music != null && this.musicService.music.musicId == widget.music.musicId) {
-      print("${widget.music.name} is playing, do nothing");
+    if (this.musicService.music == null) {
+
+      initPlayer();
+
+    } else if (this.musicService.music.musicId == widget.music.musicId) {
+
+      print("${widget.music.url} is playing, do nothing");
       // we still need to keep track of the music state
       _updateMusicPlayerScreen();
+
       return;
+
+    } else {
+
+      reInitPlayer();
+
     }
-    
-    this.musicService.setMusic(widget.music);
-    initPlayer();
   }
 
 
   initPlayer() async {
 
     await this.musicService.initMusicService();
-    await this.musicService.downloadFile();
     
     await play();
 
-    _updateMusicPlayerScreen();
+    await _updateMusicPlayerScreen();
+  }
+
+
+  reInitPlayer() async {
+
+    await this.musicService.reInitAudio();
+
+    await play();
+
+    await _updateMusicPlayerScreen();
   }
 
 
   play() async {
-    await this.musicService.play();
+    await this.musicService.play(widget.music.musicId);
   }
 
 
   pause() async {
     await this.musicService.pause();
+  }
+
+
+  resume() async {
+    await this.musicService.resume();
   }
 
 
@@ -70,57 +92,95 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
   }
 
 
-  void _updateMusicPlayerScreen() {
-    this._maxPosition = this.musicService.duration.toDouble();
-    this._currPosition = this.musicService.currDuration.toDouble();
-    _updateSlider();
-    _updateState();
-    _checkClickButton();
+  _updateMusicPlayerScreen() async {
+
+    if (this.musicService.audioPlayer != null) {
+
+      int duration = await Future.delayed(
+        Duration(seconds: 1), () => this.musicService.audioPlayer.getDuration()
+      );
+    
+      this._maxPosition = duration.toDouble();
+
+      _updateSlider();
+
+      _updateState();
+
+      _checkClickButton();
+
+    } else {
+
+      reInitPlayer();
+
+    }
   }
 
 
   void _updateSlider() {
+    
     this.musicService.audioPlayer.onAudioPositionChanged.listen((Duration p) {
+
       if (mounted) {
         setState(() {
+
           _currPosition = p.inMilliseconds.toDouble();
+
           this.musicService.currDuration = _currPosition.toInt();
         });
       }
+    }, onError: (msg) {
+      print(msg);
+
+      print('re-init music ${this.musicService.music.url}');
+
+      reInitPlayer();
+      
     });
+    
   }
 
 
   void _updateState() {
+
     this.musicService.audioPlayer.onPlayerStateChanged.listen((AudioPlayerState s) {
       if (s == AudioPlayerState.PLAYING) {
 
       } else if (s == AudioPlayerState.COMPLETED) {
-        print("${this.musicService.music.name} is completed");
+
+        print("${this.musicService.music.url} is completed");
+
         if (mounted) {
+
           setState(() {
             _currPosition = 0;
             _isPlaying = false;
           });
         }
       } else if (s == AudioPlayerState.PAUSED) {
-        print("${this.musicService.music.name} is paused");
+
+        print("${this.musicService.music.url} is paused");
         this.musicService.currDuration = _currPosition.toInt();
       }
     }, onError: (msg) {
       print(msg);
-      print('re-init music ${this.musicService.music.name}');
-      initPlayer();
+
+      print('re-init music ${this.musicService.music.url}');
+
+      reInitPlayer();
     });
   }
 
 
   void _checkClickButton() {
     if (mounted) {
+
       setState(() {
+
         if (this.musicService.isPlaying) {
           this._isPlaying = true;
+
         } else {
+          
           this._isPlaying = false;
         }
       });
@@ -201,7 +261,7 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
                       setState(() {
                         _isPlaying = !_isPlaying;
                         if (_isPlaying) {
-                          play();
+                          resume();
                         } else {
                           pause();
                         }

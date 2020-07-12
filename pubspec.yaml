@@ -53,6 +53,26 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
+    - assets/music/BBQ_song.mp3
+    - assets/music/Bells_and_Drum.mp3
+    - assets/music/Boomwhacker_Chant.mp3
+    - assets/music/Bubbles_in_the_Air.mp3
+    - assets/music/Bubble_Song.mp3
+    - assets/music/Can_you_move_like_this.mp3
+    - assets/music/Come_and_play.mp3
+    - assets/music/Copy_Cat.mp3
+    - assets/music/Do_This.mp3
+    - assets/music/Drum_in_the_Middle_of_the_room.mp3
+    - assets/music/Everybody_has_a_Name.mp3
+    - assets/music/Feelings.mp3
+    - assets/music/Feel_it.mp3
+    - assets/music/Gathering_Drum.mp3
+    - assets/music/Get_up_March_out.mp3
+    - assets/music/Goodbye_My_Friend.mp3
+    - assets/music/Hello.mp3
+    - assets/music/Hello_And_Welcome.mp3
+    - assets/music/Hello_to_You.mp3
+    - assets/music/Hey_Ho_It_s_Time_to_Go.mp3
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
