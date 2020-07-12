@@ -8,7 +8,7 @@ import 'package:get_it/get_it.dart';
 // access to global variables
 GetIt getIt = GetIt.instance;
 
-final String userUrl = Config.url + "users/";
+final String userUrl = Config.url() + "users/";
 
 class UserManager {
   static Future<bool> login(String key, String password) async {
