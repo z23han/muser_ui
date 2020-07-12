@@ -1,12 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:muser_ui/routes/instruction/group/focus_training01.dart';
 import 'package:muser_ui/routes/instruction/group/focus_training03.dart';
+import 'package:muser_ui/services/music_service.dart';
 
 class FocusTraining02 extends StatelessWidget {
+  final MusicService musicService = new MusicService();
+
+  turnOffMusic() async {
+    if (this.musicService.music != null) {
+      await this.musicService.reInitAudio();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final double arrowSize = size.width * (34 / 360);
+
+    turnOffMusic();
+
     return Scaffold(
         appBar: AppBar(
             automaticallyImplyLeading: false,

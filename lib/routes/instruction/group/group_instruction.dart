@@ -2,10 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:muser_ui/routes/instruction/group/about_music1.dart';
 import 'package:muser_ui/routes/instruction/group/focus_training.dart';
 import 'package:muser_ui/routes/instruction/group/auditory_perception.dart';
+import 'package:muser_ui/services/music_service.dart';
 
 class GroupInstruction extends StatelessWidget {
+  final MusicService musicService = new MusicService();
+
+  turnOffMusic() async {
+    if (this.musicService.music != null) {
+      this.musicService.reInitAudio();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    turnOffMusic();
+
     final Size size = MediaQuery.of(context).size;
     final double buttonWidth = size.width * (135 / 360);
     return Scaffold(

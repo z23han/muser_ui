@@ -27,14 +27,18 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
     this.musicService = new MusicService();
 
     if (this.musicService.music == null) {
+
       initPlayer();
+
     } else if (this.musicService.music.musicId == widget.music.musicId) {
+
       print("${widget.music.url} is playing, do nothing");
       // we still need to keep track of the music state
       _updateMusicPlayerScreen();
 
       return;
     } else {
+      
       reInitPlayer();
     }
   }
@@ -77,8 +81,16 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
 
   _updateMusicPlayerScreen() async {
     if (this.musicService.audioPlayer != null) {
-      int duration = await Future.delayed(Duration(seconds: 1),
-          () => this.musicService.audioPlayer.getDuration());
+
+      int duration;
+
+      while (duration == null) {
+        
+        duration = await Future.delayed(
+          Duration(seconds: 1), () => this.musicService.audioPlayer.getDuration()
+
+        );
+      }
 
       this._maxPosition = duration.toDouble();
 
