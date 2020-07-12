@@ -4,8 +4,6 @@ import 'package:muser_ui/utils/music_constants.dart';
 import 'package:muser_ui/models/user.dart';
 import 'package:muser_ui/managers/user_manager.dart';
 
-
-
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
@@ -28,7 +26,7 @@ class _HomeState extends State<Home> {
   }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color(0xfff5f5f5),
         body: SingleChildScrollView(
@@ -156,7 +154,10 @@ class _HomeState extends State<Home> {
             InkWell(
                 onTap: () {
                   Navigator.pushReplacementNamed(context, '/musicBase',
-                      arguments: {'pageIndex': type == 'Individual' ? 1 : 1});
+                      arguments: {
+                        'pageIndex': 1,
+                        'tabIndex': type == 'Individual' ? 0 : 1
+                      });
                 },
                 child: Container(
                   height: heightInstruction,
@@ -227,7 +228,7 @@ class MusicCategoryScroller extends StatelessWidget {
                 .map((e) => InkWell(
                       onTap: () {
                         Navigator.pushReplacementNamed(context, '/musicBase',
-                            arguments: {'pageIndex': 0});
+                            arguments: {'pageIndex': 0, 'tabIndex': e.id});
                       },
                       child: Container(
                         width: width,
