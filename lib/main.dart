@@ -11,12 +11,6 @@ import 'package:muser_ui/routes/wechat_consent.dart';
 import 'package:muser_ui/routes/signup_consent.dart';
 import 'package:muser_ui/routes/forget_password.dart';
 import 'package:muser_ui/routes/reset_password.dart';
-// import 'package:muser_ui/routes/instruction/group/about_music1.dart';
-// import 'package:muser_ui/routes/instruction/group/about_music2.dart';
-// import 'package:muser_ui/routes/instruction/group/focus_training.dart';
-// import 'package:muser_ui/routes/instruction/group/focus_training01.dart';
-// import 'package:muser_ui/routes/instruction/group/focus_training02.dart';
-// import 'package:muser_ui/routes/instruction/group/focus_training03.dart';
 
 // This is our global ServiceLocator
 GetIt getIt = GetIt.instance;
@@ -49,12 +43,6 @@ void main() {
       '/signUpConsent': (context) => SignUpConsent(),
       '/forgetPassword': (context) => ForgetPassword(),
       '/resetPassword': (context) => ResetPassword(),
-      // '/instruction/aboutMusic1': (context) => AboutMusic1(),
-      // '/instruction/aboutMusic2': (context) => AboutMusic2(),
-      // '/instruction/focusTraining': (context) => FocusTraining(),
-      // '/instruction/focusTraining01': (context) => FocusTraining01(),
-      // '/instruction/focusTraining02': (context) => FocusTraining02(),
-      // '/instruction/focusTraining03': (context) => FocusTraining03(),
     },
   ));
 }
