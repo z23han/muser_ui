@@ -32,7 +32,7 @@ class _MusicScreenState extends State<MusicScreen>
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    final double tabWidth = size.width * (30 / 360);
+    final double tabWidth = size.width * (35 / 360);
     return DefaultTabController(
       length: musicCategoryList.length,
       child: Scaffold(
