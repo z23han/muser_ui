@@ -10,12 +10,10 @@ GetIt getIt = GetIt.instance;
 
 final String userUrl = Config.url() + "users/";
 
-final String guestUser = "guest";
-final String guestPassword = "guest";
-final String guestToken = "hello_muser";
-
 class UserManager {
+
   static Future<bool> login(String key, String password) async {
+    
     String url = userUrl + "login";
     var resBody = {};
     resBody["password"] = password;
@@ -47,6 +45,12 @@ class UserManager {
 
   static Future<bool> guestLogin(String key, String password) async {
 
+    final String guestUser = Config.guestUser;
+
+    final String guestPassword = Config.guestPassword;
+
+    final String guestToken = Config.guestToken;
+
     if (key != guestUser || password != guestPassword) {
       return false;
     }
@@ -74,33 +78,47 @@ class UserManager {
   }
 
   static Future<bool> validateToken() async {
-    //String url = userUrl + "get";
+
+    bool guestMode = Config.guestMode;
+
     String token = await getIt<FlutterSecureStorage>().read(key: 'auth_token');
 
-    if (token == guestToken) {
-      return true;
+    if (guestMode) {
+
+      final String guestToken = Config.guestToken;
+
+      if (token == guestToken) {
+
+        return true;
+      } else {
+        return false;
+      }
     } else {
-      return false;
+
+      String url = userUrl + "get";
+
+      final http.Response response = await http.get(
+        url,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': token
+        },
+      );
+
+      if (response.statusCode == 200) {
+
+        Map<String, dynamic> responseMap = json.decode(response.body);
+
+        User u = convertDynamic2User(responseMap['user']);
+
+        await getIt<FlutterSecureStorage>().write(key: 'user', value: jsonEncode(u));
+
+        return true;
+      } else {
+
+        return false;
+      }
     }
-
-    /*final http.Response response = await http.get(
-      url,
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': token
-      },
-    );
-
-    if (response.statusCode == 200) {
-      Map<String, dynamic> responseMap = json.decode(response.body);
-      User u = convertDynamic2User(responseMap['user']);
-      await getIt<FlutterSecureStorage>().write(key: 'user', value: jsonEncode(u));
-      return true;
-    } else {
-      return false;
-    }*/
-
-
   }
 
   static Future<bool> register(User user) async {

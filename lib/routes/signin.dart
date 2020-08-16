@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:muser_ui/managers/user_manager.dart';
+import 'package:muser_ui/utils/config.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -7,18 +8,32 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  final bool guestMode = Config.guestMode;
+
   Future<void> login(BuildContext context) async {
+
     var username = _usernameController.text.trim();
+
     var password = _passwordController.text;
+
     print('username: $username, password: $password');
 
-    var checker = await UserManager.guestLogin(username, password);
-    //var checker = await UserManager.login(username, password);
+    var checker = false;
+
+    if (guestMode) {
+      checker = await UserManager.guestLogin(username, password);
+    } else {
+      checker = await UserManager.login(username, password);
+    }
+
     if (checker) {
+      
       Navigator.pushNamed(context, '/home');
+
     } else {
       return showDialog<void>(
         context: context,
@@ -232,8 +247,11 @@ class _SignInState extends State<SignIn> {
             Row(children: <Widget>[
               GestureDetector(
                 onTap: () {
-                  print('do nothing for now');
-                  //Navigator.pushNamed(context, '/signUpConsent');
+                  if (guestMode) {
+                    print('do nothing for guestMode');
+                  } else {
+                    Navigator.pushNamed(context, '/signUpConsent');
+                  }
                 },
                 child: Text('我要注册',
                     style: Theme.of(context)

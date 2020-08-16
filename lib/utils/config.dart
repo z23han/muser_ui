@@ -1,6 +1,6 @@
 class Config {
   
-  static final environment = 'DEV';
+  static final String environment = 'PROD';
 
   static String url() {
 
@@ -10,7 +10,15 @@ class Config {
 
     } else {
 
-      return "http://ec2-107-21-31-185.compute-1.amazonaws.com:8080/";
+      return "http://ec2-18-232-142-79.compute-1.amazonaws.com:8080/";
     }
   }
+
+  static final bool guestMode = false;
+
+  static final String guestUser = "guest";
+
+  static final String guestPassword = "guest";
+
+  static final String guestToken = "hello_muser";
 }
