@@ -14,7 +14,9 @@ class _SignInState extends State<SignIn> {
     var username = _usernameController.text.trim();
     var password = _passwordController.text;
     print('username: $username, password: $password');
-    var checker = await UserManager.login(username, password);
+
+    var checker = await UserManager.guestLogin(username, password);
+    //var checker = await UserManager.login(username, password);
     if (checker) {
       Navigator.pushNamed(context, '/home');
     } else {
@@ -230,7 +232,8 @@ class _SignInState extends State<SignIn> {
             Row(children: <Widget>[
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, '/signUpConsent');
+                  print('do nothing for now');
+                  //Navigator.pushNamed(context, '/signUpConsent');
                 },
                 child: Text('我要注册',
                     style: Theme.of(context)

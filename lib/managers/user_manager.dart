@@ -10,6 +10,10 @@ GetIt getIt = GetIt.instance;
 
 final String userUrl = Config.url() + "users/";
 
+final String guestUser = "guest";
+final String guestPassword = "guest";
+final String guestToken = "hello_muser";
+
 class UserManager {
   static Future<bool> login(String key, String password) async {
     String url = userUrl + "login";
@@ -41,6 +45,21 @@ class UserManager {
     }
   }
 
+  static Future<bool> guestLogin(String key, String password) async {
+
+    if (key != guestUser || password != guestPassword) {
+      return false;
+    }
+
+    await getIt<FlutterSecureStorage>().write(key: 'auth_token', value: guestToken);
+
+    User user = User(guestUser, guestPassword, '', '25', '123456789', 'Toronto', true);
+
+    await getIt<FlutterSecureStorage>().write(key: 'user', value: jsonEncode(user));
+
+    return true;
+  }
+
   static User convertDynamic2User(dynamic d) {
     String name = d['name'];
     String password = d['password'];
@@ -55,10 +74,16 @@ class UserManager {
   }
 
   static Future<bool> validateToken() async {
-    String url = userUrl + "get";
+    //String url = userUrl + "get";
     String token = await getIt<FlutterSecureStorage>().read(key: 'auth_token');
 
-    final http.Response response = await http.get(
+    if (token == guestToken) {
+      return true;
+    } else {
+      return false;
+    }
+
+    /*final http.Response response = await http.get(
       url,
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
@@ -73,10 +98,13 @@ class UserManager {
       return true;
     } else {
       return false;
-    }
+    }*/
+
+
   }
 
   static Future<bool> register(User user) async {
+
     String url = userUrl + "register";
     final http.Response response = await http.post(
       url,

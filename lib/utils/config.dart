@@ -1,6 +1,6 @@
 class Config {
   
-  static final environment = 'PROD';
+  static final environment = 'DEV';
 
   static String url() {
 
