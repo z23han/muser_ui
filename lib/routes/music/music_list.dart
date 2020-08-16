@@ -56,8 +56,8 @@ class _MusicListScreenState extends State<MusicListScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                          music.name.length >= 12
-                              ? music.name.substring(0, 12) + ".."
+                          music.name.length >= 10
+                              ? music.name.substring(0, 10) + ".."
                               : music.name,
                           style: Theme.of(context)
                               .textTheme
@@ -131,8 +131,8 @@ class _MusicListScreenState extends State<MusicListScreen> {
                   child: Wrap(direction: Axis.vertical, children: <Widget>[
                     RichText(
                         text: TextSpan(
-                            text: music.name.length >= 10
-                                ? music.name.substring(0, 10) + ".."
+                            text: music.name.length >= 9
+                                ? music.name.substring(0, 9) + ".."
                                 : music.name,
                             style: Theme.of(context)
                                 .textTheme
