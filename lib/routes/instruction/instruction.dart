@@ -30,6 +30,7 @@ class _InstructionScreenState extends State<InstructionScreen>
     return Scaffold(
         appBar: AppBar(
             automaticallyImplyLeading: false,
+            centerTitle: false,
             titleSpacing: 15,
             elevation: 0,
             title: TabBar(

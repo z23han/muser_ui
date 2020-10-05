@@ -38,31 +38,27 @@ class _MusicScreenState extends State<MusicScreen>
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
+          centerTitle: false,
           elevation: 0,
           titleSpacing: 15,
-          title: new Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              new TabBar(
-                  controller: _tabController,
-                  isScrollable: true,
-                  indicatorColor: Theme.of(context).accentColor,
-                  indicatorWeight: 2,
-                  indicatorPadding: const EdgeInsets.symmetric(horizontal: 15),
-                  labelStyle: Theme.of(context)
-                      .textTheme
-                      .headline5
-                      .copyWith(fontSize: 16, fontWeight: FontWeight.bold),
-                  unselectedLabelStyle: Theme.of(context)
-                      .textTheme
-                      .headline5
-                      .copyWith(fontSize: 16),
-                  tabs: musicCategoryList
-                      .map((e) => Container(
-                          width: tabWidth, child: Tab(text: e.category)))
-                      .toList())
-            ],
-          ),
+          title: TabBar(
+          controller: _tabController,
+          isScrollable: true,
+          indicatorColor: Theme.of(context).accentColor,
+          indicatorWeight: 2,
+          indicatorPadding: const EdgeInsets.symmetric(horizontal: 15),
+          labelStyle: Theme.of(context)
+              .textTheme
+              .headline5
+              .copyWith(fontSize: 16, fontWeight: FontWeight.bold),
+          unselectedLabelStyle: Theme.of(context)
+              .textTheme
+              .headline5
+              .copyWith(fontSize: 16),
+          tabs: musicCategoryList
+              .map((e) => Container(
+                  width: tabWidth, child: Tab(text: e.category)))
+              .toList()),
         ),
         body: TabBarView(controller: _tabController, children: _children),
       ),

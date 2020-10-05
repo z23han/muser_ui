@@ -16,6 +16,7 @@ class _AboutMusic2State extends State<AboutMusic2> {
     return Scaffold(
         appBar: AppBar(
             automaticallyImplyLeading: false,
+            centerTitle: false,
             elevation: 0,
             backgroundColor: Theme.of(context).primaryColor,
             titleSpacing: 0,
@@ -23,7 +24,7 @@ class _AboutMusic2State extends State<AboutMusic2> {
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pop(context);
+                  Navigator.popUntil(context, ModalRoute.withName('/musicBase'));
                 },
                 child: Image(
                   image: AssetImage('assets/cross.png'),
@@ -80,8 +81,7 @@ class _AboutMusic2State extends State<AboutMusic2> {
               children: <Widget>[
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => AboutMusic1()));
+                    Navigator.pop(context);
                   },
                   child: Image(
                     image: AssetImage('assets/backward.png'),
@@ -97,7 +97,7 @@ class _AboutMusic2State extends State<AboutMusic2> {
                     child: FlatButton(
                         color: Theme.of(context).accentColor,
                         onPressed: () {
-                          Navigator.pop(context);
+                          Navigator.popUntil(context, ModalRoute.withName('/musicBase'));
                         },
                         child: Text('完成',
                             style: Theme.of(context).textTheme.button)),

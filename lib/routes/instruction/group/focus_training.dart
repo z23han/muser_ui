@@ -25,6 +25,7 @@ class FocusTraining extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           automaticallyImplyLeading: false,
+          centerTitle: false,
           elevation: 0,
           backgroundColor: Theme.of(context).primaryColor,
           titleSpacing: 0,
@@ -123,7 +124,7 @@ class FocusTraining extends StatelessWidget {
                 child: FlatButton(
                     color: Theme.of(context).accentColor,
                     onPressed: () {
-                      Navigator.pushReplacement(
+                      Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => FocusTraining01()));

@@ -27,7 +27,7 @@ class _SignUpState extends State<SignUp> {
 
     if (name.isEmpty ||
         password.isEmpty ||
-        age.isEmpty ||
+        // age.isEmpty ||
         city.isEmpty ||
         phone.isEmpty) {
       return showDialog<void>(
@@ -81,7 +81,7 @@ class _SignUpState extends State<SignUp> {
     User newUser = User(name, password, gender, age, phone, city, isConsented);
     bool checker = await UserManager.register(newUser);
     if (checker) {
-      Navigator.pushNamed(context, '/signin');
+      Navigator.pop(context);
       return showDialog<void>(
         context: context,
         builder: (BuildContext context) {
@@ -105,7 +105,7 @@ class _SignUpState extends State<SignUp> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('注册失败'),
-            content: const Text('请稍后不同的用户名或手机号码'),
+            content: const Text('请尝试不同的用户名或手机号码'),
             actions: <Widget>[
               FlatButton(
                 child: Text('返回'),
@@ -145,7 +145,7 @@ class _SignUpState extends State<SignUp> {
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         Text(
-                          "用户名",
+                          "*用户名",
                           style:
                               TextStyle(fontSize: 12, color: Colors.grey[600]),
                         ),
@@ -180,7 +180,7 @@ class _SignUpState extends State<SignUp> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          '密码',
+                          '*密码',
                           style:
                               TextStyle(fontSize: 12, color: Colors.grey[600]),
                         ),
@@ -296,7 +296,7 @@ class _SignUpState extends State<SignUp> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  '手机号',
+                  '*手机号',
                   style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                 ),
                 SizedBox(height: 10),
@@ -334,7 +334,7 @@ class _SignUpState extends State<SignUp> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          '城市',
+                          '*城市',
                           style:
                               TextStyle(fontSize: 12, color: Colors.grey[600]),
                         ),

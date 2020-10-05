@@ -133,14 +133,14 @@ class _WeChatConsentState extends State<WeChatConsent> {
                     children: <Widget>[
                       FlatButton(
                         child: Text('取消', style: TextStyle(fontSize: 18, color: Colors.grey[500], decoration: TextDecoration.underline,)),
-                        onPressed: () {Navigator.pushNamed(context, '/signin');},
+                        onPressed: () {Navigator.pop(context);},
                       ),
                       FlatButton(
                         color: Colors.grey[600],
                         textColor: Colors.white,
                         splashColor: Colors.grey[600],
                         onPressed: () {
-                          Navigator.pushNamed(context, '/');
+                          Navigator.pushReplacementNamed(context, '/');
                         },
                         child: Text('同意', style: TextStyle(fontSize: 18)),
                       ),

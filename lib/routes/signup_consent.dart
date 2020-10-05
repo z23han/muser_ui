@@ -128,14 +128,14 @@ class _SignUpConsentState extends State<SignUpConsent> {
                     children: <Widget>[
                       FlatButton(
                         child: Text('取消', style: TextStyle(fontSize: 18, color: Color(0xff343434), decoration: TextDecoration.underline,)),
-                        onPressed: () {Navigator.pushNamed(context, '/signin');},
+                        onPressed: () {Navigator.pop(context);},
                       ),
                       FlatButton(
                         color: Theme.of(context).accentColor,
                         textColor: Colors.white,
                         splashColor: Theme.of(context).accentColor,
                         onPressed: () {
-                          Navigator.pushNamed(context, '/signup');
+                          Navigator.pushReplacementNamed(context, '/signup');
                         },
                         child: Text('同意', style: TextStyle(fontSize: 18)),
                       ),

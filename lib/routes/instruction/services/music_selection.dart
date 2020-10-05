@@ -247,15 +247,15 @@ class _MusicSelectionState extends State<MusicSelection> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
                     child: Text(
-                        music.name.length >= 12
-                            ? music.name.substring(0, 12) + '..'
+                        music.name.length >= 10
+                            ? music.name.substring(0, 10) + '..'
                             : music.name,
                         style: Theme.of(context).textTheme.headline5.copyWith(
                             fontSize: 20, fontWeight: FontWeight.bold)),
                   ),
                   Text(
-                      music.writer.length >= 14
-                          ? music.writer.substring(0, 14) + '..'
+                      music.writer.length >= 12
+                          ? music.writer.substring(0, 12) + '..'
                           : music.writer,
                       style: Theme.of(context)
                           .textTheme
@@ -265,8 +265,8 @@ class _MusicSelectionState extends State<MusicSelection> {
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
                     child: Text(
                         '#' +
-                            (music.tag.length >= 18
-                                ? music.tag.substring(0, 18) + '..'
+                            (music.tag.length >= 16
+                                ? music.tag.substring(0, 16) + '..'
                                 : music.tag),
                         style: Theme.of(context)
                             .textTheme

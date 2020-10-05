@@ -32,7 +32,7 @@ class _SignInState extends State<SignIn> {
 
     if (checker) {
       
-      Navigator.pushNamed(context, '/home');
+      Navigator.pushReplacementNamed(context, '/home');
 
     } else {
       return showDialog<void>(
@@ -61,7 +61,7 @@ class _SignInState extends State<SignIn> {
     final double safePadding = MediaQuery.of(context).padding.top;
     final double flexTop = size.height * (30 / 640);
     final double arrowSize = size.width * (34 / 360);
-    final double otherIconSize = size.width * (30 / 360);
+    // final double otherIconSize = size.width * (30 / 360);
     return Scaffold(
         body: Container(
       decoration: BoxDecoration(

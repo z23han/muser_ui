@@ -44,6 +44,7 @@ class FocusTraining03 extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
             automaticallyImplyLeading: false,
+            centerTitle: false,
             elevation: 0,
             backgroundColor: Theme.of(context).primaryColor,
             titleSpacing: 0,
@@ -51,7 +52,7 @@ class FocusTraining03 extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pop(context);
+                  Navigator.popUntil(context, ModalRoute.withName('/musicBase'));
                 },
                 child: Image(
                   image: AssetImage('assets/cross.png'),
@@ -95,10 +96,7 @@ class FocusTraining03 extends StatelessWidget {
               children: <Widget>[
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => FocusTraining02()));
+                    Navigator.pop(context);
                   },
                   child: Image(
                     image: AssetImage('assets/backward.png'),
@@ -113,13 +111,8 @@ class FocusTraining03 extends StatelessWidget {
                     height: buttonHeight,
                     child: FlatButton(
                         color: Theme.of(context).accentColor,
-
                         onPressed: () {
-
-                          Navigator.pop(context);
-                          
-                          renderMusicPlayer(context);
-
+                          Navigator.popUntil(context, ModalRoute.withName('/musicBase'));
                         },
                         child: Text('完成',
                             style: Theme.of(context).textTheme.button)),

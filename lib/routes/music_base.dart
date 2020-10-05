@@ -84,7 +84,7 @@ class _MusicBaseState extends State<MusicBase> {
     return IconButton(
         icon: Icon(Icons.arrow_back,
             size: 24, color: Theme.of(context).buttonColor),
-        onPressed: () => Navigator.pushReplacementNamed(context, '/home'));
+        onPressed: () => Navigator.popAndPushNamed(context, '/home'));
   }
 
   Text _buildPageTitle() {

@@ -22,6 +22,7 @@ class FocusTraining02 extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
             automaticallyImplyLeading: false,
+            centerTitle: false,
             elevation: 0,
             backgroundColor: Theme.of(context).primaryColor,
             titleSpacing: 0,
@@ -29,7 +30,7 @@ class FocusTraining02 extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 30),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pop(context);
+                  Navigator.popUntil(context, ModalRoute.withName('/musicBase'));
                 },
                 child: Image(
                   image: AssetImage('assets/cross.png'),
@@ -90,10 +91,8 @@ class FocusTraining02 extends StatelessWidget {
               children: <Widget>[
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => FocusTraining01()));
+                    Navigator.pop(
+                        context);
                   },
                   child: Image(
                     image: AssetImage('assets/backward.png'),
@@ -103,7 +102,7 @@ class FocusTraining02 extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushReplacement(
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => FocusTraining03()));
