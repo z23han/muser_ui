@@ -33,7 +33,9 @@ class _AboutMusic1State extends State<AboutMusic1> {
             )),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 30.0),
-          child: Column(children: <Widget>[
+          child: Column(                
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
             Padding(
               padding: EdgeInsets.symmetric(vertical: 15.0),
               child: Image(

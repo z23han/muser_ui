@@ -51,9 +51,10 @@ class _SignUpState extends State<SignUp> {
 
     if (phone.length != 11 ||
         double.tryParse(phone) == null ||
-        double.tryParse(age) == null ||
-        double.tryParse(age) <= 0 ||
-        double.tryParse(age) >= 150) {
+        // double.tryParse(age) == null ||
+        (double.tryParse(age) != null &&
+        (double.tryParse(age) <= 0 ||
+        double.tryParse(age) >= 150))) {
       return showDialog<void>(
         context: context,
         builder: (BuildContext context) {
@@ -379,7 +380,7 @@ class _SignUpState extends State<SignUp> {
               alignment: Alignment.centerLeft,
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, '/signUpConsent');
+                  Navigator.pop(context);
                 },
                 child: Text('返回',
                     style: TextStyle(

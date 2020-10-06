@@ -140,6 +140,7 @@ class _WeChatConsentState extends State<WeChatConsent> {
                         textColor: Colors.white,
                         splashColor: Colors.grey[600],
                         onPressed: () {
+                          // add wechat login functionality
                           Navigator.pushReplacementNamed(context, '/');
                         },
                         child: Text('同意', style: TextStyle(fontSize: 18)),
