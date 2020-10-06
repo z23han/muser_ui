@@ -27,7 +27,7 @@ class _SignUpState extends State<SignUp> {
 
     if (name.isEmpty ||
         password.isEmpty ||
-        // age.isEmpty ||
+        age.isEmpty ||
         city.isEmpty ||
         phone.isEmpty) {
       return showDialog<void>(
@@ -51,10 +51,9 @@ class _SignUpState extends State<SignUp> {
 
     if (phone.length != 11 ||
         double.tryParse(phone) == null ||
-        // double.tryParse(age) == null ||
-        (double.tryParse(age) != null &&
-        (double.tryParse(age) <= 0 ||
-        double.tryParse(age) >= 150))) {
+        double.tryParse(age) == null ||
+        double.tryParse(age) <= 0 ||
+        double.tryParse(age) >= 150) {
       return showDialog<void>(
         context: context,
         builder: (BuildContext context) {
@@ -260,7 +259,7 @@ class _SignUpState extends State<SignUp> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          '年龄',
+                          '*年龄',
                           style:
                               TextStyle(fontSize: 12, color: Colors.grey[600]),
                         ),
