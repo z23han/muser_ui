@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:muser_ui/routes/instruction/group/focus_training.dart';
 import 'package:muser_ui/routes/instruction/group/focus_training02.dart';
 import 'package:muser_ui/routes/instruction/services/music_selection.dart';
 

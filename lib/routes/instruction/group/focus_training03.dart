@@ -3,7 +3,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:muser_ui/managers/music_managers.dart';
 import 'package:muser_ui/models/music_object.dart';
-import 'package:muser_ui/routes/instruction/group/focus_training02.dart';
 import 'package:muser_ui/routes/music/music_player.dart';
 
 class FocusTraining03 extends StatelessWidget {
@@ -115,6 +114,8 @@ class FocusTraining03 extends StatelessWidget {
                         color: Theme.of(context).accentColor,
                         onPressed: () {
                           Navigator.popUntil(context, ModalRoute.withName('/musicBase'));
+
+                          renderMusicPlayer(context);
                         },
                         child: Text('完成',
                             style: Theme.of(context).textTheme.button)),
