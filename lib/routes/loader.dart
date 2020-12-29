@@ -43,15 +43,6 @@ class _LoaderState extends State<Loader> {
         children: <Widget>[
           SizedBox(height: size.height * (200 / 640)),
           Image(image: AssetImage('assets/Muser_Logo.png'), width: logoWidth),
-
-          //version beta, remove after 1.0
-          Padding(
-            padding: const EdgeInsets.only(top: 50.0),
-            child: Text('b  e  t  a ',
-                style: TextStyle(
-                    color: Theme.of(context).accentColor, fontSize: 16)),
-          ),
-
           Spacer(flex: 1),
           Text('慕斯，你的专属音乐瑜伽',
               style:
