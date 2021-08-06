@@ -10,7 +10,7 @@ class Config {
 
     } else {
 
-      return "http://ec2-3-80-243-186.compute-1.amazonaws.com:8080/";
+      return "http://ec2-3-91-237-124.compute-1.amazonaws.com:8080/";
     }
   }
 
